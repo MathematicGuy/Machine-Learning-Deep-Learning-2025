@@ -1,0 +1,7 @@
+{
+    "editor.autoIndent": "none",
+    "python.analysis.autoIndent": true,
+    "editor.trimAutoWhitespace": true,
+    "editor.detectIndentation": true,
+    "editor.insertSpaces": false
+}
