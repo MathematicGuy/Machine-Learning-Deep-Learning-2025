@@ -66,10 +66,10 @@ def relu(x):
         return x
 
 
-def elu(x, alpha=0.05):
+def elu(x, alpha=0.01):
     if x <= 0:
         return alpha*(math.e**x - 1)
-    else:
+    elif x > 0:
         return x
 
 activations = {
@@ -78,7 +78,7 @@ activations = {
     'elu': elu,
 }
 
-def interactive_activation_function(x=5, input_activation='sigmoid'):
+def interactive_activation_function(x=3, input_activation='sigmoid'):
     input_activation = input(str('Input activation Function (sigmoid|relu|elu):'))
 
     if not isinstance(x, (int, float)):
@@ -253,20 +253,24 @@ evaluation_func = {
 
 if __name__ == '__main__':
     assert round(calc_f1_score(tp=2, fp=3, fn=5), 2) == 0.33
-    print(round(calc_f1_score(tp=2, fp=3, fn=5), 2))
+    print(round(calc_f1_score(tp=2, fp=4, fn=5), 2))
 
     # print(calc_f1_score(tp=2, fp=3, fn=5))
 
     # interactive_activation_function()
+    # assert round(relu(1)) == 1
+    # print(round(sigmoid(3), 2))
+
+
     # interactive_loss_function()
 
 
-    x = 3.14  # 90 degrees
-    n = 10
+    # x = 3.14  # 90 degrees
+    # n = 10
 
     # eval_func = evaluation_func.get('cosh')
     # if eval_func:
     #     result = eval_func(x, n)
-    #     print(result)
+    #     print(round(result, 2))
     # else:
     #     raise ValueError("Invalid Operation")
