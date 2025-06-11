@@ -1,3 +1,1 @@
-ples):
-        #     print(f'loss_name: {input_loss_func}, sample: {i}, pred: {y_pred[i]}, \
-        #             target: {y
+calc_f1_score(tp=2, fp=3, fn=5)
