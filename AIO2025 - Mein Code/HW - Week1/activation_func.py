@@ -19,34 +19,36 @@ def is_int(*args):
 
     return True
 
-def evaluate_f1_components(tp, fp, fn):
+def calc_f1_score(tp, fp, fn):
     """Evaluate f_1 score using tp, fp and fn
     Args:
         tp (int): true positive
         fp (int): false positive
         fn (int): false negative
     Returns:
-        tp, fp, fn
+        f1_score
     """
 
     if not is_int(tp, fp, fn):
         #? return None if tp or fp or fn is not INT
         return None
+
     if tp < 0 or fp < 0 or fn < 0:
         #? Make sure all values is greater or equal to zero
         print('tp and fp and fn must be greater than or equal to zero')
         return None
 
     try:
-        precision = tp/(tp+fp)
-        recall = tp/tp+fn
+        precision = tp / (tp+fp)
+        recall = tp / (tp+fn)
         f1_score = 2 * (precision*recall)/(precision + recall)
 
-        print(f'precision is {precision}')
-        print(f'recall is {recall}')
-        print(f'f1_score is {f1_score}')
+        # print(f'precision is {precision}')
+        # print(f'recall is {recall}')
+        # print(f'f1_score is {f1_score}')
 
-        return precision, recall, f1_score
+        # return precision, recall, f1_score
+        return f1_score
 
     except ZeroDivisionError:
         print("Error: cannot perform division if (tp+fp) or (tp+fn) is zero")
@@ -175,43 +177,96 @@ def interactive_loss_function(input_loss_func='mse'):
     else:
         raise ValueError("Invalid Operation")
 
-def factorial(div):
-    return factorial(div - 1)
+def calc_factorial(n):
+    """calculating 3! = 3 * (3-1) * (3-2), stop if (3-2 <= 1 or n-2 <= 1)
+
+    Args:
+        n (int): factorial number
+    """
+    if n <= 1: #? stop when n reached 1, as 1 is the smallest num in the fatorial
+        return n
+
+    return n * calc_factorial(n - 1)
 
 
-def sin(x, n):
-    x = np.array(x)
-    div = (2*n + 1)
+def approx_sin(x, n):
+    """
+        Approximate the sine of x using the Taylor series expansion.
+
+        Parameters:
+        x (float): The input angle in radians.
+        n (int): Number of terms in the Taylor series expansion.
+
+        Returns:
+            float: Approximate value of sin(x) using n+1 terms.
+    """
+
     result = 0
-    for i in range(n):
-        result += ((-1)**n) * (x**(2*n  + 1)) / factorial(div)
+    for i in range(0, n+1): # 0 to 3 (yes 4 numbers)
 
+        numeratorrr = ((-1) ** i) * (x ** (2 * i + 1))
+        denominator = calc_factorial(2 * i + 1)
 
-def cos(x, n):
-    pass
+        result += (numeratorrr / denominator)
 
-def sinh(x, n):
-    pass
+    return result
 
-def cosh(x, n):
-    pass
+def approx_cos(x, n):
+    result = 1
+    for i in range(1, n+1):
+        numeratorrr = ((-1)**i) * (x**(2*i))
+        denominator = calc_factorial(2*i)
+
+        result += (numeratorrr / denominator)
+
+    return result
+
+def approx_sinh(x, n):
+    result = 0
+    for i in range(0, n+1): # 0 to 3 (yes 4 numbers)
+
+        numeratorrr = (x ** (2 * i + 1))
+        denominator = calc_factorial(2 * i + 1)
+
+        result += (numeratorrr / denominator)
+
+    return result
+
+def approx_cosh(x, n):
+    result = 1
+    for i in range(1, n+1): # 0 to 3 (yes 4 numbers)
+
+        numeratorrr = x ** (2 * i)
+        denominator = calc_factorial(2 * i)
+
+        result += (numeratorrr / denominator)
+
+    return result
 
 evaluation_func = {
-    'sin': sin,
-    'cos': mse,
-    'sinh': rmse,
-    'cosh': cosh
+    'sin': approx_sin,
+    'cos': approx_cos,
+    'sinh': approx_sinh,
+    'cosh': approx_cosh,
 }
 
+
 if __name__ == '__main__':
-    # evaluate_f1_components(tp=2, fp=3, fn=4.4)
+    assert round(calc_f1_score(tp=2, fp=3, fn=5), 2) == 0.33
+    print(round(calc_f1_score(tp=2, fp=3, fn=5), 2))
+
+    # print(calc_f1_score(tp=2, fp=3, fn=5))
+
     # interactive_activation_function()
     # interactive_loss_function()
-    x = 5
+
+
+    x = 3.14  # 90 degrees
     n = 10
-    eval_func = evaluation_func.get('sin')
-    if eval_func:
-        result = eval_func(x, n)
-        print(result)
-    else:
-        raise ValueError("Invalid Operation")
+
+    # eval_func = evaluation_func.get('cosh')
+    # if eval_func:
+    #     result = eval_func(x, n)
+    #     print(result)
+    # else:
+    #     raise ValueError("Invalid Operation")
