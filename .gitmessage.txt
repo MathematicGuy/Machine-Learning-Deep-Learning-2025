@@ -1,0 +1,4 @@
+# Tiêu đề: Tóm tắt ngắn gọn (< 50 ký tự)
+# Nội dung: Giải thích thay đổi và lý do
+# (Tối đa 72 ký tự/dòng)
+# Issue liên quan: #123
