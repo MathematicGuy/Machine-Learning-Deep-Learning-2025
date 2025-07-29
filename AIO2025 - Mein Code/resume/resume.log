@@ -1,165 +1,201 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.1.5)  14 JUL 2025 11:34
-entering extended mode
- restricted \write18 enabled.
- %&-line parsing enabled.
-**./resume.tex
-(resume.tex
+This is LuaHBTeX, Version 1.17.1 (MiKTeX 24.1) (format=lualatex 2025.1.5)  22 JUL 2025 09:52
+ restricted system commands enabled.
+ file:line:error style messages enabled.
+**"d:/CODE/Machine-Learning-Deep-Learning-2025/AIO2025 - Mein Code/resume/resum
+e.tex"
+
+("d:/CODE/Machine-Learning-Deep-Learning-2025/AIO2025 - Mein Code/resume/resume
+.tex"
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
+Lua module: luaotfload 2023-08-31 3.26 Lua based OpenType font support
+Lua module: lualibs 2023-07-13 2.76 ConTeXt Lua standard libraries.
+Lua module: lualibs-extended 2023-07-13 2.76 ConTeXt Lua libraries -- extended c
+ollection.
+luaotfload | conf : Root cache directory is "C:/Users/boboi/AppData/Local/MiKTeX
+/luatex-cache/generic/names".
+luaotfload | init : Loading fontloader "fontloader-2023-08-19.lua" from kpse-res
+olved path "C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/luatex/luaotfload/f
+ontloader-2023-08-19.lua".
+Lua-only attribute luaotfload@noligature = 1
+luaotfload | init : Context OpenType loader version 3.133
+Inserting `luaotfload.node_processor' in `pre_linebreak_filter'.
+Inserting `luaotfload.node_processor' in `hpack_filter'.
+Inserting `luaotfload.glyph_stream' in `glyph_stream_provider'.
+Inserting `luaotfload.define_font' in `define_font'.
+Lua-only attribute luaotfload_color_attribute = 2
+luaotfload | conf : Root cache directory is "C:/Users/boboi/AppData/Local/MiKTeX
+/luatex-cache/generic/names".
+Inserting `luaotfload.harf.strip_prefix' in `find_opentype_file'.
+Inserting `luaotfload.harf.strip_prefix' in `find_truetype_file'.
+Removing  `luaotfload.glyph_stream' from `glyph_stream_provider'.
+Inserting `luaotfload.harf.glyphstream' in `glyph_stream_provider'.
+Inserting `luaotfload.harf.finalize_vlist' in `post_linebreak_filter'.
+Inserting `luaotfload.harf.finalize_hlist' in `hpack_filter'.
+Inserting `luaotfload.cleanup_files' in `wrapup_run'.
+Inserting `luaotfload.harf.finalize_unicode' in `finish_pdffile'.
+Inserting `luaotfload.glyphinfo' in `glyph_info'.
+Lua-only attribute luaotfload.letterspace_done = 3
+Inserting `luaotfload.aux.set_sscale_dimens' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.set_font_index' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.patch_cambria_domh' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.fixup_fontdata' in `luaotfload.patch_font_unsafe'.
+Inserting `luaotfload.aux.set_capheight' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.set_xheight' in `luaotfload.patch_font'.
+Inserting `luaotfload.rewrite_fontname' in `luaotfload.patch_font'.
+Inserting `tracingstacklevels' in `input_level_string'. (C:/Users/boboi/AppData
+/Local/Programs/MiKTeX/tex/latex/base/article.cls
 Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/base\size11.clo
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/base/size11.clo
 File: size11.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
-)
-\c@part=\count187
-\c@section=\count188
-\c@subsection=\count189
-\c@subsubsection=\count190
-\c@paragraph=\count191
-\c@subparagraph=\count192
-\c@figure=\count193
-\c@table=\count194
+luaotfload | db : Font names database loaded from C:/Users/boboi/AppData/Local/M
+iKTeX/luatex-cache/generic/names/luaotfload-names.luc.gz)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
 \abovecaptionskip=\skip48
 \belowcaptionskip=\skip49
-\bibindent=\dimen140
+\bibindent=\dimen139
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/base\latexsym.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/base/latexsym.sty
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup4
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
 (Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/preprint\fullpage.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/preprint/fullpage.sty
 Package: fullpage 1999/02/23 1.1 (PWD)
 \FP@margin=\skip50
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2023/10/27 v2.16 Sectioning titles
 \ttl@box=\box51
 \beforetitleunit=\skip51
 \aftertitleunit=\skip52
-\ttl@plus=\dimen141
-\ttl@minus=\dimen142
+\ttl@plus=\dimen140
+\ttl@minus=\dimen141
 \ttl@toksa=\toks17
-\titlewidth=\dimen143
-\titlewidthlast=\dimen144
-\titlewidthfirst=\dimen145
+\titlewidth=\dimen142
+\titlewidthlast=\dimen143
+\titlewidthfirst=\dimen144
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/marvosym\marvosym.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/marvosym/marvosym.sty
 Package: marvosym 2011/07/20 v2.2 Martin Vogel's Symbols font definitions
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/graphics\color.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/graphics/color.sty
 Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package color Info: Driver file: pdftex.def on input line 149.
+Package color Info: Driver file: luatex.def on input line 149.
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
-File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
-) (C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/graphics\dvipsnam.def
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/graphics-def/luatex.def
+File: luatex.def 2022/09/22 v1.2d Graphics/color driver for luatex
+) (C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/graphics/dvipsnam.def
 File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
-) (C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/tools\verbatim.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/graphics/mathcolor.ltx))
+ (C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/tools/verbatim.sty
 Package: verbatim 2023-11-06 v1.5v LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks18
 \verbatim@line=\toks19
 \verbatim@in@stream=\read2
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2025/02/06 v3.11 Customized lists
 \enitkv@toks@=\toks20
 \labelindent=\skip53
-\enit@outerparindent=\dimen146
+\enit@outerparindent=\dimen145
 \enit@toks=\toks21
 \enit@inbox=\box52
-\enit@count@id=\count195
-\enitdp@description=\count196
+\enit@count@id=\count193
+\enitdp@description=\count194
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2023-11-26 v7.01g Hypertext links for LaTeX
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/iftex/iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.s
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/infwarerr/infwarerr.s
 ty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-) (C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+) (C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks22
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefine
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/kvdefinekeys/kvdefine
 keys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.s
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdfescape/pdfescape.s
 ty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftexcmds/pdftexcmds
 .sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
+\pdftexcmds@toks=\toks23
 ))
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/hycolor/hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/letltxmacro\letltxmacro
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/letltxmacro/letltxmacro
 .sty
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/auxhook\auxhook.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/auxhook/auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/nameref.sty
 Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettit
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/gettitlestring/gettit
 lestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count197
+\c@section@level=\count195
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count198
+\etb@tempcnta=\count196
 )
-\@linkdim=\dimen147
-\Hy@linkcounter=\count199
-\Hy@pagecounter=\count266
+\@linkdim=\dimen146
+\Hy@linkcounter=\count197
+\Hy@pagecounter=\count198
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2023-11-26 v7.01g Hyperref: PDFDocEncoding definition (HO)
-Now handling font encoding PD1 ...
-... no UTF-8 mapping file for font encoding PD1
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count267
+\Hy@SavedSpaceFactor=\count199
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/puenc.def
 File: puenc.def 2023-11-26 v7.01g Hyperref: PDF Unicode definition (HO)
-Now handling font encoding PU ...
-... no UTF-8 mapping file for font encoding PU
 )
 Package hyperref Info: Hyper figures OFF on input line 4181.
 Package hyperref Info: Link nesting OFF on input line 4186.
@@ -168,26 +204,26 @@ Package hyperref Info: Plain pages OFF on input line 4196.
 Package hyperref Info: Backreferencing OFF on input line 4201.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4448.
-\c@Hy@tempcnt=\count268
+\c@Hy@tempcnt=\count266
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty
 \Urlmuskip=\muskip16
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4786.
-\XeTeXLinkMargin=\dimen148
+\XeTeXLinkMargin=\dimen147
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/bigintcalc/bigintcalc
 .sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count269
-\Field@Width=\dimen149
-\Fld@charsize=\dimen150
+\Fld@menulength=\count267
+\Field@Width=\dimen148
+\Fld@charsize=\dimen149
 Package hyperref Info: Hyper figures OFF on input line 6065.
 Package hyperref Info: Link nesting OFF on input line 6070.
 Package hyperref Info: Hyper index ON on input line 6073.
@@ -196,31 +232,36 @@ Package hyperref Info: Link coloring OFF on input line 6085.
 Package hyperref Info: Link coloring with OCG OFF on input line 6090.
 Package hyperref Info: PDF/A mode OFF on input line 6095.
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/base\atbegshi-ltx.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/base/atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count270
-\c@Item=\count271
-\c@Hfootnote=\count272
+\Hy@abspage=\count268
+\c@Item=\count269
+\c@Hfootnote=\count270
 )
-Package hyperref Info: Driver (autodetected): hpdftex.
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
-File: hpdftex.def 2023-11-26 v7.01g Hyperref driver for pdfTeX
+Package hyperref Info: Driver (autodetected): hluatex.
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/hluatex.def
+File: hluatex.def 2023-11-26 v7.01g Hyperref driver for luaTeX
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/base\atveryend-ltx.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/stringenc/stringenc.s
+ty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+)
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/base/atveryend-ltx.sty
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
 kage
 with kernel methods
 )
-\Fld@listcount=\count273
-\c@bookmark@seq@number=\count274
+\Fld@listcount=\count271
+\c@bookmark@seq@number=\count272
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfil
 echeck.sty
 Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquec
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/uniquecounter/uniquec
 ounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
@@ -229,7 +270,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip54
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2025/01/07 v5.1.1 Extensive control of page headers and foote
 rs
 \f@nch@headwidth=\skip55
@@ -246,31 +287,117 @@ rs
 \f@nch@widthL=\skip66
 \f@nch@widthC=\skip67
 \f@nch@widthR=\skip68
-\@temptokenb=\toks23
+\@temptokenb=\toks24
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/base/inputenc.sty
 Package: inputenc 2021/02/14 v1.3d Input encoding file
-\inpenc@prehook=\toks24
-\inpenc@posthook=\toks25
-)
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
+\inpenc@prehook=\toks25
+\inpenc@posthook=\toks26
+
+
+Package inputenc Warning: inputenc package ignored with utf8 based engines.
+
+) (C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/babel/babel.sty
 Package: babel 2024/01/07 v24.1 The Babel package
-\babel@savecnt=\count275
-\U@D=\dimen151
+
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/babel/luababel.def
+\bbl@readstream=\read3
+\l@afrikaans=\language2
+Package babel Info: Non-standard hyphenation setup on input line 118.
+\l@ancientgreek=\language3
+\l@armenian=\language4
+\l@assamese=\language5
+\l@basque=\language6
+\l@belarusian=\language7
+\l@bengali=\language8
+\l@bokmal=\language9
+\l@bulgarian=\language10
+\l@catalan=\language11
+\l@churchslavonic=\language12
+\l@classiclatin=\language13
+\l@coptic=\language14
+\l@croatian=\language15
+\l@czech=\language16
+\l@danish=\language17
+\l@dutch=\language18
+\l@esperanto=\language19
+\l@estonian=\language20
+\l@ethiopic=\language21
+\l@finnish=\language22
+\l@french=\language23
+\l@friulan=\language24
+\l@galician=\language25
+\l@georgian=\language26
+\l@german=\language27
+\l@greek=\language28
+\l@gujarati=\language29
+\l@hindi=\language30
+\l@hungarian=\language31
+\l@icelandic=\language32
+\l@indonesian=\language33
+\l@interlingua=\language34
+\l@irish=\language35
+\l@italian=\language36
+\l@kannada=\language37
+\l@kurmanji=\language38
+\l@latin=\language39
+\l@latvian=\language40
+\l@lithuanian=\language41
+\l@liturgicallatin=\language42
+\l@macedonian=\language43
+\l@malayalam=\language44
+\l@marathi=\language45
+\l@mongolian=\language46
+\l@mongolianlmc=\language47
+\l@monogreek=\language48
+\l@ngerman=\language49
+\l@nynorsk=\language50
+\l@occitan=\language51
+\l@oriya=\language52
+\l@pali=\language53
+\l@panjabi=\language54
+\l@piedmontese=\language55
+\l@polish=\language56
+\l@portuguese=\language57
+\l@romanian=\language58
+\l@romansh=\language59
+\l@russian=\language60
+\l@sanskrit=\language61
+\l@serbian=\language62
+\l@serbianc=\language63
+\l@slovak=\language64
+\l@slovenian=\language65
+\l@spanish=\language66
+\l@swedish=\language67
+\l@swissgerman=\language68
+\l@tamil=\language69
+\l@telugu=\language70
+\l@thai=\language71
+\l@turkish=\language72
+\l@turkmen=\language73
+\l@ukenglish=\language74
+\l@ukrainian=\language75
+\l@uppersorbian=\language76
+\l@usenglishmax=\language77
+\l@welsh=\language78
+\babelcatcodetablenum=\catcodetable14
+\bbl@pattcodes=\catcodetable15
+)
+\babel@savecnt=\count273
+\U@D=\dimen150
 \l@unhyphenated=\language79
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
-\bbl@readstream=\read3
-\bbl@dirlevel=\count276
-
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/babel/luababel.def
+\bbl@attr@locale=\attribute4
+)
 *************************************
 * Local config file bblopts.cfg used
 *
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/arabi/bblopts.cfg
 File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
  babel
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/babel-vietnamese\vietna
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/babel-vietnamese/vietna
 mese.ldf
 Language: vietnamese 
 
@@ -285,316 +412,1054 @@ Package babel Info: Hyphen rules for 'vietnamese' set to \l@english
 (babel)             (\language0). Reported on input line 37.
 Package babel Info: Hyphen rules for 'vietnam' set to \l@english
 (babel)             (\language0). Reported on input line 38.
-Loading definitions for the Vietnamese font encoding
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5enc.def
-File: t5enc.def 2006/11/21 v1.4 Vietnamese T5 encoding
-Now handling font encoding T5 ...
-... processing UTF-8 mapping file for font encoding T5
-
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5enc.dfu
-File: t5enc.dfu 2006/08/19 v1.1 UTF8 support for Vietnamese
-   defining Unicode char U+00AB (decimal 171)
-   defining Unicode char U+00BB (decimal 187)
-   defining Unicode char U+00C0 (decimal 192)
-   defining Unicode char U+00C1 (decimal 193)
-   defining Unicode char U+00C2 (decimal 194)
-   defining Unicode char U+00C3 (decimal 195)
-   defining Unicode char U+00C8 (decimal 200)
-   defining Unicode char U+00C9 (decimal 201)
-   defining Unicode char U+00CA (decimal 202)
-   defining Unicode char U+00CC (decimal 204)
-   defining Unicode char U+00CD (decimal 205)
-   defining Unicode char U+00D2 (decimal 210)
-   defining Unicode char U+00D3 (decimal 211)
-   defining Unicode char U+00D4 (decimal 212)
-   defining Unicode char U+00D5 (decimal 213)
-   defining Unicode char U+00D9 (decimal 217)
-   defining Unicode char U+00DA (decimal 218)
-   defining Unicode char U+00DD (decimal 221)
-   defining Unicode char U+00E0 (decimal 224)
-   defining Unicode char U+00E1 (decimal 225)
-   defining Unicode char U+00E2 (decimal 226)
-   defining Unicode char U+00E3 (decimal 227)
-   defining Unicode char U+00E8 (decimal 232)
-   defining Unicode char U+00E9 (decimal 233)
-   defining Unicode char U+00EA (decimal 234)
-   defining Unicode char U+00EC (decimal 236)
-   defining Unicode char U+00ED (decimal 237)
-   defining Unicode char U+00F2 (decimal 242)
-   defining Unicode char U+00F3 (decimal 243)
-   defining Unicode char U+00F4 (decimal 244)
-   defining Unicode char U+00F5 (decimal 245)
-   defining Unicode char U+00F9 (decimal 249)
-   defining Unicode char U+00FA (decimal 250)
-   defining Unicode char U+00FD (decimal 253)
-   defining Unicode char U+0102 (decimal 258)
-   defining Unicode char U+0103 (decimal 259)
-   defining Unicode char U+0110 (decimal 272)
-   defining Unicode char U+0111 (decimal 273)
-   defining Unicode char U+0128 (decimal 296)
-   defining Unicode char U+0129 (decimal 297)
-   defining Unicode char U+0131 (decimal 305)
-   defining Unicode char U+0168 (decimal 360)
-   defining Unicode char U+0169 (decimal 361)
-   defining Unicode char U+01A0 (decimal 416)
-   defining Unicode char U+01A1 (decimal 417)
-   defining Unicode char U+01AF (decimal 431)
-   defining Unicode char U+01B0 (decimal 432)
-   defining Unicode char U+1EA0 (decimal 7840)
-   defining Unicode char U+1EA1 (decimal 7841)
-   defining Unicode char U+1EA2 (decimal 7842)
-   defining Unicode char U+1EA3 (decimal 7843)
-   defining Unicode char U+1EA4 (decimal 7844)
-   defining Unicode char U+1EA5 (decimal 7845)
-   defining Unicode char U+1EA6 (decimal 7846)
-   defining Unicode char U+1EA7 (decimal 7847)
-   defining Unicode char U+1EA8 (decimal 7848)
-   defining Unicode char U+1EA9 (decimal 7849)
-   defining Unicode char U+1EAA (decimal 7850)
-   defining Unicode char U+1EAB (decimal 7851)
-   defining Unicode char U+1EAC (decimal 7852)
-   defining Unicode char U+1EAD (decimal 7853)
-   defining Unicode char U+1EAE (decimal 7854)
-   defining Unicode char U+1EAF (decimal 7855)
-   defining Unicode char U+1EB0 (decimal 7856)
-   defining Unicode char U+1EB1 (decimal 7857)
-   defining Unicode char U+1EB2 (decimal 7858)
-   defining Unicode char U+1EB3 (decimal 7859)
-   defining Unicode char U+1EB4 (decimal 7860)
-   defining Unicode char U+1EB5 (decimal 7861)
-   defining Unicode char U+1EB6 (decimal 7862)
-   defining Unicode char U+1EB7 (decimal 7863)
-   defining Unicode char U+1EB8 (decimal 7864)
-   defining Unicode char U+1EB9 (decimal 7865)
-   defining Unicode char U+1EBA (decimal 7866)
-   defining Unicode char U+1EBB (decimal 7867)
-   defining Unicode char U+1EBC (decimal 7868)
-   defining Unicode char U+1EBD (decimal 7869)
-   defining Unicode char U+1EBE (decimal 7870)
-   defining Unicode char U+1EBF (decimal 7871)
-   defining Unicode char U+1EC0 (decimal 7872)
-   defining Unicode char U+1EC1 (decimal 7873)
-   defining Unicode char U+1EC2 (decimal 7874)
-   defining Unicode char U+1EC3 (decimal 7875)
-   defining Unicode char U+1EC4 (decimal 7876)
-   defining Unicode char U+1EC5 (decimal 7877)
-   defining Unicode char U+1EC6 (decimal 7878)
-   defining Unicode char U+1EC7 (decimal 7879)
-   defining Unicode char U+1EC8 (decimal 7880)
-   defining Unicode char U+1EC9 (decimal 7881)
-   defining Unicode char U+1ECA (decimal 7882)
-   defining Unicode char U+1ECB (decimal 7883)
-   defining Unicode char U+1ECC (decimal 7884)
-   defining Unicode char U+1ECD (decimal 7885)
-   defining Unicode char U+1ECE (decimal 7886)
-   defining Unicode char U+1ECF (decimal 7887)
-   defining Unicode char U+1ED0 (decimal 7888)
-   defining Unicode char U+1ED1 (decimal 7889)
-   defining Unicode char U+1ED2 (decimal 7890)
-   defining Unicode char U+1ED3 (decimal 7891)
-   defining Unicode char U+1ED4 (decimal 7892)
-   defining Unicode char U+1ED5 (decimal 7893)
-   defining Unicode char U+1ED6 (decimal 7894)
-   defining Unicode char U+1ED7 (decimal 7895)
-   defining Unicode char U+1ED8 (decimal 7896)
-   defining Unicode char U+1ED9 (decimal 7897)
-   defining Unicode char U+1EDA (decimal 7898)
-   defining Unicode char U+1EDB (decimal 7899)
-   defining Unicode char U+1EDC (decimal 7900)
-   defining Unicode char U+1EDD (decimal 7901)
-   defining Unicode char U+1EDE (decimal 7902)
-   defining Unicode char U+1EDF (decimal 7903)
-   defining Unicode char U+1EE0 (decimal 7904)
-   defining Unicode char U+1EE1 (decimal 7905)
-   defining Unicode char U+1EE2 (decimal 7906)
-   defining Unicode char U+1EE3 (decimal 7907)
-   defining Unicode char U+1EE4 (decimal 7908)
-   defining Unicode char U+1EE5 (decimal 7909)
-   defining Unicode char U+1EE6 (decimal 7910)
-   defining Unicode char U+1EE7 (decimal 7911)
-   defining Unicode char U+1EE8 (decimal 7912)
-   defining Unicode char U+1EE9 (decimal 7913)
-   defining Unicode char U+1EEA (decimal 7914)
-   defining Unicode char U+1EEB (decimal 7915)
-   defining Unicode char U+1EEC (decimal 7916)
-   defining Unicode char U+1EED (decimal 7917)
-   defining Unicode char U+1EEE (decimal 7918)
-   defining Unicode char U+1EEF (decimal 7919)
-   defining Unicode char U+1EF0 (decimal 7920)
-   defining Unicode char U+1EF1 (decimal 7921)
-   defining Unicode char U+1EF2 (decimal 7922)
-   defining Unicode char U+1EF3 (decimal 7923)
-   defining Unicode char U+1EF4 (decimal 7924)
-   defining Unicode char U+1EF5 (decimal 7925)
-   defining Unicode char U+1EF6 (decimal 7926)
-   defining Unicode char U+1EF7 (decimal 7927)
-   defining Unicode char U+1EF8 (decimal 7928)
-   defining Unicode char U+1EF9 (decimal 7929)
-   defining Unicode char U+200C (decimal 8204)
-   defining Unicode char U+2013 (decimal 8211)
-   defining Unicode char U+2014 (decimal 8212)
-   defining Unicode char U+2018 (decimal 8216)
-   defining Unicode char U+2019 (decimal 8217)
-   defining Unicode char U+201A (decimal 8218)
-   defining Unicode char U+201C (decimal 8220)
-   defining Unicode char U+201D (decimal 8221)
-   defining Unicode char U+201E (decimal 8222)
-   defining Unicode char U+2030 (decimal 8240)
-   defining Unicode char U+2031 (decimal 8241)
-   defining Unicode char U+2039 (decimal 8249)
-   defining Unicode char U+203A (decimal 8250)
-   defining Unicode char U+2423 (decimal 9251)
-))
 Package babel Info: Making " an active character on input line 147.
 ))
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/vi\babel
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/babel/locale/vi/babel
 -vietnamese.tex
 Package babel Info: Importing font and identification data for vietnamese
 (babel)             from babel-vi.ini. Reported on input line 11.
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/tools/tabularx.sty
 Package: tabularx 2023/07/08 v2.11c `tabularx' package (DPC)
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/tools/array.sty
 Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
-\col@sep=\dimen152
+\col@sep=\dimen151
 \ar@mcellbox=\box53
-\extrarowheight=\dimen153
-\NC@list=\toks26
+\extrarowheight=\dimen152
+\NC@list=\toks27
 \extratabsurround=\skip69
 \backup@length=\skip70
 \ar@cellbox=\box54
 )
-\TX@col@width=\dimen154
-\TX@old@table=\dimen155
-\TX@old@col=\dimen156
-\TX@target=\dimen157
-\TX@delta=\dimen158
-\TX@cols=\count277
-\TX@ftn=\toks27
+\TX@col@width=\dimen153
+\TX@old@table=\dimen154
+\TX@old@col=\dimen155
+\TX@target=\dimen156
+\TX@delta=\dimen157
+\TX@cols=\count274
+\TX@ftn=\toks28
 )
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/generic/pdftex\glyphtounicode
-.tex)
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
-tex.def
-File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count278
-\l__pdf_internal_box=\box55
-) (resume.aux
-LaTeX Font Info:    Trying to load font information for T5+cmr on input line 8.
+(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode
+.tex
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:7: Undefined control sequence.
+l.7 \pdfglyphtounicode
+                    {A}{0041}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmr.fd
-File: t5cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-))
-\openout1 = `resume.aux'.
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:7: LaTeX Error: Missing \begin{document}.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for T5/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 \pdfglyphtounicode{A
+                      }{0041}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
-ii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count279
-\scratchdimen=\dimen159
-\scratchbox=\box56
-\nofMPsegments=\count280
-\nofMParguments=\count281
-\everyMPshowfont=\toks28
-\MPscratchCnt=\count282
-\MPscratchDim=\dimen160
-\MPnumerator=\count283
-\makeMPintoPDFobject=\count284
-\everyMPtoPDFconversion=\toks29
-)
-Package hyperref Info: Link coloring OFF on input line 109.
- (resume.out) (resume.out)
-\@outlinefile=\write3
-\openout3 = `resume.out'.
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:8: Undefined control sequence.
+l.8 \pdfglyphtounicode
+                    {AE}{00C6}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:9: Undefined control sequence.
+l.9 \pdfglyphtounicode
+                    {AEacute}{01FC}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:10: Undefined control sequence.
+l.10 \pdfglyphtounicode
+                     {AEmacron}{01E2}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-LaTeX Font Warning: Font shape `T5/cmr/bx/sc' undefined
-(Font)              using `T5/cmr/bx/n' instead on input line 118.
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:11: Undefined control sequence.
+l.11 \pdfglyphtounicode
+                     {AEsmall}{00E6}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 119.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 119.
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 11
-9.
-(C:\Users\boboi\AppData\Local\Programs\MiKTeX\tex/latex/base\ulasy.fd
-File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-)
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 130.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 130.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 130.
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:12: Undefined control sequence.
+l.12 \pdfglyphtounicode
+                     {Aacute}{00C1}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:13: Undefined control sequence.
+l.13 \pdfglyphtounicode
+                     {Aacutesmall}{00E1}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-Package fancyhdr Warning: \footskip is too small (0.0pt): 
-(fancyhdr)                Make it at least 4.08003pt, for example:
-(fancyhdr)                \setlength{\footskip}{4.08003pt}.
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:14: Undefined control sequence.
+l.14 \pdfglyphtounicode
+                     {Abreve}{0102}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-[1
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:15: Undefined control sequence.
+l.15 \pdfglyphtounicode
+                     {Abreveacute}{1EAE}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-{C:/Users/boboi/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:16: Undefined control sequence.
+l.16 \pdfglyphtounicode
+                     {Abrevecyrillic}{04D0}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-Package fancyhdr Warning: \footskip is too small (0.0pt): 
-(fancyhdr)                Make it at least 4.08003pt, for example:
-(fancyhdr)                \setlength{\footskip}{4.08003pt}.
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:17: Undefined control sequence.
+l.17 \pdfglyphtounicode
+                     {Abrevedotbelow}{1EB6}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-[2] (resume.aux)
- ***********
-LaTeX2e <2023-11-01> patch level 1
-L3 programming layer <2024-01-04>
- ***********
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:18: Undefined control sequence.
+l.18 \pdfglyphtounicode
+                     {Abrevegrave}{1EB0}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:19: Undefined control sequence.
+l.19 \pdfglyphtounicode
+                     {Abrevehookabove}{1EB2}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:20: Undefined control sequence.
+l.20 \pdfglyphtounicode
+                     {Abrevetilde}{1EB4}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-Package rerunfilecheck Info: File `resume.out' has not changed.
-(rerunfilecheck)             Checksum: 9B73F9D98FE5AA26772014C184A920B6;519.
- ) 
-Here is how much of TeX's memory you used:
- 11275 strings out of 474486
- 179550 string characters out of 5743756
- 1955542 words of memory out of 5000000
- 33417 multiletter control sequences out of 15000+600000
- 570564 words of font info for 61 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 75i,11n,79p,618b,702s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/boboi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmsy10.pfb><C:/Users/boboi/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmsy6.pfb><C:/Users/boboi/AppData/Local/Programs/MiKTeX/fonts/type1/vn
-tex/vnr/vnbx10.pfb><C:/Users/boboi/AppData/Local/Programs/MiKTeX/fonts/type1/vn
-tex/vnr/vnbx12.pfb><C:/Users/boboi/AppData/Local/Programs/MiKTeX/fonts/type1/vn
-tex/vnr/vncsc10.pfb><C:/Users/boboi/AppData/Local/Programs/MiKTeX/fonts/type1/v
-ntex/vnr/vnr10.pfb><C:/Users/boboi/AppData/Local/Programs/MiKTeX/fonts/type1/vn
-tex/vnr/vnti10.pfb>
-Output written on resume.pdf (2 pages, 119095 bytes).
-PDF statistics:
- 76 PDF objects out of 1000 (max. 8388607)
- 8 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:21: Undefined control sequence.
+l.21 \pdfglyphtounicode
+                     {Acaron}{01CD}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:22: Undefined control sequence.
+l.22 \pdfglyphtounicode
+                     {Acircle}{24B6}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:23: Undefined control sequence.
+l.23 \pdfglyphtounicode
+                     {Acircumflex}{00C2}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:24: Undefined control sequence.
+l.24 \pdfglyphtounicode
+                     {Acircumflexacute}{1EA4}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:25: Undefined control sequence.
+l.25 \pdfglyphtounicode
+                     {Acircumflexdotbelow}{1EAC}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:26: Undefined control sequence.
+l.26 \pdfglyphtounicode
+                     {Acircumflexgrave}{1EA6}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:27: Undefined control sequence.
+l.27 \pdfglyphtounicode
+                     {Acircumflexhookabove}{1EA8}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:28: Undefined control sequence.
+l.28 \pdfglyphtounicode
+                     {Acircumflexsmall}{00E2}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:29: Undefined control sequence.
+l.29 \pdfglyphtounicode
+                     {Acircumflextilde}{1EAA}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:30: Undefined control sequence.
+l.30 \pdfglyphtounicode
+                     {Acute}{00B4}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:31: Undefined control sequence.
+l.31 \pdfglyphtounicode
+                     {Acutesmall}{00B4}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:32: Undefined control sequence.
+l.32 \pdfglyphtounicode
+                     {Acyrillic}{0410}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:33: Undefined control sequence.
+l.33 \pdfglyphtounicode
+                     {Adblgrave}{0200}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:34: Undefined control sequence.
+l.34 \pdfglyphtounicode
+                     {Adieresis}{00C4}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:35: Undefined control sequence.
+l.35 \pdfglyphtounicode
+                     {Adieresiscyrillic}{04D2}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:36: Undefined control sequence.
+l.36 \pdfglyphtounicode
+                     {Adieresismacron}{01DE}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:37: Undefined control sequence.
+l.37 \pdfglyphtounicode
+                     {Adieresissmall}{00E4}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:38: Undefined control sequence.
+l.38 \pdfglyphtounicode
+                     {Adotbelow}{1EA0}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:39: Undefined control sequence.
+l.39 \pdfglyphtounicode
+                     {Adotmacron}{01E0}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:40: Undefined control sequence.
+l.40 \pdfglyphtounicode
+                     {Agrave}{00C0}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:41: Undefined control sequence.
+l.41 \pdfglyphtounicode
+                     {Agravesmall}{00E0}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:42: Undefined control sequence.
+l.42 \pdfglyphtounicode
+                     {Ahookabove}{1EA2}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:43: Undefined control sequence.
+l.43 \pdfglyphtounicode
+                     {Aiecyrillic}{04D4}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:44: Undefined control sequence.
+l.44 \pdfglyphtounicode
+                     {Ainvertedbreve}{0202}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:45: Undefined control sequence.
+l.45 \pdfglyphtounicode
+                     {Alpha}{0391}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:46: Undefined control sequence.
+l.46 \pdfglyphtounicode
+                     {Alphatonos}{0386}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:47: Undefined control sequence.
+l.47 \pdfglyphtounicode
+                     {Amacron}{0100}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:48: Undefined control sequence.
+l.48 \pdfglyphtounicode
+                     {Amonospace}{FF21}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:49: Undefined control sequence.
+l.49 \pdfglyphtounicode
+                     {Aogonek}{0104}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:50: Undefined control sequence.
+l.50 \pdfglyphtounicode
+                     {Aring}{00C5}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:51: Undefined control sequence.
+l.51 \pdfglyphtounicode
+                     {Aringacute}{01FA}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:52: Undefined control sequence.
+l.52 \pdfglyphtounicode
+                     {Aringbelow}{1E00}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:53: Undefined control sequence.
+l.53 \pdfglyphtounicode
+                     {Aringsmall}{00E5}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:54: Undefined control sequence.
+l.54 \pdfglyphtounicode
+                     {Asmall}{0061}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:55: Undefined control sequence.
+l.55 \pdfglyphtounicode
+                     {Atilde}{00C3}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:56: Undefined control sequence.
+l.56 \pdfglyphtounicode
+                     {Atildesmall}{00E3}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:57: Undefined control sequence.
+l.57 \pdfglyphtounicode
+                     {Aybarmenian}{0531}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:58: Undefined control sequence.
+l.58 \pdfglyphtounicode
+                     {B}{0042}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:59: Undefined control sequence.
+l.59 \pdfglyphtounicode
+                     {Bcircle}{24B7}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:60: Undefined control sequence.
+l.60 \pdfglyphtounicode
+                     {Bdotaccent}{1E02}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:61: Undefined control sequence.
+l.61 \pdfglyphtounicode
+                     {Bdotbelow}{1E04}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:62: Undefined control sequence.
+l.62 \pdfglyphtounicode
+                     {Becyrillic}{0411}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:63: Undefined control sequence.
+l.63 \pdfglyphtounicode
+                     {Benarmenian}{0532}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:64: Undefined control sequence.
+l.64 \pdfglyphtounicode
+                     {Beta}{0392}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:65: Undefined control sequence.
+l.65 \pdfglyphtounicode
+                     {Bhook}{0181}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:66: Undefined control sequence.
+l.66 \pdfglyphtounicode
+                     {Blinebelow}{1E06}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:67: Undefined control sequence.
+l.67 \pdfglyphtounicode
+                     {Bmonospace}{FF22}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:68: Undefined control sequence.
+l.68 \pdfglyphtounicode
+                     {Brevesmall}{02D8}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:69: Undefined control sequence.
+l.69 \pdfglyphtounicode
+                     {Bsmall}{0062}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:70: Undefined control sequence.
+l.70 \pdfglyphtounicode
+                     {Btopbar}{0182}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:71: Undefined control sequence.
+l.71 \pdfglyphtounicode
+                     {C}{0043}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:72: Undefined control sequence.
+l.72 \pdfglyphtounicode
+                     {Caarmenian}{053E}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:73: Undefined control sequence.
+l.73 \pdfglyphtounicode
+                     {Cacute}{0106}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:74: Undefined control sequence.
+l.74 \pdfglyphtounicode
+                     {Caron}{02C7}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:75: Undefined control sequence.
+l.75 \pdfglyphtounicode
+                     {Caronsmall}{02C7}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:76: Undefined control sequence.
+l.76 \pdfglyphtounicode
+                     {Ccaron}{010C}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:77: Undefined control sequence.
+l.77 \pdfglyphtounicode
+                     {Ccedilla}{00C7}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:78: Undefined control sequence.
+l.78 \pdfglyphtounicode
+                     {Ccedillaacute}{1E08}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:79: Undefined control sequence.
+l.79 \pdfglyphtounicode
+                     {Ccedillasmall}{00E7}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:80: Undefined control sequence.
+l.80 \pdfglyphtounicode
+                     {Ccircle}{24B8}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:81: Undefined control sequence.
+l.81 \pdfglyphtounicode
+                     {Ccircumflex}{0108}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:82: Undefined control sequence.
+l.82 \pdfglyphtounicode
+                     {Cdot}{010A}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:83: Undefined control sequence.
+l.83 \pdfglyphtounicode
+                     {Cdotaccent}{010A}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:84: Undefined control sequence.
+l.84 \pdfglyphtounicode
+                     {Cedillasmall}{00B8}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:85: Undefined control sequence.
+l.85 \pdfglyphtounicode
+                     {Chaarmenian}{0549}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:86: Undefined control sequence.
+l.86 \pdfglyphtounicode
+                     {Cheabkhasiancyrillic}{04BC}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:87: Undefined control sequence.
+l.87 \pdfglyphtounicode
+                     {Checyrillic}{0427}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:88: Undefined control sequence.
+l.88 \pdfglyphtounicode
+                     {Chedescenderabkhasiancyrillic}{04BE}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:89: Undefined control sequence.
+l.89 \pdfglyphtounicode
+                     {Chedescendercyrillic}{04B6}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:90: Undefined control sequence.
+l.90 \pdfglyphtounicode
+                     {Chedieresiscyrillic}{04F4}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:91: Undefined control sequence.
+l.91 \pdfglyphtounicode
+                     {Cheharmenian}{0543}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:92: Undefined control sequence.
+l.92 \pdfglyphtounicode
+                     {Chekhakassiancyrillic}{04CB}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:93: Undefined control sequence.
+l.93 \pdfglyphtounicode
+                     {Cheverticalstrokecyrillic}{04B8}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:94: Undefined control sequence.
+l.94 \pdfglyphtounicode
+                     {Chi}{03A7}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:95: Undefined control sequence.
+l.95 \pdfglyphtounicode
+                     {Chook}{0187}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:96: Undefined control sequence.
+l.96 \pdfglyphtounicode
+                     {Circumflexsmall}{02C6}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:97: Undefined control sequence.
+l.97 \pdfglyphtounicode
+                     {Cmonospace}{FF23}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:98: Undefined control sequence.
+l.98 \pdfglyphtounicode
+                     {Coarmenian}{0551}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:99: Undefined control sequence.
+l.99 \pdfglyphtounicode
+                     {Csmall}{0063}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:100: Undefined control sequence.
+l.100 \pdfglyphtounicode
+                      {D}{0044}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:101: Undefined control sequence.
+l.101 \pdfglyphtounicode
+                      {DZ}{01F1}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:102: Undefined control sequence.
+l.102 \pdfglyphtounicode
+                      {DZcaron}{01C4}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:103: Undefined control sequence.
+l.103 \pdfglyphtounicode
+                      {Daarmenian}{0534}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:104: Undefined control sequence.
+l.104 \pdfglyphtounicode
+                      {Dafrican}{0189}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:105: Undefined control sequence.
+l.105 \pdfglyphtounicode
+                      {Dbar}{0110}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:106: Undefined control sequence.
+l.106 \pdfglyphtounicode
+                      {Dcaron}{010E}
+(That makes 100 errors; please try again.)
+
+Here is how much of LuaTeX's memory you used:
+ 10749 strings out of 476497
+ 100000,1977958 words of node,token memory allocated
+ 11584 words of node memory still in use:
+   3 hlist, 1 rule, 1 local_par, 1 dir, 100 glue, 3 kern, 1380 glyph, 204 attrib
+ute, 55 glue_spec, 204 attribute_list, 1 temp, 1 write nodes
+   avail lists: 3:2,4:1,5:2,8:2,9:2
+ 32639 multiletter control sequences out of 65536+600000
+ 15 fonts using 723367 bytes
+ 72i,0n,75p,400b,124s stack positions out of 10000i,1000n,20000p,200000b,200000s
+C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/generic/pdftex/glyphtounicode.t
+ex:106:  ==> Fatal error occurred, no output PDF file produced!

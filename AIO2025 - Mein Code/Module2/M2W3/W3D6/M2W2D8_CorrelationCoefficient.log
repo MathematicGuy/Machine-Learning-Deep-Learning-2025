@@ -1,7 +1,7 @@
-This is LuaHBTeX, Version 1.17.1 (MiKTeX 24.1) (format=lualatex 2025.1.5)  22 JUL 2025 22:26
+This is LuaHBTeX, Version 1.17.1 (MiKTeX 24.1) (format=lualatex 2025.1.5)  22 JUL 2025 23:05
  restricted system commands enabled.
-**W3D4_AppliedStatistic.tex
-(./W3D4_AppliedStatistic.tex
+**M2W2D8_CorrelationCoefficient.tex
+(./M2W2D8_CorrelationCoefficient.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
 Lua module: luaotfload 2023-08-31 3.26 Lua based OpenType font support
@@ -1103,8 +1103,8 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \FrameRule=\dimen304
 \FrameSep=\dimen305
 )
-(./W3D4_AppliedStatistic.aux)
-\openout1 = W3D4_AppliedStatistic.aux
+(./M2W2D8_CorrelationCoefficient.aux)
+\openout1 = M2W2D8_CorrelationCoefficient.aux
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 133.
 LaTeX Font Info:    ... okay on input line 133.
@@ -1223,310 +1223,48 @@ fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 Package hyperref Info: Link coloring ON on input line 133.
- (./W3D4_AppliedStatistic.out) (./W3D4_AppliedStatistic.out)
+ (./M2W2D8_CorrelationCoefficient.out) (./M2W2D8_CorrelationCoefficient.out)
 \@outlinefile=\write4
 
-\openout4 = W3D4_AppliedStatistic.out
+\openout4 = M2W2D8_CorrelationCoefficient.out
 \c@lstlisting=\count357
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
  [1
 
 {C:/Users/boboi/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 156--157
-
- []
-
-LaTeX Font Info:    Trying to load font information for U+msa on input line 173
-.
-(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 173
-.
-
-(C:/Users/boboi/AppData/Local/Programs/MiKTeX/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Underfull \hbox (badness 10000) in paragraph at lines 193--194
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 198--199
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 200--202
-
- []
-
-<images/coin_flip.png, id=137, 545.78906pt x 266.49562pt>
-File: images/coin_flip.png Graphic file (type png)
-<use images/coin_flip.png>
-Package luatex.def Info: images/coin_flip.png  used on input line 206.
-(luatex.def)             Requested size: 417.72377pt x 203.96606pt.
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 227--228
-
- []
-
-<images/binomial_coefficient.png, id=148, 499.11469pt x 207.77625pt>
-File: images/binomial_coefficient.png Graphic file (type png)
-<use images/binomial_coefficient.png>
-Package luatex.def Info: images/binomial_coefficient.png  used on input line 24
-3.
-(luatex.def)             Requested size: 442.2896pt x 184.12766pt.
-[3<./images/coin_flip.png>] [4<./images/binomial_coefficient.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 287--288
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 289--290
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 291--293
-
- []
-
-[5]
-<images/dis2con.png, id=167, 489.32813pt x 261.22594pt>
-File: images/dis2con.png Graphic file (type png)
-<use images/dis2con.png>
-Package luatex.def Info: images/dis2con.png  used on input line 313.
-(luatex.def)             Requested size: 294.86472pt x 157.41437pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 320--321
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 322--323
-
- []
-
-[6<./images/dis2con.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 358--359
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 366--367
-
- []
-
-<images/pdf2cmf.png, id=174, 513.41812pt x 287.57437pt>
-File: images/pdf2cmf.png Graphic file (type png)
-<use images/pdf2cmf.png>
-Package luatex.def Info: images/pdf2cmf.png  used on input line 388.
-(luatex.def)             Requested size: 393.15047pt x 220.21307pt.
-[7]
-<images/pdf2cmf2.png, id=179, 574.39594pt x 252.945pt>
-File: images/pdf2cmf2.png Graphic file (type png)
-<use images/pdf2cmf2.png>
-Package luatex.def Info: images/pdf2cmf2.png  used on input line 407.
-(luatex.def)             Requested size: 393.15047pt x 173.13506pt.
- [8<./images/pdf2cmf.png><./images/pdf2cmf2.png>]
-<images/expected_value_equilibrium.png, id=188, 733.23938pt x 204.01219pt>
-File: images/expected_value_equilibrium.png Graphic file (type png)
-<use images/expected_value_equilibrium.png>
-Package luatex.def Info: images/expected_value_equilibrium.png  used on input l
-ine 434.
-(luatex.def)             Requested size: 589.72195pt x 164.09094pt.
-
-Overfull \hbox (98.28574pt too wide) in paragraph at lines 434--435
- [][] 
- []
-
-[9<./images/expected_value_equilibrium.png>]
-<images/equalDistribution.png, id=197, 533.74406pt x 260.47313pt>
-File: images/equalDistribution.png Graphic file (type png)
-<use images/equalDistribution.png>
-Package luatex.def Info: images/equalDistribution.png  used on input line 490.
-(luatex.def)             Requested size: 344.00385pt x 167.88264pt.
- [10<./images/equalDistribution.png>]
-<images/mean_salary_outlier_example.png, id=204, 530.73282pt x 160.34906pt>
-File: images/mean_salary_outlier_example.png Graphic file (type png)
-<use images/mean_salary_outlier_example.png>
-Package luatex.def Info: images/mean_salary_outlier_example.png  used on input 
-line 525.
-(luatex.def)             Requested size: 442.2896pt x 133.6304pt.
-<images/median_salary_outlier_example.png, id=205, 539.76656pt x 208.52907pt>
-File: images/median_salary_outlier_example.png Graphic file (type png)
-<use images/median_salary_outlier_example.png>
-Package luatex.def Info: images/median_salary_outlier_example.png  used on inpu
-t line 538.
-(luatex.def)             Requested size: 417.72377pt x 161.38243pt.
- [11<./images/mean_salary_outlier_example.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 542--543
-
- []
-
-<images/mode_multimodal.png, id=213, 558.58687pt x 195.73125pt>
-File: images/mode_multimodal.png Graphic file (type png)
-<use images/mode_multimodal.png>
-Package luatex.def Info: images/mode_multimodal.png  used on input line 572.
-(luatex.def)             Requested size: 294.86472pt x 103.3249pt.
-<images/mean_median_mode_comparison.png, id=214, 554.07pt x 249.18094pt>
-File: images/mean_median_mode_comparison.png Graphic file (type png)
-<use images/mean_median_mode_comparison.png>
-Package luatex.def Info: images/mean_median_mode_comparison.png  used on input 
-line 587.
-(luatex.def)             Requested size: 393.15047pt x 176.80942pt.
-[12<./images/median_salary_outlier_example.png><./images/mode_multimodal.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 595--596
-
- []
-
-<images/expected_value_function.png, id=223, 725.71124pt x 317.185pt>
-File: images/expected_value_function.png Graphic file (type png)
-<use images/expected_value_function.png>
-Package luatex.def Info: images/expected_value_function.png  used on input line
- 620.
-(luatex.def)             Requested size: 417.72377pt x 182.57837pt.
-[13<./images/mean_median_mode_comparison.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 637--638
-
- []
-
-<images/dice_game_net_reward.png, id=230, 422.32782pt x 234.1247pt>
-File: images/dice_game_net_reward.png Graphic file (type png)
-<use images/dice_game_net_reward.png>
-Package luatex.def Info: images/dice_game_net_reward.png  used on input line 65
-0.
-(luatex.def)             Requested size: 344.00385pt x 190.70811pt.
-[14<./images/expected_value_function.png><./images/dice_game_net_reward.png>]
-<images/coin_dice_expectation.png, id=239, 486.31688pt x 216.05719pt>
-File: images/coin_dice_expectation.png Graphic file (type png)
-<use images/coin_dice_expectation.png>
-Package luatex.def Info: images/coin_dice_expectation.png  used on input line 7
-01.
-(luatex.def)             Requested size: 393.15047pt x 174.66577pt.
-
-[15<./images/coin_dice_expectation.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 712--713
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 712--713
-
- []
-
-<images/sum_expectation_names.png, id=246, 552.56438pt x 277.035pt>
-File: images/sum_expectation_names.png Graphic file (type png)
-<use images/sum_expectation_names.png>
-Package luatex.def Info: images/sum_expectation_names.png  used on input line 7
-29.
-(luatex.def)             Requested size: 442.2896pt x 221.74666pt.
-[16<./images/sum_expectation_names.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 774--775
-
- []
-
-[17]
-<images/variance_property.png, id=257, 554.82281pt x 280.04625pt>
-File: images/variance_property.png Graphic file (type png)
-<use images/variance_property.png>
-Package luatex.def Info: images/variance_property.png  used on input line 895.
-(luatex.def)             Requested size: 393.15047pt x 198.44536pt.
- [18] [19<./images/variance_property.png>] [20] [21]
-<images/example_blur_face.png, id=282, 258.9675pt x 210.7875pt>
-File: images/example_blur_face.png Graphic file (type png)
-<use images/example_blur_face.png>
-Package luatex.def Info: images/example_blur_face.png  used on input line 1060.
-
-(luatex.def)             Requested size: 393.15047pt x 320.0401pt.
- [22<./images/example_blur_face.png>]
-Overfull \hbox (169.66989pt too wide) in paragraph at lines 1112--1112
-[]\TU/lmtt/m/n/10.95 original_img_rgb, blurred_img_rgb = blur_face_with_mean('im
-age_e99a88.png', face_coordinates, kernel_size=(35, 35))[] 
- []
-
-[23]
-Underfull \hbox (badness 10000) in paragraph at lines 1154--1155
-
- []
-
-<images/median_noise.png, id=299, 519.44063pt x 307.90031pt>
-File: images/median_noise.png Graphic file (type png)
-<use images/median_noise.png>
-Package luatex.def Info: images/median_noise.png  used on input line 1164.
-(luatex.def)             Requested size: 442.2896pt x 262.16751pt.
-[24] [25<./images/median_noise.png>]
-Overfull \hbox (25.95117pt too wide) in paragraph at lines 1198--1198
-[]\TU/lmtt/m/n/10.95 original_img_rgb, denoised_img_rgb = denoise_image_with_med
-ian('image.png', kernel_size=3)[] 
- []
-
-
-LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 1211.
-
-<images/variance_edge_detect.png, id=312, 615.80063pt x 376.40625pt>
-File: images/variance_edge_detect.png Graphic file (type png)
-<use images/variance_edge_detect.png>
-Package luatex.def Info: images/variance_edge_detect.png  used on input line 12
-30.
-(luatex.def)             Requested size: 417.72377pt x 255.3383pt.
-[26]
-<images/variance_edge_detect3d.png, id=317, 623.32875pt x 305.64188pt>
-File: images/variance_edge_detect3d.png Graphic file (type png)
-<use images/variance_edge_detect3d.png>
-Package luatex.def Info: images/variance_edge_detect3d.png  used on input line 
-1236.
-(luatex.def)             Requested size: 393.15047pt x 192.77925pt.
- [27<./images/variance_edge_detect.png><./images/variance_edge_detect3d.png>]
-<images/histogram.png, id=329, 749.04843pt x 355.3275pt>
-File: images/histogram.png Graphic file (type png)
-<use images/histogram.png>
-Package luatex.def Info: images/histogram.png  used on input line 1289.
-(luatex.def)             Requested size: 393.15047pt x 186.50092pt.
- [28]
-<images/he_idea.png, id=336, 841.64438pt x 423.08063pt>
-File: images/he_idea.png Graphic file (type png)
-<use images/he_idea.png>
-Package luatex.def Info: images/he_idea.png  used on input line 1314.
-(luatex.def)             Requested size: 393.15047pt x 197.63425pt.
- [29<./images/histogram.png><./images/he_idea.png>] [30]
-(./W3D4_AppliedStatistic.aux)
+(./M2W2D8_CorrelationCoefficient.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
-Package rerunfilecheck Info: File `W3D4_AppliedStatistic.out' has not changed.
-(rerunfilecheck)             Checksum: D0B46EF6737BD927A606766A1F6BF807;8392.
+
+
+Package rerunfilecheck Warning: File `M2W2D8_CorrelationCoefficient.out' has ch
+anged.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `M2W2D8_CorrelationCoefficient.out':
+
+(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
+(rerunfilecheck)             After:  60A3324EFB4955FFC62EB17B1E88F06B;818.
 )
 
 Here is how much of LuaTeX's memory you used:
- 32989 strings out of 476497
+ 32519 strings out of 476497
  125027,1977958 words of node,token memory allocated
- 1048 words of node memory still in use:
-   6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 149 attribute, 79 glue_spe
-c, 76 attribute_list, 2 write nodes
-   avail lists: 2:1043,3:862,4:93,5:172,6:99,7:4239,8:55,9:400,10:27,11:93
- 54102 multiletter control sequences out of 65536+600000
- 68 fonts using 18856271 bytes
- 87i,8n,90p,595b,482s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/WINDOWS/Fonts/timesi.ttf><//?/c:/users/boboi/appdata/local/programs/miktex/f
-onts/opentype/public/lm/lmmono10-regular.otf><C:/WINDOWS/Fonts/times.ttf><C:/WIN
-DOWS/Fonts/timesbd.ttf><C:/Users/boboi/AppData/Local/Programs/MiKTeX/fonts/type1
-/public/amsfonts/cm/cmex10.pfb><C:/Users/boboi/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/boboi/AppData/Local/Programs/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/boboi/AppData/Local/Prog
-rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/boboi/AppData/Loc
-al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/boboi/AppDa
-ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/boboi
-/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Use
-rs/boboi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-<C:/Users/boboi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbol
-s/msbm10.pfb>
-Output written on W3D4_AppliedStatistic.pdf (30 pages, 2840615 bytes).
+ 634 words of node memory still in use:
+   6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 11 attribute, 79 glue_spec
+, 7 attribute_list, 2 write nodes
+   avail lists: 2:504,3:269,4:69,5:78,6:33,7:1609,8:2,9:198,10:13,11:3
+ 53809 multiletter control sequences out of 65536+600000
+ 35 fonts using 13374903 bytes
+ 87i,5n,90p,531b,482s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/WINDOWS/Fonts/times.ttf><C:/WINDOWS/Fonts/timesbd.ttf>
+Output written on M2W2D8_CorrelationCoefficient.pdf (1 page, 69548 bytes).
 
-PDF statistics: 414 PDF objects out of 1000 (max. 8388607)
- 106 named destinations out of 1000 (max. 131072)
- 264 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 31 PDF objects out of 1000 (max. 8388607)
+ 5 named destinations out of 1000 (max. 131072)
+ 16 words of extra memory for PDF output out of 10000 (max. 100000000)
 
