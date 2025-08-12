@@ -1,0 +1,154 @@
+\documentclass[11pt]{article}
+% Font tiếng việt
+\usepackage{fontspec}
+\usepackage[vietnamese]{babel}
+
+% Sử dụng bảng dài có thể ngắt trang, bạn cần thêm 2 gói này vào preamble
+\usepackage{longtable}
+\usepackage{ragged2e}
+
+
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb, amsfonts, bm}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{pifont}
+\newcommand{\xmark}{\ding{55}}
+\newcommand{\cmark}{\ding{51}}
+\usepackage{array}
+\usepackage{float}
+
+\definecolor{codehighlight}{rgb}{0.95,0.95,0.92} % Using your backcolour
+
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=red,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+}
+
+\setmainfont{Times New Roman}
+% \setsansfont{Arial} % Not used in the final layout, can comment out
+% \setmonofont{Courier New} % Not used in the final layout, can comment out
+
+
+% Page layout
+\setlength{\topmargin}{-.5in}
+\setlength{\textheight}{9.25in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\textwidth}{6.8in}
+
+% No explicit title formatting needed as we'll place it manually
+\usepackage{titling}
+\setlength{\droptitle}{-10em} % Keep this to prevent default title spacing issues if using \maketitle later for other purposes
+
+\renewcommand{\maketitle}{%
+    \begin{center}
+        \fontsize{18}{20}\selectfont\textbf{Modul 3 Tuần 1 - Excel for Data Analysis phần 1}\\[1em]
+        \fontsize{14}{16}\selectfont Time-Series Team\\[0.5em]
+        \fontsize{14}{16}\selectfont Ngày 2 tháng 8 năm 2025
+    \end{center}
+    \vspace{1.5em} % Add some space after the custom title block
+}
+
+
+% Remove fancy header/footer as it's not in the image
+% \usepackage{fancyhdr}
+% \pagestyle{fancy}
+% \fancyhf{}
+% \renewcommand{\footrulewidth}{0.4pt}
+% \lhead{\bfseries AI VIETNAM}
+% \rhead{\bfseries aivietnam.edu.vn}
+% \fancyfoot[C]{\thepage}
+
+% Section format (không đánh số section) - Keep this
+\usepackage{titlesec}
+\titleformat{\section}
+{\normalfont\Large\bfseries}
+{}{0em}{}
+
+% Listings (code block) - Keep this if you plan to use code blocks
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    tabsize=2,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false
+}
+\lstset{style=mystyle}
+
+
+% Colored boxes
+\usepackage[many]{tcolorbox}
+\definecolor{lightgreenbox}{rgb}{0.85,0.95,0.85} % A light green color closer to the image
+\newtcolorbox{summarybox}{
+    colback = lightgreenbox,
+    colframe = green!50!black, % A slightly darker green border
+    boxsep = 5pt,
+    arc = 4pt,
+    outer arc = 4pt,
+    boxrule = 0.5pt,
+    left = 10pt,
+    right = 10pt,
+    top = 10pt,
+    bottom = 10pt,
+    % Add this line to ensure proper font encoding for Vietnamese characters
+    fontupper = \setmainfont{Times New Roman}\normalfont,
+}
+
+% For math proofs or custom counters (tuỳ chọn nếu cần) - Can be removed if not used
+\usepackage{lipsum}
+\newcounter{mycounter}
+\newcommand\showmycounter{\stepcounter{mycounter}\themycounter}
+\newcommand\showlips{\stepcounter{mycounter}\lipsum[\value{mycounter}]}
+
+% Others - Can be removed if not used
+\usepackage{booktabs}
+\usepackage{subcaption}
+\usepackage{framed}
+\usepackage{tikz}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle % Call the redefined maketitle to display the custom title and date
+
+
+\begin{summarybox}
+   Buổi học thứ 6 (ngày 1/8/2025) được chia thành 4 phần chính nhằm giúp bạn hiểu được cách tìm đúng biểu đồ minh họa dựa trên 3 Case Study sử dụng Python.
+    \begin{itemize}
+        \item \textbf{Phần 1: Hiểu Tổng Quan Về Phân Tích Dữ Liệu}
+        \item \textbf{Phần 2: Hiểu Xu Hướng Dữ Liệu Qua Thống Kê Cơ Bản}
+        \item \textbf{Phần 3: Trực Quan Hóa Dữ Liệu}
+    \end{itemize}
+\end{summarybox}
+
+\section{Phần 1: Hiểu Tổng Quan Về Phân Tích Dữ Liệu}
+\textbf{Dữ liệu là gì ?}
+
+\section{Phần 2: Hiểu Xu Hướng Dữ Liệu Qua Thống Kê Cơ Bản}
+\section{Phần 3: Trực Quan Hóa Dữ Liệu}
+
+
+\end{document}
