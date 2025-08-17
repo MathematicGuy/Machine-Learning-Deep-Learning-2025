@@ -204,7 +204,7 @@ Dữ liệu trở thành Big Data khi đạt đủ 5 tiêu chí \textbf{5V}):
     \item \textbf{Variety} -- Sự đa dạng về định dạng và nguồn dữ liệu, dữ liệu có cấu trúc hoặc không hoặc bán cấu trúc. \\
     \textit{Ví dụ:} Văn bản, video, ảnh, log server.
     \item \textbf{Veracity} --Độ tin cậy và tính chính xác của dữ liệu. \\
-      \textit{Ví dụ:} Bộ dữ liệu y tế có thể chứa thông tin nhập sai hoặc trùng lặp.
+	\textit{Ví dụ:} Bộ dữ liệu y tế có thể chứa thông tin nhập sai hoặc trùng lặp.
 
     \item \textbf{Value} -- Giá trị mà dữ liệu đó mang lại. \\
     \textit{Ví dụ:}
@@ -235,7 +235,7 @@ Các nền tảng như \textbf{Apache Spark} cho phép lập trình viên:
 Từ ví dụ ở phần trước, khi khối lượng dữ liệu lên đến hàng trăm triệu bản ghi, phân tán ở nhiều máy chủ và yêu cầu phản hồi trong vài giây, ta cần đến các \textit{framework} xử lý dữ liệu phân tán.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{HadoopPysparkComparison.png}
+    \includegraphics[width=0.7\linewidth]{images/HadoopPysparkComparison.png}
     \caption{Hadoop and Apache comparison}
 \end{figure}
 \begin{itemize}
@@ -245,7 +245,7 @@ Từ ví dụ ở phần trước, khi khối lượng dữ liệu lên đến h
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{hd_vs_sp.png}
+    \includegraphics[width=0.7\linewidth]{images/hd_vs_sp.png}
     \caption{Minh họa workflow của Hadoop và Spark}
 \end{figure}
 
@@ -261,7 +261,7 @@ và \text{thông tin vị trí các block} dữ liệu xanh đỏ tím vàng nh�
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{hdfs.png}
+    \includegraphics[width=0.7\linewidth]{images/hdfs.png}
     \caption{Cấu trúc HDFS}
     \label{fig:hdfs-structure}
 \end{figure}
@@ -280,7 +280,7 @@ và \text{thông tin vị trí các block} dữ liệu xanh đỏ tím vàng nh�
 MapReduce là mô hình xử lý dữ liệu lớn theo cơ chế chia nhỏ và tổng hợp. Workflow tổng quát: dữ liệu đầu vào được chia nhỏ (\textbf{Splitting}) thành nhiều phần và xử lý song song bởi các hàm \texttt{Map}, tạo ra các cặp \texttt{(key, value)}. Sau đó, hệ thống thực hiện \textbf{Shuffling} để nhóm các giá trị cùng key lại với nhau, và cuối cùng \texttt{Reduce} tổng hợp chúng để tạo ra kết quả cuối cùng.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{mapReduce.png}
+    \includegraphics[width=0.9\linewidth]{images/mapReduce.png}
     \caption{Quy trình MapReduce}
     \label{fig:mapreduce-flow}
 \end{figure}
@@ -304,7 +304,7 @@ và cuối cùng lưu trữ kết quả (i.e. dữ liệu đã xử lý) vào c�
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{PySpark_pipeline.png}
+    \includegraphics[width=0.9\linewidth]{images/PySpark_pipeline.png}
     \caption{Pipeline xử lý dữ liệu với PySpark}
     \label{fig:pyspark-pipeline}
 \end{figure}
@@ -374,7 +374,7 @@ Phần này mô tả workflow tổng quát của Spark theo kiến trúc top-dow
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.65\linewidth]{pySpark_highlevel.png}
+    \includegraphics[width=0.65\linewidth]{images/pySpark_highlevel.png}
     \caption{PySpark top-down architecture}
 \end{figure}
 
@@ -397,7 +397,7 @@ Phần này mô tả workflow tổng quát của Spark theo kiến trúc top-dow
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{SparkSystemOverview.png}
+    \includegraphics[width=0.75\linewidth]{images/SparkSystemOverview.png}
     \caption{Ví dụ chi tiết kiến trúc Spark: Driver, Resource Manager, Executors và Data Nodes}
 \end{figure}
 
@@ -406,7 +406,7 @@ RDD là cấu trúc dữ liệu cốt lõi của Spark, được phân tán (\te
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{pysparkRDD.png}
+    \includegraphics[width=0.9\linewidth]{images/pysparkRDD.png}
     \caption{PySpark RDD: Partition từ Disk/HDFS và xử lý In-memory}
 \end{figure}
 
@@ -463,7 +463,7 @@ Phần này trình bày các \textbf{component} chính của PySpark và cách c
 PySpark được thiết kế theo hai tầng chính:
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.65\linewidth]{pysparkLayer.png}
+    \includegraphics[width=0.65\linewidth]{images/pysparkLayer.png}
     \caption{PySpark Layer}
     \label{fig:pyspark_layer}
 \end{figure}
@@ -489,7 +489,7 @@ So sánh:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{pysparkRDD_code.png}
+    \includegraphics[width=0.7\linewidth]{images/pysparkRDD_code.png}
     \caption{PySpark RDD Workflow in Code}
 \end{figure}
 
@@ -555,7 +555,7 @@ Spark áp dụng cơ chế \textbf{Lazy Evaluation} — chỉ thực thi khi g�
 \textbf{Cache vs Persist}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{spark_StorageLevel.png}
+    \includegraphics[width=0.7\linewidth]{images/spark_StorageLevel.png}
     \caption{PySpark Storage Optimization with Stoage Level}
 \end{figure}
 
@@ -579,7 +579,7 @@ Khác với Cache/Persist (lưu tạm thời trong bộ nhớ hoặc ổ đĩa l
 \textbf{Sklearn}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{sklearnFlow.png}
+    \includegraphics[width=0.7\linewidth]{images/sklearnFlow.png}
     \caption{Sklearn Training workflow}
 \end{figure}
 
@@ -587,7 +587,7 @@ Khác với Cache/Persist (lưu tạm thời trong bộ nhớ hoặc ổ đĩa l
 \textbf{PySpark}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{pysparkFlow.png}
+    \includegraphics[width=0.7\linewidth]{images/pysparkFlow.png}
     \caption{Pyspark Training workflow}
 \end{figure}
 
