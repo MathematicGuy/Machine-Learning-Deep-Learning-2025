@@ -23,19 +23,6 @@
 \usepackage{tabularx}
 \input{glyphtounicode}
 
-
-%----------FONT OPTIONS----------
-% sans-serif
-% \usepackage[sfdefault]{FiraSans}
-% \usepackage[sfdefault]{roboto}
-% \usepackage[sfdefault]{noto-sans}
-% \usepackage[default]{sourcesanspro}
-
-% serif
-% \usepackage{CormorantGaramond}
-% \usepackage{charter}
-
-
 \pagestyle{fancy}
 \fancyhf{} % clear all header and footer fields
 \fancyfoot{}
@@ -127,7 +114,7 @@
 	\resumeSubHeadingListStart
 	\resumeSubheading
 		{CMC University} {Hà Đông, Hà Nội}
-		{Bằng Cử Nhân Công Nghệ Thông Tin \textbar \ GPA: 3.09}{09/2022 -- 10/2025}
+		{Bằng Cử Nhân Công Nghệ Thông Tin \textbar \ GPA: 3.22}{09/2022 -- 10/2025}
 		\resumeItem{Đạt giải khuyến khích cuộc thi nghiên cứu khoa học cấp trường}
 		\resumeItem{Các môn học tiêu biểu: Học sâu và ứng dụng, Thị giác máy tính, Xử lý ngôn ngữ tự nhiên, Phân tích dữ liệu lớn}
 	\resumeSubHeadingListEnd
@@ -177,20 +164,19 @@
 			\resumeItemListEnd
 
 		\resumeProjectHeading
-		        {\textbf{Phân loại văn bản sử dụng Transformer (Self-Attention \& Embeddings)}}{02/2024 -- 02/2024}
-	            \resumeItemListStart
-		            \resumeItem{Mục đích: triển khai mô hình phân loại văn bản từ báo bằng cơ chế tự chú ý (self-attention) và nhúng từ (word embeddings) sử dụng PyTorch, để hiểu hơn về kiến trúc và cách hoạt động của Transformer.}
-		            \resumeItem{Xây dựng lớp `Head` tùy chỉnh để thực hiện cơ chế tự chú ý, bao gồm các phép biến đổi tuyến tính riêng biệt cho Key, Query, Value từ vector đầu vào, sau đó tính toán trọng số chú ý thông qua tích vô hướng và hàm softmax, cũng như scaling factor `sqrt(d\_k)` để duy trì ổn định gradient.}
-		            \resumeItem{Thiết lập pipeline xử lý văn bản với `torchtext`  sử dụng `basic\_english` tokenizer để xây dựng từ vựng với token}
-		            \resumeItem{Sử dụng lớp `nn.Embedding` của PyTorch để ánh xạ các chỉ số token rời rạc thành các vector nhúng, giúp mô hình nắm bắt được các mối quan hệ ngữ nghĩa tiềm ẩn giữa các từ trong không gian liên tục.}
-		            \resumeItem{Trực quan hóa các vector nhúng trong không gian 3D bằng `matplotlib`, giúp phân tích và đánh giá trực quan về cách các từ được biểu diễn và mối quan hệ ngữ nghĩa của chúng sau quá trình nhúng.}
-		            \resumeItemListEnd
-
-
+		        {\textbf{Agentic RAG for Multiple Choice Question Validation with Automatic Validation)}}{05/2024 -- 09/2024}
+	            	 \resumeItemListStart
+		            \resumeItem{Mục đích: Xây dựng quy trình RAG cho API tạo sinh câu hỏi trắc nghiệm cho chủ đề học thuật từ file pdf tiếng việt có cơ chế kiểm tra chất lượng và ước tính độ khó câu hỏi tự động}
+ 		            \resumeItem{Tiền xử lý PDF sang markdown và phân tích cú pháp PDF với LLM, thiết kế prompt để trích xuất khái niệm, công thức, ví dụ và tóm tắt tự động}
+			  \resumeItem{Thiết lập chuẩn đánh giá chất lượng câu hỏi và độ khó với rule-based dựa trên ngữ cảnh truy hồi và độ tương đồng giữa phương án đúng và sai}
+ 		            \resumeItem{Trực quan hóa các tiêu chuẩn độ khó, giúp LLM đánh giá và phân loại câu hỏi trắc nghiệm đúng độ khó mong muốn}
+ 		            \resumeItem{Chất lượng truy hồi đúng dữ liệu của môn học từ cơ sở dữ liệu vector đạt 89\% sử dụng mô hình Embedding đa ngôn ngữ}
+		            \resumeItem{Xây dựng và Triển khai API cho RAG trên huggingface với Docker đảm bảo tốc độ tạo sinh 0 câu/phút, chi phí cho 50 câu dưới 1500 đồng}
+	\resumeItemListEnd
 	\resumeSubHeadingListEnd
 
 %----------- ACHIEVEMENT -----------
-\section{Chứng chỉ}
+\section{Chứng chỉ}	
 	\resumeSubHeadingListStart
 		\resumeSubheading
 			{Samsung Innovation Campus AI Program}{06/2023 -- 09/2024}
@@ -210,9 +196,9 @@
 \begin{itemize}[leftmargin=0.15in, label={}]
 \small{\item{
 	\textbf{Languages}{: Java, C\#, Python, SQL (Postgres), MongoDB (NoSQL), JavaScript, HTML/CSS} \\
-	\textbf{AI/ML Frameworks \& Libraries}{: PyTorch, TensorFlow, Scikit-learn, LangChain, OpenCV, MediaPipe, Streamlit, Spacy} \\
-	\textbf{Developer Tools}{: Git, Docker, Flask, FastAPI, PostmanAPI} \\
-	\textbf{Big Data \& Cloud (Optional)}{: Hadoop, Google Cloud Platform}
+	\textbf{AI/ML Frameworks \& Libraries}{: PyTorch, TensorFlow, , LangChain, OpenCV, MediaPipe, Streamlit, } \\
+	\textbf{Developer Tools}{: Git, Docker, FastAPI, PostmanAPI} \\
+	\textbf{Big Data \& Cloud (Optional)}{: Hadoop, Apache Spark}
 }}
 \end{itemize}
 %-------------------------------------------
