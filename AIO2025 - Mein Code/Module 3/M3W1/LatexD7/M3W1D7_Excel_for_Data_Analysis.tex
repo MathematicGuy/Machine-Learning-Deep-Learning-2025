@@ -145,12 +145,23 @@ Khối lượng dữ liệu toàn cầu đã tăng mạnh trong hơn một thậ
 
 \subsection{Quy trình phân tích dữ liệu}
 \begin{enumerate}
-    \item \textbf{Xác định vấn đề:} Bắt đầu với câu hỏi đúng, xác định chỉ số kinh doanh cần phân tích.
+	\item \textbf{Xác định vấn đề:} Bắt đầu với câu hỏi đúng, xác định chỉ số kinh doanh cần phân tích.
+    \textit{Ví dụ: Shopee muốn biết vì sao tỷ lệ huỷ đơn tăng 12\% trong tháng 11 (tháng sale 11.11).}
+
     \item \textbf{Thu thập dữ liệu:} Lấy dữ liệu từ cơ sở dữ liệu, file, API, khảo sát.
+    \textit{Ví dụ: Lấy dữ liệu đơn hàng từ hệ thống Shopee, dữ liệu phản hồi từ khách hàng, và dữ liệu vận chuyển từ đối tác giao hàng.}
+
     \item \textbf{Làm sạch dữ liệu:} Xử lý dữ liệu thiếu, loại bỏ trùng lặp, ngoại lai.
+    \textit{Ví dụ: Loại bỏ các đơn hàng thử nghiệm của shop, xử lý các bản ghi thiếu thông tin địa chỉ.}
+
     \item \textbf{Khám phá dữ liệu:} Thống kê mô tả, trực quan hoá để hiểu cấu trúc.
+    \textit{Ví dụ: Vẽ biểu đồ tỷ lệ huỷ theo tỉnh/thành phố để phát hiện TP.HCM và Hà Nội có tỷ lệ cao bất thường.}
+
     \item \textbf{Phân tích \& mô hình hoá:} Áp dụng thống kê, học máy để tìm mối quan hệ.
+    \textit{Ví dụ: Xây dựng mô hình để phân tích mối quan hệ giữa thời gian giao hàng và khả năng khách huỷ đơn.}
+
     \item \textbf{Diễn giải \& hành động:} Chuyển kết quả thành insight, hỗ trợ quyết định.
+    \textit{Ví dụ: Đề xuất Shopee hợp tác thêm đối tác vận chuyển trong giai đoạn flash sale để giảm tỷ lệ huỷ do giao chậm.}
 \end{enumerate}
 Trong bài ngày hôm nay, chúng ta sẽ đi từ tổng quan tới từng truy trình để phân tích dữ liệu với ví dụ cụ thể (i.e. use case) và vì sao mình nên dùng Excel cho công việc có dữ liệu < 1 triệu mẫu thay vì dùng Code để phân tích mất nhiều thời gian.
 
