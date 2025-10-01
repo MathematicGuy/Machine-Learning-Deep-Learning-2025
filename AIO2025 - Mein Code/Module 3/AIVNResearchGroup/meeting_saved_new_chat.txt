@@ -1,0 +1,422 @@
+20:37:40 From Bá Anh to Everyone:
+	trường họp cơ quan chính phủ thường áp dụng cho những bài toán ntn vậy ạ
+	
+20:40:08 From Đinh Hà to Everyone:
+	Prescriptive analysis thì sẽ nằm ở cấp độ nào thế ạ?
+	
+20:49:59 From Nguyễn Phúc Thịnh to Everyone:
+	Replying to "Prescriptive analysis thì sẽ nằm ở cấp độ nào thế ...":
+	Dạ nằm ở cấp độ cuối cùng của 4 bước phân tích dữ liệu ạ
+	
+20:50:10 From Nguyễn Phúc Thịnh to Everyone:
+	Replying to "Prescriptive analysis thì sẽ nằm ở cấp độ nào thế ...":
+	https://www.pluralsight.com/resources/blog/ai-and-data/data-informed-decisions
+	
+20:52:43 From Học Vẹt to Everyone:
+	đốt ads khoẻ =))
+	
+20:56:19 From Đinh Nhật Thành to Everyone:
+	population tính toàn bộ nên chia cho n, còn sample chỉ tính 1 phần nên chia n-1
+	
+20:57:24 From Nam Khanh to Everyone:
+	sample nhỏ thì dùng n-1 vì sai số xảy ra nhiều nên n-1 hãm lại sự sai số hoặc làm nhỏ giá trị, còn population lớn thì tầm 50-100-1000 thì n-1 có thể bỏ qua thành n
+	
+20:59:47 From Hoàn NT to Everyone:
+	Phương sai là trung bình bình phương độ lệch xung quanh giá trị TRUNG BÌNH, thế tại sao người ta ko tính tổng độ lệch bình phương xung quanh TRUNG VỊ ah
+	
+21:01:36 From Học Vẹt to Everyone:
+	Replying to "Phương sai là trung bình bình phương độ lệch xung ...":
+	@Hoàn NT Giá trị trung bình là giá trị để cực tiểu hoá tổng bình phương sai số. Nếu lấy trung vị thì tổng bình phương sai số không đạt cực tiểu.
+	
+21:02:44 From Học Vẹt to Everyone:
+	Replying to "Phương sai là trung bình bình phương độ lệch xung ...":
+	Nếu chọn trung vị thì nó sẽ cực tiểu hoá 1 metric khác là tổng độ lệch tuyệt đối đạt nhỏ nhất
+	
+21:02:54 From Đinh Hà to Everyone:
+	dùng hằng ngày ạ :))
+	
+21:05:11 From Học Vẹt to Everyone:
+	PivotTable nó có tương đương với phép nào trong SQL không ad
+	
+21:05:33 From Diệp Bảo Cường to Everyone:
+	Replying to "PivotTable nó có tương đương với phép nào trong SQ...":
+	SQL có PIVOT, mà hơi cực
+	
+21:06:28 From Đồng Sdr to Everyone:
+	vd: Groupby, trong Pv mình chỉ việc kéo thả
+	
+21:07:06 From Đinh Nhật Thành to Everyone:
+	Vậy nó tự động tạo bảng dựa theo dữ liệu Filter ạ ?
+	
+21:08:21 From Nguyễn Phúc Thịnh to Everyone:
+	Replying to "Vậy nó tự động tạo bảng dựa theo dữ liệu Filter ạ ...":
+	Dựa theo filter và góm nhóm ạ
+	
+21:08:33 From Lam Duy to Everyone:
+	Replying to "Vậy nó tự động tạo bảng dựa theo dữ liệu Filter ạ ...":
+	Đúng rồi, và mình chọn loại dữ liệu tùy ý
+	
+21:08:56 From Học Vẹt to Everyone:
+	Cầm tay chỉ việc =))
+	
+21:09:57 From AI VIET NAM (TA Khoa) to Everyone:
+	Em chào anh/chị em gửi link về phần hands-on exercise . Bao gồm bài tập, data, hướn dẫn giải bài tập
+	https://drive.google.com/drive/folders/1H8HBLbRNG1O0_gffbUykrMcKpeUvIbum?usp=drive_link 
+	
+21:10:37 From Nguyễn Phúc Thịnh to Everyone:
+	Replying to "Em chào anh/chị em gửi link về phần hands-on exerc...":
+	Dạ cảm ơn TA ạ
+	
+21:12:41 From Học Vẹt to Everyone:
+	Replying to "Em chào anh/chị em gửi link về phần hands-on exerc...":
+	2 TA cảm ơn nhau à =))
+	
+21:13:02 From Dennis Nguyễn to Everyone:
+	Hi, I’m transcribing this call with my Tactiq AI Extension: https://tactiq.io/r/transcribing
+	
+21:13:13 From Dang Ngoc Anh to Everyone:
+	Hi, I’m transcribing this call with my Tactiq AI Extension: https://tactiq.io/r/transcribing
+	
+21:13:14 From Nguyễn Phúc Thịnh to Everyone:
+	Replying to "Em chào anh/chị em gửi link về phần hands-on exerc...":
+	@Học Vẹt Em chưa là TA anh ơi, em là học xin thuii
+	
+21:13:20 From Nguyễn Phúc Thịnh to Everyone:
+	Dạ rõ ạ
+	
+21:13:22 From dung trieu to Everyone:
+	có a
+	
+21:13:23 From Hakabi to Everyone:
+	Nghe TA
+	
+21:13:25 From Khánh KDN to Everyone:
+	hơi ồm
+	
+21:13:25 From roht to Everyone:
+	Nghe tiếng TA nó "bass" thế nhỉ
+	
+21:13:26 From Đinh Nhật Thành to Everyone:
+	có ạ
+	
+21:13:32 From Đinh Nhật Thành to Everyone:
+	giống bass thật
+	
+21:13:38 From Lam Duy to Everyone:
+	hơi ồm tí thật
+	
+21:13:44 From Khánh KDN to Everyone:
+	đừng nói sát mic TA ơi
+	
+21:13:56 From Khánh KDN to Everyone:
+	ok
+	
+21:13:59 From Đinh Nhật Thành to Everyone:
+	đỡ hơn rồi a
+	
+21:13:59 From Hakabi to Everyone:
+	rõ rồi á
+	
+21:15:24 From Đinh Nhật Thành to Everyone:
+	:)) chết rồi, em dùng gg sheet
+	
+21:15:32 From My Lê Thị Diễm to Everyone:
+	wps thì sao ạ?
+	
+21:15:44 From Thành Vinh Nguyễn to Everyone:
+	phần này ở đâu ad nhỉ bấm vào slot ko thấy
+	
+21:16:00 From Lam Duy to Everyone:
+	thấy rồi ad
+	
+21:16:03 From Bá Anh to Everyone:
+	thấy rồi TA
+	
+21:16:18 From Nguyễn Phúc Thịnh to Everyone:
+	Replying to "phần này ở đâu ad nhỉ bấm vào slot ko thấy":
+	Phần này là phần nào ạ anh ơi, link data ở đây ạ:
+	https://drive.google.com/drive/folders/1H8HBLbRNG1O0_gffbUykrMcKpeUvIbum?usp=drive_link
+	
+21:16:35 From Thành Vinh Nguyễn to Everyone:
+	Replying to "phần này ở đâu ad nhỉ bấm vào slot ko thấy":
+	mik cảm ơn nhá
+	
+21:31:55 From My Lê Thị Diễm to Everyone:
+	TA cho em xin trang HTML này ạ
+	
+21:40:04 From Dennis Nguyễn to Everyone:
+	Lợi nhuân là khoản thu về sau thuế đúng ko ạ?
+	
+21:40:45 From Diệp Bảo Cường to Everyone:
+	Replying to "Lợi nhuân là khoản thu về sau thuế đúng ko ạ?":
+	đây mới là gross profit đơn giản bằng doanh thu - giá vốn thôi
+	
+21:42:23 From dung trieu to Everyone:
+	Replying to "Lợi nhuân là khoản thu về sau thuế đúng ko ạ?":
+	doanh số  - chiết khấu - hàng trả - giá vốn nha
+	
+21:52:33 From roht to Everyone:
+	anh chị làm trong ngành cho em hỏi, khối lượng cv của DA mỗi ngày là phải làm 1 cái giống như này ạ 🤔
+	My Lê Thị Diễm, Đinh Nhật Thành:❤️
+	Đinh Nhật Thành, Lam Duy:👍
+	Hung Dang:😂
+	
+21:53:01 From Đinh Nhật Thành to Everyone:
+	cùng thắc mắc luon
+	
+21:53:19 From Học Vẹt to Everyone:
+	Replying to "anh chị làm trong ngành cho em hỏi, khối lượng cv ...":
+	Trước đọc cuốn sách nào nói cái môn này nếu tj động hoá + mẫu hoá được thì làm 1 lần ăn 1 đời =))
+	roht, Nam Khanh:😮
+	
+21:53:27 From Diệp Bảo Cường to Everyone:
+	Replying to "anh chị làm trong ngành cho em hỏi, khối lượng cv ...":
+	làm 1 lần ăn mãi
+	roht, Nam Khanh:😮
+	
+21:53:46 From Diệp Bảo Cường to Everyone:
+	Replying to "anh chị làm trong ngành cho em hỏi, khối lượng cv ...":
+	xong rồi end-user không thèm dùng lại tự kéo số dựng chart riêng :v
+	
+21:54:09 From Hung Dang to Everyone:
+	Replying to "anh chị làm trong ngành cho em hỏi, khối lượng cv ...":
+	phân tích dc tới business như này phải senior rồi. DA Bình thường vẽ dashboard , làm report theo y/c của sếp là chính thôi
+	roht, My Lê Thị Diễm:😮
+	
+21:54:18 From dung trieu to Everyone:
+	Replying to "anh chị làm trong ngành cho em hỏi, khối lượng cv ...":
+	làm temp 1 lần thui,
+	còn tùy theo tháng thì hàng tháng sẽ có từ 5-7 requirement tinh chỉnh á.
+	workload thì khoảng 20-30% công việc tùy giai đoạn ạ.
+	roht, My Lê Thị Diễm:❤️
+	Lam Duy:👍
+	
+21:54:19 From Học Vẹt to Everyone:
+	Replying to "anh chị làm trong ngành cho em hỏi, khối lượng cv ...":
+	Nếu sếp không có data-driven mindset thì nhàn hơn bạn
+	Diệp Bảo Cường, roht, Lam Duy, Hien Le:😂
+	
+21:54:44 From Diệp Bảo Cường to Everyone:
+	Replying to "anh chị làm trong ngành cho em hỏi, khối lượng cv ...":
+	@Học Vẹt sếp VN thì 95% tôi nghĩ, tôi thấy
+	Học Vẹt, Đồng Sdr:😁
+	
+21:55:23 From Nguyễn Ngọc Viễn to Everyone:
+	Replying to "anh chị làm trong ngành cho em hỏi, khối lượng cv ...":
+	Anh thấy đang cung cấp dữ lieu/báo cáo theo yêu cầu thôi, chứ không đưa ra đánh giá gì nhiều.
+	roht:❤️
+	
+21:57:04 From Học Vẹt to Everyone:
+	Cái giả thuyết làm sao ra được nhỉ ad?
+	Huân Phạm:👍
+	
+21:57:05 From Lam Duy to Everyone:
+	thời gian làm 1 bài này ra kết quả trung bình bao lâu mới xong nhỉ ad? nhất là đối với newbie tự mò?
+	
+21:57:23 From Dennis Nguyễn to Everyone:
+	Từ dữ liệu này mình có dự đoan đc quý tới là lỗ hay lãi bao nhiêu % ko ạ?
+	
+21:57:15 From Khánh KDN to Everyone:
+	Cái này giống giả lập PowerBI
+	
+21:57:18 From Xuân Cường to Everyone:
+	Replying to "Lợi nhuân là khoản thu về sau thuế đúng ko ạ?":
+	Làm thế nào để đặt được các giả thuyết chính xác ạ
+	
+21:57:30 From Diệp Bảo Cường to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	này chắc phải có domain knowledge rùi
+	
+21:57:33 From dung trieu to Everyone:
+	Replying to "thời gian làm 1 bài này ra kết quả trung bình bao ...":
+	để ra được cái này thì cậu cần 1,2 tháng để hiểu domain của business cậu làm á
+	Lam Duy:👍
+	
+21:57:37 From Đinh Nhật Thành to Everyone:
+	làm bài này cũng lâu thật
+	
+21:58:06 From Xuân Cường to Everyone:
+	Làm thế nào để đặt được giả thuyết chính xác ạ
+	Trần Thảo:👍
+	
+21:59:06 From Học Vẹt to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	@Diep Bao Cuong Trả tiền cho các bác consultant để ra được các Hs này =))
+	Diệp Bảo Cường:😂
+	
+21:59:10 From Nam Khanh to Everyone:
+	Replying to "làm bài này cũng lâu thật":
+	đầu nghĩ là mình làm đk xong đến lúc mở file pdf chỉ muốn hỏi xem ad có làm vid ko
+	
+22:00:03 From Nguyễn Ngọc Viễn to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	@Học Vẹt nhiều bác Global consultant mà không am hiểu địa phương tư vấn mình cũng ăn hành ấy Anh, này bị hoài :D
+	
+22:00:34 From Lam Duy to Everyone:
+	Biết về Domain rồi có sợ Bias không ad?
+	
+22:00:41 From Nguyễn Văn Hiểu to Everyone:
+	Replying to "Làm thế nào để đặt được giả thuyết chính xác ạ":
+	mình thấy vấn đề thì có rồi. DA mục đích đưa ra đc data nào bất thg sau đó đẩy chung các bên xử lý...
+	
+22:00:58 From roht to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	@Nguyễn Ngọc Viễn đợt em nhớ có đọc về LEGO mời global consultant về tư vấn xong lỗ ngược 🫨
+	
+22:01:08 From Khánh KDN to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	:)) Muốn ra được giả thuyết lại phải biết đa lĩnh vực thì mới ra được chứ còn mỗi Tools dữ liệu không thì chẳng ra được.
+	
+22:02:05 From Học Vẹt to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	@Vien Nguyen Ngoc yes bạn. Thường họ cũng chọn vertical domain.
+	
+	Nhưng nói chung mình thấy mấy đồng chí này đáng phục thật.
+	Nguyễn Ngọc Viễn:❤️
+	
+22:02:33 From Học Vẹt to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	@roht thành bại đều có rất nhiều cases. Bạn kiếm mấy cuốn lịch sử McKinsey đọc khá vui
+	roht:❤️
+	
+22:03:14 From Nguyễn Duy Minh Hoàng to Everyone:
+	có cần phải pre-processing data trước rồi mới analysis hay bước pre-processing data cũng nằm trong quá trình analysis luôn v ad
+	
+22:03:38 From My Lê Thị Diễm to Everyone:
+	Phần thực hành này mình bắt buộc phải có Excel trên Windows sau ạ?
+	
+22:04:14 From dung trieu to Everyone:
+	thầy ơi, thầy zoom lên chút nha, chữ hơi bé ạ :D
+	
+22:04:28 From dung trieu to Everyone:
+	rồi a
+	
+22:04:29 From Nguyễn Phúc Thịnh to Everyone:
+	Dạ rồi ạ
+	
+22:04:52 From Học Vẹt to Everyone:
+	Trên Mac ko thấy Analysis Tookpak nhỉ ad Khoa
+	
+22:04:55 From Khánh KDN to Everyone:
+	Nếu là người ngoại đạo vào học buổi hôm nay thì mình quan tâm tools này sẽ mạnh như thế nào. Khả năng trực quan tới đâu. Tốc độ đưa ra được tới Infomation tới mức nào. Chứ còn phân tích thì phải từng trường hợp cụ thể. Vì trong môi trường làm việc thực tế các sếp chỉ cần đưa ra yêu cầu và khả năng mình đáp ứng phải nhanh. Còn phân tích thì việc của sếp và các cuộc họp. :))
+	
+22:05:10 From Quang Anh Cao to Everyone:
+	ok ad
+	
+22:05:15 From Hung Dang to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	Mình có 2 team, 1 team DA , 1 team cho Bu. 2 bên nếu báo cáo cho cùng 1 kết quả thì go to next step. Nhưng lúc làm thì ko tham khảo nội dung hay kết quả của nhau nên thường minh ko chọn đưa giả thuyết trước
+	Học Vẹt:❤️
+	Lam Duy:😯
+	
+22:05:59 From Hằng Dương to Everyone:
+	khi nãy ad có nhắc đến google gì vại ạ
+	
+22:06:12 From dung trieu to Everyone:
+	Replying to "Nếu là người ngoại đạo vào học buổi hôm nay thì mì...":
+	Đúng thực tế luôn này.
+	Các insight của mình chỉ là giả định để các sếp brainstorm trong các cuộc họp thui.
+	Khánh KDN:❤️
+	
+22:06:32 From Học Vẹt to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	@Hung Dang Các boss tài phiệt hay cho nhiều team làm độc lập =))
+	
+22:06:47 From AI VIET NAM (TA Khoa) to Everyone:
+	https://docs.google.com/spreadsheets/create 
+	
+22:07:12 From AI VIET NAM (TA Khoa) to Everyone:
+	em gửi link google sheet
+	Nguyễn Phúc Thịnh:❤️
+	
+22:07:34 From AI VIET NAM to Everyone:
+	marp
+	dung trieu:❤️
+	
+22:07:34 From roht to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	@Hung Dang như vậy các team có vai trò như nhau chỉ là độc lập thôi ạ ? Với lại nếu k có Hs đưa từ trên xuống trước thì các team dựa vào đâu để làm ạ?
+	
+22:07:56 From Henry Trần to Everyone:
+	AD ơi, có AIO năm nay có buổi nào học Power BI ko ạ?
+	My Lê Thị Diễm:❤️
+	
+22:08:16 From Nam Khanh to Everyone:
+	Replying to "AD ơi, có AIO năm nay có buổi nào học Power BI ko ...":
+	cùng câu hỏi
+	
+22:09:01 From Học Vẹt to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	@roht Thường mình phải tự tìm giả thuyết boss không chỉ ra sẵn đâu. Nhiệm vụ là phải tìm ra và thuyết phục boss được bạn ạ
+	roht:❤️
+	
+22:09:11 From Nguyễn Phúc Thịnh to Everyone:
+	Replying to "AD ơi, có AIO năm nay có buổi nào học Power BI ko ...":
+	Dạ theo em biết thì hiện giờ là không ạ, sẽ tập trung dùng plt với seaborn hơn là tools riêng như BI ạ
+	dung trieu:❤️
+	
+22:09:18 From AI VIET NAM to Everyone:
+	---
+	marp: true
+	---
+	Huân Phạm:❤️
+	
+22:10:06 From Khánh KDN to Everyone:
+	Replying to "Nếu là người ngoại đạo vào học buổi hôm nay thì mì...":
+	Về mảng trực quan thì PowerBI và Tableau vẫn quá mạnh. Nếu ưu tiên cho các cuộc họp quan trọng với CEO, HĐQT hoặc các giám đốc chi nhánh thì phải dùng các tools đó. Vì khả năng nén thông tin rất cao và đọc rất dễ hiểu. Bài học hôm nay đúng là chỉ để dùng cho AE kỹ thuật báo cáo thôi.
+	dung trieu:❤️
+	
+22:11:30 From Hung Dang to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	@roht scan data tìm điểm bất thường. đưa Hs trước dễ bị định hướng, nó sẽ nhanh cho người có exp thoi, trong khi các bạn DA chỉ có mỗi tech skill, cứ chăm chỉ quét dữ lieu tý là thấy chỗ lạ. Nhiều khi boss có idea rồi cần người chứng minh thôi nên sẽ ko share Hs cho bạn =]]
+	Lam Duy, roht:❤️
+	
+22:12:32 From Khánh KDN to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	Kỹ năng phân tích là điều kiện cần, kỹ năng đọc hiểu suy nghĩ của Boss là điều kiện đủ :))
+	Học Vẹt:😁
+	
+22:12:50 From Học Vẹt to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	@Hung Dang Đọc truyện nhiều case làm toét mắt để mục đích duy nhất là bác bỏ giả thuyết của Lão Đại =))
+	Hung Dang:😂
+	
+22:13:42 From Nam Khanh to Everyone:
+	quay lại với vĩ mô rồi 🥲
+	
+22:14:32 From Lam Duy to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	@Hung Dang trường hợp số liệu khác ý sếp có phương pháp nào cãi sếp mà ko bị đuổi việc ko bác :)))
+	Hung Dang:😂
+	
+22:15:57 From Khánh KDN to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	@Lam Duy Làm việc gì cũng không được cãi sếp. Nếu mình đúng thì thuyết phục sếp. Sếp ko nghe là có lý do. Cãi sếp chỉ thiệt cho mình. :)) Chẳng cần biết mình đúng tới đâu.
+	Lam Duy, Hung Dang:😂
+	
+22:16:00 From Hung Dang to Everyone:
+	Replying to "Cái giả thuyết làm sao ra được nhỉ ad?":
+	@Lam Duy nhanh trí update CV đổi cty =]]
+	Lam Duy:😂
+	
+22:32:39 From Lam Duy to Everyone:
+	ad nhắc lại cách tạo bảng trong sheet data_quality_check như nào được không?
+	
+22:33:20 From AI VIET NAM (TA Khoa) to Everyone:
+	Dạ em dùng SUMIFS
+	
+22:34:50 From Diệp Bảo Cường to Everyone:
+	sai tên cột rồi thầy
+	
+22:48:55 From Học Vẹt to Everyone:
+	Có gì lát ad export cái file md slide nhé ad
+	My Lê Thị Diễm:❤️
+	
+23:00:41 From Học Vẹt to Everyone:
+	Bán toàn lạc =))
+	nghiem quang cuong:😄
+	
+23:04:02 From Khánh KDN to Everyone:
+	Cách dùng Excel để phân tích dữ lieu này ưu điểm là nhanh. Tập trung vào các thông tin cần truy xuất ngay trên file excel không cần các bước rườm rà khác như PowerBI. Nên dùng trong trường hợp cần trích xuất thông tin ngay lúc có giả thuyết để kiểm chứng là hay nhất.
+	Học Vẹt:👍
+	

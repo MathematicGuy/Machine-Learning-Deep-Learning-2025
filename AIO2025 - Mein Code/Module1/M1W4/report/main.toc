@@ -1,0 +1,24 @@
+\babel@toc {vietnamese}{}\relax 
+\contentsline {section}{\numberline {1}Giải thích thuật ngữ cơ bản}{2}{section.1}%
+\contentsline {section}{\numberline {2}Mở rộng phần 2: User Permission}{3}{section.2}%
+\contentsline {section}{\numberline {3}Phần 3: Xử lý dữ liệu qua Command Line}{4}{section.3}%
+\contentsline {subsection}{\numberline {1}Tại sao lại Xử lý dữ liệu qua Command Line (Ưu thế và bất lợi)}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {2}Regex Expression}{4}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3}Pipe và Redirect}{7}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.1}Minh họa flow hoạt động của Pipe và Redirect}{8}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.2}Ví dụ các bước xây dựng flow hoạt động của 1 Pipeline đơn giản}{8}{subsubsection.3.3.2}%
+\contentsline {subsection}{\numberline {4}Filter Commands cho Data – Bộ lọc mạnh mẽ của Command Line}{9}{subsection.3.4}%
+\contentsline {subsection}{\numberline {5}Trích xuất dữ liệu từ files lớn}{11}{subsection.3.5}%
+\contentsline {subsection}{\numberline {6}Xử lý dữ liệu JSON với jq}{11}{subsection.3.6}%
+\contentsline {subsubsection}{\numberline {6.1}Xử lý dữ liệu JSON với jq phần 1}{11}{subsubsection.3.6.1}%
+\contentsline {subsubsection}{\numberline {6.2}Xử lý dữ liệu JSON với jq phần 2}{11}{subsubsection.3.6.2}%
+\contentsline {subsection}{\numberline {7}Xử lý CSV qua command line}{11}{subsection.3.7}%
+\contentsline {subsection}{\numberline {8}Phân tích logs với command line}{11}{subsection.3.8}%
+\contentsline {subsection}{\numberline {9}Kết hợp các commands phức tạp}{11}{subsection.3.9}%
+\contentsline {subsection}{\numberline {10}xargs - xử lý dữ liệu song song}{11}{subsection.3.10}%
+\contentsline {subsection}{\numberline {11}Xử lý dữ liệu thực tế}{11}{subsection.3.11}%
+\contentsline {subsection}{\numberline {12}Tải dữ liệu từ internet (wget, curl)}{11}{subsection.3.12}%
+\contentsline {subsection}{\numberline {13}Làm việc với files né}{11}{subsection.3.13}%
+\contentsline {subsection}{\numberline {14}giải nén và xử lý nhiều files}{11}{subsection.3.14}%
+\contentsline {subsection}{\numberline {15}Bài tập thực hành}{11}{subsection.3.15}%
+\contentsline {subsection}{\numberline {16}Tóm tắt và Tổng kết phần 3}{11}{subsection.3.16}%
