@@ -1,0 +1,206 @@
+%-------------------------
+% Resume in Latex
+% Author : Jake Gutierrez
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+\vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+	\item\small{
+	{#1 \vspace{-2pt}}
+	}
+}
+
+\newcommand{\resumeSubheading}[4]{
+	\vspace{-2pt}\item
+	\begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+		\textbf{#1} & #2 \\
+		\textit{\small#3} & \textit{\small #4} \\
+	\end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+	\begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+		\textit{\small#1} & \textit{\small #2} \\
+	\end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+	\item
+	\begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+		\small#1 & #2 \\
+	\end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+% \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+%   \textbf{\href{http://sourabhbajaj.com/}{\Large Sourabh Bajaj}} & Email : \href{mailto:sourabh@sourabhbajaj.com}{sourabh@sourabhbajaj.com}\\
+%   \href{http://sourabhbajaj.com/}{http://www.sourabhbajaj.com} & Mobile : +1-123-456-7890 \\
+% \end{tabular*}
+
+\begin{center}
+    \textbf{\Huge \scshape Đinh Nhật Thành} \\ \vspace{1pt}
+    \small 0363956098 $|$ \href{mailto:x@x.com}{\underline{dinhnhatthanh248@gmail.com}} $|$
+    \href{https://linkedin.com/in/...}{\underline{linkedin.com/in/d-nhatthanh248}} $|$
+    \href{https://github.com/...}{\underline{github.com/MathematicGuy}}
+\end{center}
+
+
+%-----------EDUCATION-----------
+\section{Học vấn}
+	\resumeSubHeadingListStart
+	\resumeSubheading
+		{CMC University} {Hà Đông, Hà Nội}
+		{Bằng Cử Nhân Công Nghệ Thông Tin \textbar \ GPA: 3.22}{09/2022 -- 10/2025}
+		\resumeItem{Đạt giải khuyến khích cuộc thi nghiên cứu khoa học cấp trường}
+		\resumeItem{Các môn học tiêu biểu: Học sâu và ứng dụng, Thị giác máy tính, Xử lý ngôn ngữ tự nhiên, Phân tích dữ liệu lớn}
+	\resumeSubHeadingListEnd
+
+%-----------EXPERIENCE-----------\section{Kinh nghiệm làm việc}
+\section{Kinh Nghiệm}
+	\resumeSubHeadingListStart
+		\resumeSubheading
+			{Thực tập sinh} {09/2024 -- 12/2024 }
+			{CMC ATI} {Hà Đông, Hà Nội}
+			\resumeItemListStart
+			\resumeItem{Mục đích: Trích xuất các thông tin mặt trước của thẻ CCCD và lưu vào hệ thống Database của Postgres}
+			\resumeItem{Phát triển hệ thống trích xuất thông tin thẻ CCCD sử dụng các mô hình VietOCR và YOLOv11 cho việc nhận diện góc và vùng thông tin (ROI) của thẻ.}
+			\resumeItem{Tái dựng góc còn thiếu sử dụng Homography và áp dụng Perspective Transformation sử dụng 4 góc thẻ CCCD để cắt ảnh thẻ hiệu quả}
+			\resumeItem{Tăng cường ảnh bằng Roboflow, thử nghiệm và so sánh các phương pháp tiền xử lý ảnh chính (như AHE, sCLAHE và Adaptive Thresholding) kết hợp với Morphological Operations cùng các kỹ thuật loại bỏ bóng, làm mờ, điều chỉnh độ sáng/tương phản tự động để xây dựng các module tiền xử lý ảnh giúp Yolov11 nâng cao độ chính xác nhận diện 4 góc thẻ CCCD lên \textbf{83\%} và độ chính xác trung bình khi trích xuất vùng thông tin (ROI) lên đến \textbf{93\%}.}
+			\resumeItem{Triển khai các phương pháp hậu xử lý như Non-Maximum Suppression (NMS) để tinh chỉnh kết quả nhận diện vùng thông tin, đảm bảo dữ liệu đầu ra sạch và chính xác.}
+			\resumeItem{Xây dựng API backend với FastAPI và PostgreSQL để quản lý, lưu trữ, và chuẩn hóa dữ liệu trích xuất bằng Regex, đảm bảo luồng thông tin liền mạch.}
+			\resumeItemListEnd
+
+		\resumeSubheading
+			{Nghiên Cứu Sinh} {03/2025 -- 7/2025} % Không cần thêm mục đích, NCS chỉ cần liệt kê các kinh nghiệm và công việc đã làm.
+			{CMC University} {Hà Đông, Hà Nội}
+			\resumeItemListStart
+			\resumeItem{Học cách đọc báo nghiên cứu và viết báo cáo latex, docx, slides chuẩn format nghiên cứu khoa học cấp trường}
+			\resumeItem{Phát triển Module nhận diện hành vi bạo lực trong môi trường học đường dưới sự hướng dẫn của ThS. Nguyễn Khánh Sơn.}
+			\resumeItem{Thiết kế và tối ưu hệ thống nhận diện bạo lực sử dụng YoloPose11m và LSTM dựa trên bài báo "Student Behavior Recognition System for the Classroom Environment Based on Skeleton Pose Estimation and Person Detection"}
+			\resumeItem{Xây dựng bộ dữ liệu tùy chỉnh sử dụng Matplolib để hình dung kết quả và xác định vấn đề trong quy trình thử nghiệm trích xuất keypoints của Yolopose11m cho 74 videos, gồm góc quay (ngang cho Kicking/Punching, dọc cho Standing) và quay toàn thân/nửa thân trên cho Punching nhằm chuẩn hóa dữ liệu giúp mô hình nắm bắt được đặc trưng của mỗi hành động tốt hơn.}
+			\resumeItem{Features Engineer qua trích xuất 17 keypoints theo chuẩn COCO  từ video và tinh chỉnh các đặc trưng (tọa độ khớp nối chuẩn hóa, khoảng cách giữa các khớp, và góc giữa các khớp) giúp tăng Mean Accuracy từ \textbf{43\%} lên \textbf{78\%.}  sử dụng Numpy để tối ưu hiệu suất.}
+			\resumeItem{Phát triển \& tối ưu mô hình học sâu: Xây dựng và tối ưu các mô hình (LSTM, GRU, DNN) trên TensorFlow áp dụng các kỹ thuật Dropout, L2 Regularization để giảm thiểu overfitting, tăng cường khả năng tổng quát hóa của mô hình và Adam Optimizer để tinh chỉnh tham số.}
+			\resumeItem{Tiền xử lý dữ liệu video bằng OpenCV và chia tập huấn luyện/kiểm tra với K-Fold Cross-Validation sử dụng Scikit-learn, đảm bảo đánh giá hiệu suất mô hình đáng tin cậy và tận dụng tối đa dữ liệu hạn chế; tận dụng CUDA để tăng tốc các mô hình học sâu.}
+
+			\resumeItemListEnd
+	\resumeSubHeadingListEnd
+
+%-----------PROJECTS -----------
+\section{Dự án}
+	\resumeSubHeadingListStart
+		\resumeProjectHeading % Use resumeProjectHeading for better formatting
+			{\textbf{Naive RAG for Question Answering \& Multiple Choice Question Generation}}{06/2024 -- 09/2024}
+			\resumeItemListStart
+			\resumeItem{Mục Đích: Tóm tắt hoặc Tạo sinh sinh nhiều câu trả lời trắc nhiệm dựa trên nội dung PDF}
+			\resumeItem{Xử lý và phân tích files sử dụng PDFReader, Pandas để xác định tần suất token, đảm bảo context windown của mô hình LLM}
+			\resumeItem{So sánh phương pháp Chunking Recursive Chunking và Dynamic Chunking để cải thiện quá trình Chunking}
+			\resumeItem{Áp dụng Flash Attention, CUDA và nf4 quantization để tăng tốc mô hình LLM cho tạo sinh và Embedding cho quá trình so sánh các mô hình embedding trên các tập dữ STS-B, QQP và MRPC}
+			\resumeItem{Nghiên cứu và so sánh hiệu quả giữa 2 phương pháp Chunking (Recursive Chunking và Dynamic Chunking) để tìm ra thuật toán Chunking tối ưu cho việc trích xuất ngữ cảnh.}
+			\resumeItem{Tinh chỉnh đầu ra LLM sử dụng Prompt Engineering để đảm bảo câu hỏi trắc nghiệm được tạo sinh có cấu trúc chuẩn và dễ dàng trích xuất bằng Regex.}
+			\resumeItemListEnd
+
+		\resumeProjectHeading
+		        {\textbf{Agentic RAG for Multiple Choice Question Validation with Automatic Validation)}}{05/2024 -- 09/2024}
+	            	 \resumeItemListStart
+		            \resumeItem{Mục đích: Xây dựng quy trình RAG cho API tạo sinh câu hỏi trắc nghiệm cho chủ đề học thuật từ file pdf tiếng việt có cơ chế kiểm tra chất lượng và ước tính độ khó câu hỏi tự động}
+ 		            \resumeItem{Tiền xử lý PDF sang markdown và phân tích cú pháp PDF với LLM, thiết kế prompt để trích xuất khái niệm, công thức, ví dụ và tóm tắt tự động}
+			  \resumeItem{Thiết lập chuẩn đánh giá chất lượng câu hỏi và độ khó với rule-based dựa trên ngữ cảnh truy hồi và độ tương đồng giữa phương án đúng và sai}
+ 		            \resumeItem{Trực quan hóa các tiêu chuẩn độ khó, giúp LLM đánh giá và phân loại câu hỏi trắc nghiệm đúng độ khó mong muốn}
+ 		            \resumeItem{Chất lượng truy hồi đúng dữ liệu của môn học từ cơ sở dữ liệu vector đạt 89\% sử dụng mô hình Embedding đa ngôn ngữ}
+		            \resumeItem{Xây dựng và Triển khai API cho RAG trên huggingface với Docker đảm bảo tốc độ tạo sinh 15 câu/phút, chi phí cho 50 câu dưới 1000 đồng}
+	\resumeItemListEnd
+	\resumeSubHeadingListEnd
+
+%----------- ACHIEVEMENT -----------
+\section{Chứng chỉ}	
+	\resumeSubHeadingListStart
+		\resumeSubheading
+			{Samsung Innovation Campus AI Program}{06/2023 -- 09/2024}
+			{Samsung Innovation Campus}{Samsung}
+
+		\resumeSubheading
+			{Linear Algebra for Machine Learning and Data Science}{07/2024 -- 09/2024}
+			{DeepLearning.ai}{Coursera}
+
+		\resumeSubheading
+			{Calculus for Machine Learning and Data Science} {09/2024 -- 10/2024}
+			{DeepLearning.ai}{Coursera}
+	\resumeSubHeadingListEnd
+
+%-----------PROGRAMMING SKILLS-----------
+\section{Kỹ Năng Chuyên Môn}
+\begin{itemize}[leftmargin=0.15in, label={}]
+\small{\item{
+	\textbf{Languages}{: Java, C\#, Python, SQL (Postgres), MongoDB (NoSQL), JavaScript, HTML/CSS} \\
+	\textbf{AI/ML Frameworks \& Libraries}{: PyTorch, TensorFlow, , LangChain, OpenCV, MediaPipe, Streamlit, } \\
+	\textbf{Developer Tools}{: Git, Docker, FastAPI, PostmanAPI} \\
+	\textbf{Big Data \& Cloud (Optional)}{: Hadoop, Apache Spark}
+}}
+\end{itemize}
+%-------------------------------------------
+
+\end{document}
