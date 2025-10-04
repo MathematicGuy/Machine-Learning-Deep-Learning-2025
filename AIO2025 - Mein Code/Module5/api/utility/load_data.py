@@ -33,17 +33,17 @@ def load_echonet_with_kagglehub():
         # Download the dataset - this will download all files including Videos folder
         dataset_path = kagglehub.dataset_download("mahnurrahman/echonet-dynamic")
         print(f"Dataset downloaded to: {dataset_path}")
-		
+
         # The dataset should now be available at the downloaded path
         dataset_path = Path(dataset_path)
 
         # Check structure
-        print("Dataset structure:")
-        for item in dataset_path.rglob("*"):
-            if item.is_file():
-                print(f"  File: {item.relative_to(dataset_path)}")
-            elif item.is_dir():
-                print(f"  Dir: {item.relative_to(dataset_path)}/")
+        # print("Dataset structure:")
+        # for item in dataset_path.rglob("*"):
+        #     if item.is_file():
+        #         print(f"  File: {item.relative_to(dataset_path)}")
+        #     elif item.is_dir():
+        #         print(f"  Dir: {item.relative_to(dataset_path)}/")
 
         # Load FileList.csv
         filelist_path = None
