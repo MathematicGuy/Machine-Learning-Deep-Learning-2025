@@ -27,8 +27,9 @@ def extract_single_video_features(video_path, cnn_model, transform, max_frames=1
         video = imageio.get_reader(str(video_path))
 
         # Extract frames (uniformly sampled)
-        total_frames = len(video)  # Fixed: use len() instead of count_frames()
+        total_frames = video.count_frames()
         frame_indices = np.linspace(0, total_frames-1, min(max_frames, total_frames), dtype=int)
+
         frame_features = []
 
         for idx in frame_indices:
@@ -84,7 +85,6 @@ def preprocessing_pipeline(
     Returns:
         numerical_input: Tensor ready for model input (1, n_features)
         cnn_input: Tensor ready for model input (1, 64) or None
-        label: Ground truth label (if available)
         sample_info: Dictionary with patient information
     """
 
@@ -145,7 +145,7 @@ def preprocessing_pipeline(
 
         # Get specific video filename
         if video_index < len(echonet_filelist):
-            video_filename = echonet_filelist.iloc[video_index]['FileName']
+            video_filename = f"{echonet_filelist.iloc[video_index]['FileName']}.avi"
             video_path = videos_path / video_filename
 
             print(f"  ✓ Processing video: {video_filename}")
@@ -183,7 +183,7 @@ def preprocessing_pipeline(
 
     # Move to device if CUDA is available
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    print('output device:', device)
+    print(f'  ✓ Output device: {device}')
     numerical_input = numerical_input.to(device)
     if cnn_input is not None:
         cnn_input = cnn_input.to(device)
