@@ -131,6 +131,7 @@ def preprocessing_pipeline(
         echonet_features = np.load(echonet_features_path)
 
         if video_index < len(echonet_features):
+            print('echo data video_index:', video_index)
             single_cnn_feature = echonet_features[video_index:video_index+1]
             print(f"  ✓ Extracted feature shape: {single_cnn_feature.shape}")
         else:
@@ -148,7 +149,7 @@ def preprocessing_pipeline(
             video_filename = f"{echonet_filelist.iloc[video_index]['FileName']}.avi"
             video_path = videos_path / video_filename
 
-            print(f"  ✓ Processing video: {video_filename}")
+            print(f"  ✓ Processing video: {video_filename} from {video_path}")
 
             # Extract features for this single video
             single_cnn_feature = extract_single_video_features(

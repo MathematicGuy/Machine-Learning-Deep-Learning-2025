@@ -141,8 +141,6 @@ def get_video_index_from_filename(filename: str):
         if echonet_filelist is None:
             raise HTTPException(status_code=500, detail="Failed to load EchoNet dataset")
 
-        # Remove .avi extension if present for matching
-        # EchoNet FileList stores filenames WITHOUT extension, but users might include it
         filename_without_ext = filename.replace('.avi', '')
 
         # Find the index by searching through the FileList
