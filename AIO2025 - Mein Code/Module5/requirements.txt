@@ -4,7 +4,7 @@ opencv-python
 seaborn
 torch
 IPython
-imageio@
+imageio
 Pillow
 matplotlib
 scikit-learn
