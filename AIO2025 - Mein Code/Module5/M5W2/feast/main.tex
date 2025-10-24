@@ -6,7 +6,7 @@
 
 
 % Biblatex + biber
-\usepackage[backend=biber, style=numeric-comp, autolang=other]{biblatex}
+% \usepackage[backend=biber, style=numeric-comp, autolang=other]{biblatex}
 
 %\addbibresource{references.bib} # tham khao
 
@@ -109,14 +109,32 @@ Nội dung về được chia thành 5 phần chính:
 
 % --- PHẦN 1 ---
 \section{Intro: Từ ETL, Processing, Data Versoning đến Feature Store}
+
 Hành trình của dữ liệu bắt đầu từ quy trình ETL (Extract, Transform, Load) để thu thập, chuẩn hóa dữ liệu thô từ nhiều nguồn đa dạng và làm sạch, biến đổi chúng rồi lưu trữ vào 1 trung tâm lưu trữ tập trung như Data Warehouse. \\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/etl.png}
+    \caption{ETL pipeline} 
+\end{figure}
 
-Tuy nhiên, thực tế có dữ liệu "động" cập nhập liên tục (Streaming data như tin nhắn, đơn hàng) và dữ liệu "tĩnh" được lưu ít thay đổi (static như sách, CCCD), tạo ra nhu cầu cho các phương pháp xử lý tinh vi hơn như Apache Spark cho phép ta xử lý đa luồng dữ liệu phức tạp cả tĩnh và động. Đồng thời hỗ trợ các tác vụ truy vấn (SparkSQL) và học máy (MLlib).
+Tuy nhiên, trong thực tế để xử lý 1 lượng dữ liệu lớn là "động" được cập nhập liên tục (Streaming data như tin nhắn, đơn hàng shopee) và dữ liệu "tĩnh" ít thay đổi sau khi lưu (static như sách, thông tin cá nhân) tạo nhu cầu cho 1 phương pháp xử lý tinh vi hơn như Apache Spark cho phép ta xử lý đa luồng dữ liệu phức tạp cả tĩnh và động. Đồng thời hỗ trợ các tác vụ truy vấn (SparkSQL) và học máy (MLlib).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/proces.png}
+    \caption{Process pipeline}
+\end{figure}
 
-Chính sự
+Chính vì sự phát triển của các quy trình học máy đã tạo ra thách thức để quản lý mỗi phiên bản dữ liệu/mô hình bao gồm quản lý vô số artifacts như tệp tham số, phiên bản mô hình và bộ dữ liệu mới được tạo ra. Với Data Versioning, nó đảm bảo khả năng theo dõi, kiểm soát và tái thử nghiệm tương tự như cách Git quản lý mã nguồn. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/dt_ver.png}
+    \caption{Data versioning Pipeline}
+\end{figure}
+
+Cuối cùng sau khi đã lưu dữ liệu vào trung tâm lưu trữ data warehouse, xử lý dữ liệu lượng lớn cả tĩnh và động nhờ Apache Spark sau đó quản lý mỗi phiên bản dữ liệu/mô hình khi huấn luyện với data versioning, 1 câu hỏi được đặt ra là làm thế nào để kết hợp cả 3 quy trình để chuẩn hóa, lưu trữ rồi phục vụ các đặc trưng đã xử lý 1 cách nhất quán cho cả việc huấn luyện mô hình (training) và dự đoán (inference). Tất cả các bước trên đề hội tụ về một giải pháp trung tâm và hiệu quả: Feature Store. 
 
 
-\subsection{ML/AI Project Lifecycle - Giới thiệu vòng đời của 1 dự án Học Máy}
+\section{ML/AI Project Lifecycle - Giới thiệu vòng đời của 1 dự án Học Máy}
 \textbf{Data Engineering}
 \textbf{Modeling}
 \textbf{Deployment}
@@ -143,3 +161,4 @@ Feast thật sự là gì trong Feature ? (triết lý của Feast)
 %\printbibliography % Bỏ comment dòng này nếu bạn có tệp .bib
 
 \end{document}
+
