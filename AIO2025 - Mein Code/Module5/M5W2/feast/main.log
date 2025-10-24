@@ -547,7 +547,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 Package hyperref Info: Option `colorlinks' set `true' on input line 35.
 
 (D:\App\MikTex\tex/latex/psnfss\pifont.sty
-Package: pifont 2020/03/25 PSNFSS-v9.3 Pi font support (SPQR) 
+Package: pifont 2020/03/25 PSNFSS-v9.3 Pi font support (SPQR)
 LaTeX Font Info:    Trying to load font information for U+pzd on input line 63.
 
 
@@ -1010,7 +1010,7 @@ Package pdftex.def Info: images/dt_ver.png  used on input line 130.
 [3] (main.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
-L3 programming layer <2025-08-13>
+L3 programming layer <2025-09-02>
  ***********
 
 
@@ -1021,7 +1021,7 @@ Package rerunfilecheck Warning: File `main.out' has changed.
 Package rerunfilecheck Info: Checksums for `main.out':
 (rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
 (rerunfilecheck)             After:  522DA77DADC78B9F87B8709EBA2DDC2F;1578.
- ) 
+ )
 Here is how much of TeX's memory you used:
  28599 strings out of 468132
  553523 string characters out of 5445605
@@ -1043,4 +1043,3 @@ PDF statistics:
  368 PDF objects out of 1000 (max. 8388607)
  12 named destinations out of 1000 (max. 500000)
  28 words of extra memory for PDF output out of 10000 (max. 10000000)
-

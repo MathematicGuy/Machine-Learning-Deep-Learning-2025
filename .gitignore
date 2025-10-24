@@ -39,4 +39,4 @@ AIO2025 - Mein Code/Streamlit
 *.bin
 
 __pycache__
-*/pycache/
+*/pycache/inventory_optimization
