@@ -51,13 +51,11 @@
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
-      <file>blx-unicode.def</file>
       <file>blx-compat.def</file>
       <file>biblatex.def</file>
       <file>standard.bbx</file>
-      <file>numeric.bbx</file>
-      <file>numeric-comp.bbx</file>
-      <file>numeric-comp.cbx</file>
+      <file>alphabetic.bbx</file>
+      <file>alphabetic.cbx</file>
       <file>biblatex.cfg</file>
       <file>english.lbx</file>
     </requires>
@@ -79,6 +77,9 @@
     </provides>
     <requires type="dynamic">
       <file>main.bcf</file>
+    </requires>
+    <requires type="editable">
+      <file>references.bib</file>
     </requires>
   </external>
 </requests>
