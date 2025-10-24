@@ -99,7 +99,7 @@
 \begin{summarybox}
 Nội dung về được chia thành 5 phần chính:
     \begin{itemize}
-	\item \textbf{Revision: Data Versioning và ETL pipeline}	
+	\item \textbf{Revision: Data Versioning và ETL pipeline}
 	\item \textbf{Overview: Giới thiệu vòng đời của 1 dự án Học Máy}
 	\item \textbf{Feature Store và Feast là gì ?}
 	\item \textbf{Case Study}
@@ -108,23 +108,30 @@ Nội dung về được chia thành 5 phần chính:
 \end{summarybox}
 
 % --- PHẦN 1 ---
+\section{Intro: Từ ETL, Processing, Data Versoning đến Feature Store}
+Hành trình của dữ liệu bắt đầu từ quy trình ETL (Extract, Transform, Load) để thu thập, chuẩn hóa dữ liệu thô từ nhiều nguồn đa dạng và làm sạch, biến đổi chúng rồi lưu trữ vào 1 trung tâm lưu trữ tập trung như Data Warehouse. \\
 
-\section{Intro: Nhắc lại Data Versoning và quy trình ETL}	
+Tuy nhiên, thực tế có dữ liệu "động" cập nhập liên tục (Streaming data như tin nhắn, đơn hàng) và dữ liệu "tĩnh" được lưu ít thay đổi (static như sách, CCCD), tạo ra nhu cầu cho các phương pháp xử lý tinh vi hơn như Apache Spark cho phép ta xử lý đa luồng dữ liệu phức tạp cả tĩnh và động. Đồng thời hỗ trợ các tác vụ truy vấn (SparkSQL) và học máy (MLlib).
 
-\section{Giới thiệu vòng đời của 1 dự án Học Máy}
+Chính sự
 
-Vòng đời dự án ML -> Cơ sở hạ tầng AI.
 
-6 vai trò trong Team AI. 
-
-Vấn đề chính trong ML Proj life cycle. 
+\subsection{ML/AI Project Lifecycle - Giới thiệu vòng đời của 1 dự án Học Máy}
+\textbf{Data Engineering}
+\textbf{Modeling}
+\textbf{Deployment}
+\textbf{Business analysis}
+\textbf{AI Infrastructure - Cơ sở hạ tầng của 1 dự án AI}
+\textbf{6 vai trò trong nhóm phát triển AI}
 
 \section{Feature Store và Feast là gì ?}
-Vấn đề Feature Store giải quyết -> Các thành phần chính trong Feature Store pipeline -> Lợi ích của Feature Store trong bố cảnh X. (liệt kê các lợi ích)
+Vấn đề chính trong ML Project life cycle.
+Vấn đề Feature Store giải quyết
+-> Các thành phần chính trong Feature Store pipeline
+-> Lợi ích của Feature Store trong bố cảnh X. (liệt kê các lợi ích).
 
-Feast thật sự là gì trong Feature  ? (triết lý của Feast) 	-> Feast Pipeline  -> Các thành phần của Feast 
-
-
+Feast thật sự là gì trong Feature ? (triết lý của Feast)
+-> Feast Pipeline -> Các thành phần của Feast.
 
 \section{Case Study}
 
