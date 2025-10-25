@@ -421,10 +421,6 @@ INPUT .\images\dt_ver.png
 INPUT .\images\dt_ver.png
 INPUT .\images\dt_ver.png
 INPUT .\images\dt_ver.png
-INPUT D:\App\MikTex\fonts\tfm\public\lm\t5-lmr12.tfm
-INPUT D:\App\MikTex\fonts\tfm\public\lm\t5-lmr12.tfm
-INPUT D:\App\MikTex\fonts\tfm\public\lm\t5-lmbx12.tfm
-INPUT D:\App\MikTex\fonts\tfm\public\lm\t5-lmbx12.tfm
 INPUT .\images\proces.png
 INPUT .\images\dt_ver.png
 INPUT .\main.aux
