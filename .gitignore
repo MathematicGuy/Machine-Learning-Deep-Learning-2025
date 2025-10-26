@@ -12,7 +12,6 @@ AIO2025 - Mein Code/Streamlit
 *.tif
 *.webp
 
-*.pdf
 *.doc
 *.docx
 *.xls
@@ -32,6 +31,16 @@ AIO2025 - Mein Code/Streamlit
 *.bz2
 *.rar
 *.7z
+
+*.aux
+*.bbl
+*.bbl-SAVE-ERROR
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.synctex(busy)
 
 *.class
 *.bin
