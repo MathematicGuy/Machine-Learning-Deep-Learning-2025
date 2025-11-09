@@ -1,0 +1,36 @@
+\subsection{Chứng Minh Convex (độ lồi) của MSE và BCE}
+\textbf{Chứng Minh Convex (độ lồi) của MSE}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/mse_convex1.png}
+    \caption{MSE vs BCE}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/mse_convex2.png}
+    \caption{MSE vs BCE}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/mse_convex3.png}
+    \caption{MSE vs BCE}
+\end{figure}
+
+\textbf{Chứng Minh Convex (độ lồi) của BCE}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/bce_convex.png}
+    \caption{BCE Convex}
+\end{figure}
+
+\subsection{So sánh MSE và BCE}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/mse_bce.png}
+    \caption{MSE vs BCE}
+\end{figure}
+\textbf{MSE:} gentle curve, Phạt nhẹ các dự đoán sai.
+\textbf{BCE:} shallow curve, Phạt nặng các dự đoán sai.
+Vậy BCE là lựa chọn nhất để tính Loss cho Logistic Regression.
