@@ -1,0 +1,26 @@
+\subsection{Phần 1.1: Vấn đề với Linear Regression}
+Ý tưởng của Linear Regression là làm thế nào để mô tả tất cả các biến bằng 1 đường thẳng f(x), để với 1 đầu vào $x_i$ mới ta có thể dự đoán đc đầu ra $y_i$ (i là số thứ tự).
+\begin{itemize}
+	\item Linear (tuyến tính) nghĩa là mối quan hệ giữa các biến có thể được mô tả bởi 1 đường thẳng.
+	\item Regression (hồi quy) là 1 phương pháp dùng để tìm mối quan hệ giữa các biến và đường thẳng dự đoán.
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/linearRegression.png}
+    \caption{Linear Regression}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{images/perfectLR.png}
+    \caption{Trong điều kiện hoàn hảo, Linear Regression sẽ khớp với dữ liệu đúng 1 đường thẳng}
+\end{figure}
+Tuy nhiên với dữ liệu không tuyến tính và liên tục, thì Linear Regression không thể khớp được.
+Vậy làm thế nào để chọn được 1 hàm Loss giúp phân loại nhiều lớp ? Đầu tiên mình cần hiểu điều kiện của 1 hàm Loss là gì trước.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/whySm1.png}
+    \caption{Non-Linear Data}
+\end{figure}
+
+
+- giải thích công thức qua 1 ví dụ từ đầu đến cuối. ví dụ + ảnh

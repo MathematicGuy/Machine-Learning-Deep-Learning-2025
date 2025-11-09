@@ -59,7 +59,7 @@
 \setlength{\droptitle}{-10em}
 \renewcommand{\maketitle}{%
     \begin{center}
-        \fontsize{18}{20}\selectfont\textbf{Data Version Control (DVC) \\[0.2em] in Machine Learning Projects}\\[1em]
+        \fontsize{18}{20}\selectfont\textbf{Logistic Regression \\[0.2em] from the Grounth Up}\\[1em]
         \fontsize{14}{16}\selectfont Nhóm MLOps\\[0.5em]
         \fontsize{14}{16}\selectfont Ngày 18 tháng 10 năm 2025
     \end{center}
@@ -107,7 +107,7 @@
 \maketitle
 
 \begin{summarybox}
-Nội dung về được chia thành 2 phần chính, phần 1 giải thích Logistic Regression đến Linear Regression 1 cách tổng quát và trực quan. Phần 2 tập trung giải thích sâu hơn về việc tại sao lại sử dụng những công thức này và ý nghĩa của chúng.
+Nội dung về Logistic Regression được chia thành 2 phần chính, phần 1 giải thích vấn đề của Linear Regression và vì sao lại cần Logistic Regression cũng như cách xây dựng nó. Phần 2 tập trung giải thích sâu hơn về việc tại sao lại sử dụng những công thức này và ý nghĩa của chúng.
     \begin{itemize}
 	\item \textbf{Phần 1: Từ Logistic Regression đến Linear Regression đến Logistic Regression}
 	\item \textbf{Phần 2: Mở Rộng: Nhân ma trận với Logistic Regression}
@@ -116,40 +116,30 @@ Nội dung về được chia thành 2 phần chính, phần 1 giải thích Log
 \end{summarybox}
 
 % --- PHẦN 1 ---
-\section{Phần 1: Từ Logistic Regression đến Linear Regression đến Logistic Regression}
-\subsection{Phần 1.1: Tổng quan về Linear Regression}
-- giải thích thuật ngữ 
-+ Linear 
-+ Regression
-
-- giải thích công thức qua 1 ví dụ từ đầu đến cuối
-- Batch Gradient Descent  và Stochastic Gradient Descent cùng với ưu điểm và nhược điểm
-+ Batch is for calc large dataset (calc by batch)
-+ Stochastic (shuffle sample - calc)
-- code lại sử dụng ví dụ.
+\section{Phần 1: Từ Linear Regression đến Logistic Regression}
+\input{lr_explain.tex}
+% - Batch Gradient Descent  và Stochastic Gradient Descent cùng với ưu điểm và nhược điểm
+% - Batch is for calc large dataset (calc by batch)
+% - Stochastic (shuffle sample - calc)
 
 \subsection{Phần 1.2: Logistic Regression}
-- Liên kết với Linear Regression và vấn đề Logistic Regression giải quyết
-- giải thích thuật ngữ
-- giải thích công thức qua 1 ví dụ từ đầu đến cuối
-- giải thích ý nghĩa công thức
-- code lại sử dụng ví dụ.
+\input{lg_intro.tex}
 
-\section{Phần 2: Mở Rộng: Nhân ma trận với Logisitc Regression}
-- Giải thích 1 số lý thuyết đại số tuyến tính trong nhân ma trận. 
-+ Nhân nghịch đảo
-- Ví dụ với ma trận X và w. Nhân ma trận.
--> tăng tính tương tác. Gợi ý thay biến để ng đọc học qua tương tác.
+\subsection{Phần 1.3: Xây dựng hàm Loss từ Suy Luận}
+\input{lg_loss_intuition.tex}
+\input{what_is_convexity.tex}
+\input{prove_lg_convexity.tex}
+
+\subsection{Phần 1.4: Xây dựng hàm Loss từ Xác Suất Thống Kê}
+\input{lg_loss_from_stats.tex}
+
+
+\section{Phần 2: Mở Rộng: Nhân ma trận với Logistic Regression}
+\input{lg_matrix.tex}
+\input{hessianmatrix_convex_prove.tex}
 
 \section{Phần 3: Tại sao}
-\subsection{Tại sao lại nhân nghịch đảo ?}
-\subsection{Tại sao lại sử dụng hàm tăng trưởng Sigmoid ?}
-\subsection{Tại sao lại sử dụng ln() thay vì log()}
-\subsection{Mối liên hệ giữa ln() và Sigmoid ?}
-\subsection{Tại sao lại sử dụng loglikelihood thay vì probability}
-\subsection{Convex là gì ?}
-\subsection{Convex trong Logistic Regression cho tính toán ma trận}
-
+\input{why.tex}
 
 \printbibliography % Bỏ comment dòng này nếu bạn có tệp .bib
 
