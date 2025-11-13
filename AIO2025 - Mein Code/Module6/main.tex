@@ -6,7 +6,7 @@
 
 % Biblatex + biber
 \usepackage[backend=biber, style=alphabetic, sorting=ynt]{biblatex}
-\addbibresource{references.bib}
+% \addbibresource{references.bib}
 \usepackage{listings}
 \usepackage{xcolor}
 \lstdefinestyle{shell}{
@@ -109,11 +109,12 @@
 \begin{summarybox}
 Nội dung về Logistic Regression được chia thành 2 phần chính, phần 1 giải thích vấn đề của Linear Regression và vì sao lại cần Logistic Regression cũng như cách xây dựng nó. Phần 2 tập trung giải thích sâu hơn về việc tại sao lại sử dụng những công thức này và ý nghĩa của chúng.
     \begin{itemize}
-	\item \textbf{Phần 1: Từ Logistic Regression đến Linear Regression đến Logistic Regression}
+	\item \textbf{Phần 1: Từ Linear Regression đến Logistic Regression}
 	\item \textbf{Phần 2: Mở Rộng: Nhân ma trận với Logistic Regression}
 	\item \textbf{Phần 3: Tại Sao}
     \end{itemize}
 \end{summarybox}
+
 
 % --- PHẦN 1 ---
 \section{Phần 1: Từ Linear Regression đến Logistic Regression}
@@ -121,6 +122,8 @@ Nội dung về Logistic Regression được chia thành 2 phần chính, phần
 % - Batch Gradient Descent  và Stochastic Gradient Descent cùng với ưu điểm và nhược điểm
 % - Batch is for calc large dataset (calc by batch)
 % - Stochastic (shuffle sample - calc)
+
+
 
 \subsection{Phần 1.2: Logistic Regression}
 \input{lg_intro.tex}
@@ -141,6 +144,6 @@ Nội dung về Logistic Regression được chia thành 2 phần chính, phần
 \section{Phần 3: Tại sao}
 \input{why.tex}
 
-\printbibliography % Bỏ comment dòng này nếu bạn có tệp .bib
+% \printbibliography % Bỏ comment dòng này nếu bạn có tệp .bib
 
 \end{document}
