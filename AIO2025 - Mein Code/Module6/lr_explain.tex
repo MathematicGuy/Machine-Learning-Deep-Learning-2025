@@ -1,26 +1,27 @@
 \subsection{Phần 1.1: Vấn đề với Linear Regression}
-Ý tưởng của Linear Regression là làm thế nào để mô tả tất cả các biến bằng 1 đường thẳng f(x), để với 1 đầu vào $x_i$ mới ta có thể dự đoán đc đầu ra $y_i$ (i là số thứ tự).
+Ý tưởng của Linear Regression là làm thế nào để mô tả tất cả các biến bằng 1 đường thẳng f(x), để với 1 đầu vào $x_i$ mới ta có thể dự đoán đc đầu ra $y_i$. (i là số thứ tự). Ý tưởng này đơn giản nhưng thực chất rất hiệu quả vì những lý do sau:
 \begin{itemize}
-	\item Linear (tuyến tính) nghĩa là mối quan hệ giữa các biến có thể được mô tả bởi 1 đường thẳng.
-	\item Regression (hồi quy) là 1 phương pháp dùng để tìm mối quan hệ giữa các biến và đường thẳng dự đoán.
+\item (1) \textbf{Kể cả khi dữ liệu thực tế có phức tạp, xu hướng chung (global trend) của nó thường có thể mô tả bằng 1 đường thẳng} (tuyến tính - đỏ). (Note: xu hướng cục bộ - Cam)
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/linear_function_vs_nonlinear_function.png}
+    \caption{linear function vs nonlinear function}
+\end{figure}
+Vì nó nắm bắt xu hướng bậc nhất/lớn nhất (First Order Trend, Màu Đỏ) trong dữ liệu. Nói 1 cách toán học thì nó nắm bắt đc mối quan hệ bậc nhất giữa các biến trong không gian 1D và bỏ lơ các mối quan hệ trong không gian khác (2D, 3D, etc..), Bậc nhất trong đây là bậc nhất (first term) trong khai triển Taylor nhe $f(x) \approx f(a) + f'(a)(x - a)$ .
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/lr_stock.jpg}
+    \caption{Linear Regression}
+\end{figure}
+	\item (2) \textbf{Linear Regression (LR) là mô hỉnh dự đoán đơn giản}, nó chỉ cần 2 tham số: Intercept  $\theta_0$  là giá trị ban đầu ($y_0 = \theta_0$) và  Slope $\theta_1$ mô tả tốc độ thay đổi (độ dốc) của dữ liệu), còn $\epsilon_i$ là sai số, khoảng cách giữa giá trị dự đoán và giá trị thực tế (nếu $\epsilon_i = 0$ thì các điểm dữ liệu sẽ là 1 đường thẳng so với LR.    
+	\item (3) \textbf{Có thể dùng toán để truy hồi ngược các tham số:} sử dụng hàm số bậc 2 đơn giản để tính loss (eg. Square Loss), dễ tính tối thiểu sử dụng đạo hàm. 
 \end{itemize}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{images/linearRegression.png}
     \caption{Linear Regression}
 \end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{images/perfectLR.png}
-    \caption{Trong điều kiện hoàn hảo, Linear Regression sẽ khớp với dữ liệu đúng 1 đường thẳng}
-\end{figure}
+
 Tuy nhiên với dữ liệu không tuyến tính và liên tục, thì Linear Regression không thể khớp được.
 Vậy làm thế nào để chọn được 1 hàm Loss giúp phân loại nhiều lớp ? Đầu tiên mình cần hiểu điều kiện của 1 hàm Loss là gì trước.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\linewidth]{images/whySm1.png}
-    \caption{Non-Linear Data}
-\end{figure}
-
-
-- giải thích công thức qua 1 ví dụ từ đầu đến cuối. ví dụ + ảnh
