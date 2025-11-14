@@ -1,21 +1,24 @@
+Thay vì đi thẳng vào giải thích lý thuyết và công thức, \textbf{mục tiêu} của mình lần này sẽ là đi cùng bạn hiểu từng thành phần từ ground up bắt đầu từ trực giác và giả thuyết hình thành nên Linear Regression rồi phát triển lên Logistic Regression. 
+
 \subsection{Phần 1.1: Vấn đề với Linear Regression}
-Ý tưởng của Linear Regression là làm thế nào để mô tả tất cả các biến bằng 1 đường thẳng f(x), để với 1 đầu vào $x_i$ mới ta có thể dự đoán đc đầu ra $y_i$. (i là số thứ tự). Ý tưởng này đơn giản nhưng thực chất rất hiệu quả vì những lý do sau:
+Trong bài tóan dự đoán giá cổ phiếu có 1 biến x, y, ý tưởng của Linear Regression là làm thế nào để mô tả tất cả các biến bằng 1 đường thẳng f(x), để với 1 đầu vào $x_i$ mới ta có thể dự đoán đc đầu ra $y_i$. (i là số thứ tự). Ý tưởng này đơn giản nhưng thực chất rất hiệu quả vì những lý do sau:
+
 \begin{itemize}
-\item (1) \textbf{Kể cả khi dữ liệu thực tế có phức tạp, xu hướng chung (global trend) của nó thường có thể mô tả bằng 1 đường thẳng} (tuyến tính - đỏ). (Note: xu hướng cục bộ - Cam)
+\item (1) \textbf{Kể cả khi dữ liệu thực tế có phức tạp, xu hướng chung (global trend) của nó thường mô tả được bằng 1 đường thẳng} (tuyến tính - đỏ). (Note: xu hướng cục bộ - Cam)
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{images/linear_function_vs_nonlinear_function.png}
     \caption{linear function vs nonlinear function}
 \end{figure}
-Vì nó nắm bắt xu hướng bậc nhất/lớn nhất (First Order Trend, Màu Đỏ) trong dữ liệu. Nói 1 cách toán học thì nó nắm bắt đc mối quan hệ bậc nhất giữa các biến trong không gian 1D và bỏ lơ các mối quan hệ trong không gian khác (2D, 3D, etc..), Bậc nhất trong đây là bậc nhất (first term) trong khai triển Taylor nhe $f(x) \approx f(a) + f'(a)(x - a)$ .
+Vì nó nắm bắt xu hướng bậc nhất/lớn nhất (First Order Trend, Màu Đỏ) trong dữ liệu. Nói 1 cách toán học thì nó nắm bắt đc mối quan hệ bậc nhất giữa các biến trong không gian 1D và bỏ lơ các mối quan hệ trong không gian khác (2D, 3D, etc..), Bậc nhất trong đây là bậc nhất (first term) trong khai triển Taylor nhe $f(x) \approx f(a) + f'(a)(x - a) == \theta_i + \theta_i'(x-a)$ .
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{images/lr_stock.jpg}
     \caption{Linear Regression}
 \end{figure}
-	\item (2) \textbf{Linear Regression (LR) là mô hỉnh dự đoán đơn giản}, nó chỉ cần 2 tham số: Intercept  $\theta_0$  là giá trị ban đầu ($y_0 = \theta_0$) và  Slope $\theta_1$ mô tả tốc độ thay đổi (độ dốc) của dữ liệu), còn $\epsilon_i$ là sai số, khoảng cách giữa giá trị dự đoán và giá trị thực tế (nếu $\epsilon_i = 0$ thì các điểm dữ liệu sẽ là 1 đường thẳng so với LR.    
-	\item (3) \textbf{Có thể dùng toán để truy hồi ngược các tham số:} sử dụng hàm số bậc 2 đơn giản để tính loss (eg. Square Loss), dễ tính tối thiểu sử dụng đạo hàm. 
+	\item (2) \textbf{Linear Regression (LR) là mô hỉnh dự đoán đơn giản}, nó chỉ cần 2 tham số: Intercept  $\theta_0$  là giá trị ban đầu ($y_0 = \theta_0$) và  Slope $\theta_1$ mô tả tốc độ thay đổi (độ dốc) của dữ liệu), còn $\epsilon_i$ là sai số, khoảng cách giữa giá trị dự đoán và giá trị thực tế (nếu $\epsilon_i = 0$ thì các điểm dữ liệu sẽ là 1 đường thẳng so với LR.
+	\item (3) \textbf{Có thể dùng toán để truy hồi ngược các tham số:} sử dụng hàm số bậc 2 đơn giản để tính loss (eg. Square Loss), dễ tính tối thiểu sử dụng đạo hàm.
 \end{itemize}
 \begin{figure}[H]
     \centering
@@ -23,5 +26,26 @@ Vì nó nắm bắt xu hướng bậc nhất/lớn nhất (First Order Trend, M�
     \caption{Linear Regression}
 \end{figure}
 
+\textbf{Cách Linear Regression chọn hàm Loss} \\
+Trong phần này, mình sẽ lấy ví dụ với Linear Regression trong bài toán đa biến có dataset dự đoán giá nhà gồm 3 features (ie. 3 đặc trưng x1, x2, x3) và 1 label (ie. 1 nhãn y) với mục tiêu là thiết kế 1 thuật toán học tập (learning algorithm) để dự đoán giá nhà. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/houseprice_pred.png}
+\end{figure}
+Mình biết là Linear Regression là Supervised Learning vì nó học nhờ dữ liệu đã được label nên workflow thiết kế là: \textbf{Training Dataset $\rightarrow$ Learning Algorithm (vd. Gradient Descent) $\rightarrow$ Hàm giả thuyết $H(\theta) / \hat{y}$} trong đó hàm giả thuyết là đầu ra của Learning Algorithm. Và đầu vào của hàm giả thuyết là dữ liệu mới, đầu ra là giá nhà nó dự đoán. Để dễ tính toán mình sẽ gộp các biến và tham số thành 2 vector: $\theta_i = [\theta_1, \theta_2, \theta_3]$, $X_i = [x_1, x_2, x_3]$. Vậy hàm Linear Regression sẽ thành $\hat{y} = H(X) = \sum_{i=0}^{i}\theta_i X_i$  
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/predictalgo.png}
+\end{figure}
+(1) Để biến đổi 3 features thành giá nhà, mình sẽ nhân mỗi tham số $\theta$ với 1 features tương ứng rồi cập nhật nó sử dụng 1 learning algorithm làm sao cho giá nhà dự đoán ($\hat{y}$) gần với giá nhà thực tế nhất, nói cách khác mình cần tối thiểu hàm $H()$. 
+
+
+-> \textbf{Xác định mục tiêu mới cho Blog: Làm sao để thiết kế 1 Learning Algorithm/Hàm Loss} (Gradient Descent is a learning algorithm) 
+Hàm Loss -> để minimize ->  vector ->  Gradient Descent -> visualize hàm Loss vì sao có hình như thế kia a bowl -> Kết luận hàm các bước để tối ưu hàm loss -> thay số với Matrix
+
+
+Để đưa dự đóan về khoảng [0, 1] mình cần dùng Sigmoid cho Logistic Regression.
+
 Tuy nhiên với dữ liệu không tuyến tính và liên tục, thì Linear Regression không thể khớp được.
 Vậy làm thế nào để chọn được 1 hàm Loss giúp phân loại nhiều lớp ? Đầu tiên mình cần hiểu điều kiện của 1 hàm Loss là gì trước.
+		
