@@ -1,51 +1,84 @@
-Thay vì đi thẳng vào giải thích lý thuyết và công thức, \textbf{mục tiêu} của mình lần này sẽ là đi cùng bạn hiểu từng thành phần từ ground up bắt đầu từ trực giác và giả thuyết hình thành nên Linear Regression rồi phát triển lên Logistic Regression. 
+\subsection{Vấn đề với Linear Regression}
+Trong bài toán dự đoán giá cổ phiếu với một biến đầu vào $x$ và một biến đầu ra $y$, ý tưởng của Linear Regression là tìm một hàm dự đoán dạng đường thẳng $f(x)$ sao cho với mỗi giá trị $x_i$ mới, ta có thể dự đoán được $y_i$. Đây là một giả thuyết rất đơn giản nhưng hoạt động hiệu quả nhờ vào khả năng nắm bắt xu hướng bậc nhất của dữ liệu. \\ 
 
-\subsection{Phần 1.1: Vấn đề với Linear Regression}
-Trong bài tóan dự đoán giá cổ phiếu có 1 biến x, y, ý tưởng của Linear Regression là làm thế nào để mô tả tất cả các biến bằng 1 đường thẳng f(x), để với 1 đầu vào $x_i$ mới ta có thể dự đoán đc đầu ra $y_i$. (i là số thứ tự). Ý tưởng này đơn giản nhưng thực chất rất hiệu quả vì những lý do sau:
+Kể cả khi dữ liệu thực tế dao động mạnh, khó khớp, xu hướng chung (global trend) vẫn thường có thể được mô tả bằng một đường thẳng. Điều này phản ánh đúng bản chất toán học: đường thẳng chính là bậc đầu tiên trong khai triển Taylor, tức là mức đơn giản nhất để mô tả quan hệ giữa các biến.
 
-\begin{itemize}
-\item (1) \textbf{Kể cả khi dữ liệu thực tế có phức tạp, xu hướng chung (global trend) của nó thường mô tả được bằng 1 đường thẳng} (tuyến tính - đỏ). (Note: xu hướng cục bộ - Cam)
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{images/linear_function_vs_nonlinear_function.png}
     \caption{linear function vs nonlinear function}
 \end{figure}
-Vì nó nắm bắt xu hướng bậc nhất/lớn nhất (First Order Trend, Màu Đỏ) trong dữ liệu. Nói 1 cách toán học thì nó nắm bắt đc mối quan hệ bậc nhất giữa các biến trong không gian 1D và bỏ lơ các mối quan hệ trong không gian khác (2D, 3D, etc..), Bậc nhất trong đây là bậc nhất (first term) trong khai triển Taylor nhe $f(x) \approx f(a) + f'(a)(x - a) == \theta_i + \theta_i'(x-a)$ .
+
+Linear Regression chỉ cần hai tham số để mô tả dữ liệu: intercept $\theta_0$ điều chỉnh độ cao của đường thẳng và slope $\theta_1$ mô tả độ dốc – tốc độ tăng giảm của dữ liệu. Sai số $\epsilon_i$ phản ánh mức lệch giữa dự đoán và giá trị thực tế; nếu toàn bộ $\epsilon_i = 0$, tất cả các điểm dữ liệu sẽ nằm trên đúng đường thẳng. Chính vì đơn giản như vậy, Linear Regression có thể dễ dàng được tối ưu bằng đạo hàm thông qua các hàm số bậc hai như Square Loss.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{images/lr_stock.jpg}
     \caption{Linear Regression}
 \end{figure}
-	\item (2) \textbf{Linear Regression (LR) là mô hỉnh dự đoán đơn giản}, nó chỉ cần 2 tham số: Intercept  $\theta_0$  là giá trị ban đầu ($y_0 = \theta_0$) và  Slope $\theta_1$ mô tả tốc độ thay đổi (độ dốc) của dữ liệu), còn $\epsilon_i$ là sai số, khoảng cách giữa giá trị dự đoán và giá trị thực tế (nếu $\epsilon_i = 0$ thì các điểm dữ liệu sẽ là 1 đường thẳng so với LR.
-	\item (3) \textbf{Có thể dùng toán để truy hồi ngược các tham số:} sử dụng hàm số bậc 2 đơn giản để tính loss (eg. Square Loss), dễ tính tối thiểu sử dụng đạo hàm.
-\end{itemize}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\linewidth]{images/linearRegression.png}
-    \caption{Linear Regression}
-\end{figure}
 
-\textbf{Cách Linear Regression chọn hàm Loss} \\
-Trong phần này, mình sẽ lấy ví dụ với Linear Regression trong bài toán đa biến có dataset dự đoán giá nhà gồm 3 features (ie. 3 đặc trưng x1, x2, x3) và 1 label (ie. 1 nhãn y) với mục tiêu là thiết kế 1 thuật toán học tập (learning algorithm) để dự đoán giá nhà. 
+Mặc dù mô hình tuyến tính có khả năng mô tả xu hướng mạnh nhất trong dữ liệu, bản chất của Linear Regression cũng mang theo một giả định quan trọng: đầu ra của mô hình là một giá trị thực trong khoảng $(-\infty, +\infty)$. Do đó, khi dữ liệu thực tế có bản chất không tuyến tính, có giới hạn tự nhiên (như xác suất chỉ nằm trong $[0,1]$), hoặc khi bài toán là phân loại nhị phân 0/1, Linear Regression sẽ tạo ra các dự đoán sai lệch hoặc thậm chí vô nghĩa. Không chỉ vậy, mô hình còn ngầm giả định rằng sai số của dữ liệu tuân theo phân phối Gaussian – điều hoàn toàn không phù hợp với bài toán phân loại vốn có bản chất Bernoulli.
+
+\subsection{Cách Linear Regression chọn hàm Loss}
+
+Để hiểu rõ việc xây dựng hàm Loss cho Linear Regression, mình sử dụng ví dụ dự đoán giá nhà với ba đặc trưng $x_1$, $x_2$, $x_3$ và một nhãn $y$. Giống như cách Andrew Ng mô tả trong phần thiết kế thuật toán học, Supervised Learning luôn đi theo workflow: \textbf{Training Dataset → Learning Algorithm → Hypothesis Function}. Hypothesis $H(\theta)$ chính là hàm dự đoán mô hình học được, và nhiệm vụ của Learning Algorithm là tìm ra bộ tham số $\theta$ sao cho $H(\theta)$ dự đoán gần đúng nhất giá trị $y$ thực tế của từng mẫu.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{images/houseprice_pred.png}
 \end{figure}
-Mình biết là Linear Regression là Supervised Learning vì nó học nhờ dữ liệu đã được label nên workflow thiết kế là: \textbf{Training Dataset $\rightarrow$ Learning Algorithm (vd. Gradient Descent) $\rightarrow$ Hàm giả thuyết $H(\theta) / \hat{y}$} trong đó hàm giả thuyết là đầu ra của Learning Algorithm. Và đầu vào của hàm giả thuyết là dữ liệu mới, đầu ra là giá nhà nó dự đoán. Để dễ tính toán mình sẽ gộp các biến và tham số thành 2 vector: $\theta_i = [\theta_1, \theta_2, \theta_3]$, $X_i = [x_1, x_2, x_3]$. Vậy hàm Linear Regression sẽ thành $\hat{y} = H(X) = \sum_{i=0}^{i}\theta_i X_i$  
+
+Để đơn giản hóa, ta gom các tham số thành vector $\theta = [\theta_0, \theta_1, \theta_2, \theta_3]^T$ và mỗi điểm dữ liệu thành vector $X_i = [1, x_{1}, x_{2}, x_{3}]^T$. Khi đó hàm dự đoán của Linear Regression trở thành
+\[
+    \hat{y}_i = h_\theta(X_i) = \theta^T X_i.
+\]
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{images/predictalgo.png}
 \end{figure}
-(1) Để biến đổi 3 features thành giá nhà, mình sẽ nhân mỗi tham số $\theta$ với 1 features tương ứng rồi cập nhật nó sử dụng 1 learning algorithm làm sao cho giá nhà dự đoán ($\hat{y}$) gần với giá nhà thực tế nhất, nói cách khác mình cần tối thiểu hàm $H()$. 
+
+Mục tiêu của học máy là điều chỉnh dần các giá trị trong $\theta$ sao cho dự đoán $\hat{y}$ ngày càng gần giá trị thật $y$. Điều này dẫn chúng ta đến việc phải xây dựng một hàm đo sai số – hay hàm Loss. ách tự nhiên nhất để đo mức độ “tệ” của một dự đoán là xem mức chênh lệch $\hat{y} - y$ và bình phương nó để tránh âm dương triệt tiêu nhau. Gom toàn bộ dữ liệu lại, ta thu được hàm Loss quen thuộc:
+
+\[
+J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (\theta^T X_i - y_i)^2  \text{\space hay \space} \frac{1}{2m} \sum_{i=1}^{m} (\hat{y}_i  - y_i)^2.
+\]
+
+Hàm Loss này có dạng bậc hai theo $\theta$, nghĩa là mặt cong của nó luôn có hình parabol và 1 diểm cực tiểu (global minimum), đây là hàm Loss Convex (Lồi). Điều này rất quan trọng vì nó đảm bảo rằng bất kỳ phương pháp tối ưu nào có tính “đi xuống dần” cũng sẽ luôn hội tụ về đúng nghiệm tối ưu. Và để tối thiểu hóa độ tệ hay hàm Loss này, mình sẽ sử dụng Gradient Descent để tìm nghiệm tối ưu.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{images/lr_loss_bowl.png}
+    \caption{Minh họa hàm Loss của Linear Regression trong 2D ($w \approx \theta$): Với $f_{w,b}(x)=wx + b$ có $b=0$, Khi mình thử mọi giá trị $w$ từ -0.5 đến 2.5 cho $f(x)$, mình sẽ thấy hàm Loss của Linear Regression sẽ là một hình parabol.}
+\end{figure}
+
+Tuy nhiên, khi chuyển sang bài toán Phân loại (Classification) với Logistic Regression, mình không thể sử dụng hàm MSE này nữa. Lý do là khi kết hợp với hàm Sigmoid của Logistic Regression, hàm Loss MSE tổng thể sẽ có nhiều Local Minimum, đây là 1 hàm Loss Non-convex (Không Lồi).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{images/lossf.png}
+    \caption{Minh họa hàm Loss của Linear Regression trong 2D}
+\end{figure}
+Từ đây, ta áp dụng Gradient Descent để tìm bộ tham số tối ưu. Nếu bạn chưa quen với tối ưu hóa hoặc quên toán, có thể hiểu đơn giản rằng Gradient Descent giống như đang đứng trên một quả đồi (hàm Loss) và luôn nhìn xem hướng đi xuống dốc nhất là hướng nào. Mỗi bước cập nhật $\theta$ chính là một bước chân nhỏ đi về phía thấp hơn, và vì hàm Loss là hình parabol, con đường đi xuống này sẽ luôn dẫn tới đáy duy nhất của nó – tức nghiệm tối ưu của mô hình.
 
 
--> \textbf{Xác định mục tiêu mới cho Blog: Làm sao để thiết kế 1 Learning Algorithm/Hàm Loss} (Gradient Descent is a learning algorithm) 
-Hàm Loss -> để minimize ->  vector ->  Gradient Descent -> visualize hàm Loss vì sao có hình như thế kia a bowl -> Kết luận hàm các bước để tối ưu hàm loss -> thay số với Matrix
+\[
+\theta_j := \theta_j - \alpha \frac{\partial J}{\partial \theta_j},
+\qquad
+\frac{\partial J}{\partial \theta_j}
+= \frac{1}{m}\sum_{i=1}^m (\theta^T X_i - y_i) X_{ij}.
+\]
+
+Viết lại toàn bộ dưới dạng vector hoá cho gọn hơn, ta có:
+\[
+    J(\theta)=\frac{1}{2m}(X\theta - Y)^T(X\theta - Y),
+    \qquad
+    \nabla_\theta J = \frac{1}{m} X^T(X\theta - Y).
+\]
 
 
-Để đưa dự đóan về khoảng [0, 1] mình cần dùng Sigmoid cho Logistic Regression.
-
-Tuy nhiên với dữ liệu không tuyến tính và liên tục, thì Linear Regression không thể khớp được.
-Vậy làm thế nào để chọn được 1 hàm Loss giúp phân loại nhiều lớp ? Đầu tiên mình cần hiểu điều kiện của 1 hàm Loss là gì trước.
-		
+Nếu ta không muốn lặp Gradient Descent mà muốn nhảy thẳng đến nghiệm tối ưu thì Linear Regression còn có nghiệm đóng được suy ra từ \href{https://bachtuan91.wordpress.com/2018/12/19/normal-equation-cho-hoi-quy-tuyen-tinh/}{NormalEquation}:
+\[
+X^T X\,\theta = X^T Y
+\quad \Longrightarrow \quad
+\boxed{\theta = (X^T X)^{-1} X^T Y}.
+\]

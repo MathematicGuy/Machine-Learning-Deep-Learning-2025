@@ -1,1 +1,444 @@
 \subsection{Convexity of BCE for Multiple-Variable using Hessian Matrix}
+
+Ở phần trước, ta đã thiết lập Logistic Regression dưới dạng vector và tính được Gradient của hàm Loss. Phần này sẽ mở rộng lên đạo hàm bậc hai (Second Derivative) để xây dựng \textbf{Hessian Matrix} cho ta tinh chỉnh nhiều $\theta$ weight cùng 1 lúc, giúp tìm loss hiệu quả hơn, từ đó chứng minh rằng Binary Cross-Entropy (BCE) là một hàm convex. \\
+
+
+\subsection*{1. Ôn lại Second Derivative: từ 1 biến đến nhiều biến}
+
+Trong hàm một biến $f(x)$:
+
+\[
+f'(x) = \text{tốc độ thay đổi của } f(x),
+\qquad
+f''(x) = \text{tốc độ thay đổi của tốc độ thay đổi}.
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{images/hes1.png}
+    \caption{So sánh đạo hàm bậc nhất và bậc hai giữa một biến và hai biến. (w.r.t x - with respect to / đạo hàm 1 phần theo x)}
+    \label{fig:hes1}
+\end{figure}
+
+Với hàm hai biến $f(x,y)$, đạo hàm bậc nhất trở thành vector gradient:
+
+\[
+\nabla f = 
+\begin{bmatrix}
+f_x \\ f_y
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{\partial f}{\partial x} \\[0.5em]
+\frac{\partial f}{\partial y}
+\end{bmatrix}.
+\]
+
+Vậy đạo hàm bậc hai của hàm hai biến trông thế nào?
+
+Ta sẽ xem xét một ví dụ cụ thể để trực giác rõ hơn.
+
+\subsection*{2. Ví dụ thực tế: Tính đạo hàm bậc hai cho $f(x,y)$}
+
+Xét hàm:
+
+\[
+f(x,y) = 2x^2 + 3y^2 - xy.
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{images/hes2.png}
+    \caption{Cây đạo hàm bậc nhất và bậc hai cho hàm $f(x,y) = 2x^2 + 3y^2 - xy$.}
+    \label{fig:hes2}
+\end{figure}
+
+Đạo hàm bậc nhất:
+\[
+f_x = 4x - y,
+\qquad
+f_y = 6y - x.
+\]
+
+Đạo hàm bậc hai:
+\[
+f_{xx} = 4,\qquad
+f_{yy} = 6,\qquad
+f_{xy} = f_{yx} = -1.
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/hes3.png}
+    \caption{Ý nghĩa của các đạo hàm bậc hai và đạo hàm chéo.}
+    \label{fig:hes3}
+\end{figure}
+
+Các đạo hàm bậc hai mô tả “change in the change”: thay đổi của đạo hàm theo một hướng khi ta biến đổi theo một hướng khác (có thể trực giao - orthogonal - 2 vector vuông góc).
+
+\subsection*{3. Ký hiệu đạo hàm bậc hai: Leibniz và Lagrange}
+
+Hình~\ref{fig:hes4} minh họa hai kiểu ký hiệu:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/hes4.png}
+    \caption{Hai hệ ký hiệu cho đạo hàm bậc hai: Leibniz và Lagrange.}
+    \label{fig:hes4}
+\end{figure}
+
+\begin{itemize}
+    \item Leibniz: $\frac{\partial^2 f}{\partial x^2}$, $\frac{\partial^2 f}{\partial x \partial y}$.
+    \item Lagrange: $f_{xx}$, $f_{xy}$.
+\end{itemize}
+
+\subsection*{4. Gom toàn bộ đạo hàm bậc hai vào một cấu trúc: Hessian Matrix}
+
+Như minh hoạ ở Hình~\ref{fig:hes5}:
+
+\[
+H(f) =
+\begin{bmatrix}
+f_{xx} & f_{xy} \\
+f_{yx} & f_{yy}
+\end{bmatrix}.
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/hes5.png}
+    \caption{Cách gom các đạo hàm bậc hai vào ma trận Hessian.}
+    \label{fig:hes5}
+\end{figure}
+
+Hessian chứa toàn bộ thông tin về độ cong (curvature) của hàm $f(x,y)$. Tương tự như lúc ta cùng giải thích đạo hàm bậc 2 ở phần trước.
+
+\subsection*{5. Dùng Hessian để phân loại điểm tối ưu}
+Bằng cách phân tích ma trận Hessian, ta có thể xác định 1 điểm là cực tiểu, cực đại hay là điểm yên ngựa (khi cực tiểu của hàm bé hơn 0, nhưng đạo hàm ra 0) dựa vào Eigen value của nó ((giá trị riêng của ma trận). 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/hes6.png}
+    \caption{So sánh bậc hai trong 1 biến và nhiều biến.}
+    \label{fig:hes6}
+\end{figure} \\
+
+Quy tắc phân loại:
+\begin{itemize}
+    \item nếu mọi eigenvalue của Hessian $>0$ → hàm cong lên (local minimum),
+    \item nếu mọi eigenvalue $<0$ → cong xuống (local maximum),
+    \item nếu có eigenvalue $>0$ và $<0$ → saddle point,
+    \item nếu có eigenvalue = 0 → không đủ thông tin.
+\end{itemize} 
+\textbf{Ví dụ minh hoạ} qua cách xác định cực tiểu dựa trên giá trị của ma trận Hessian: \\
+
+\textbf{Concave Up (cực tiểu)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{images/hes7.png}
+    \caption{Hessian có eigenvalue dương → concave up → điểm (0,0) là cực tiểu.}
+\end{figure}
+
+\textbf{Concave Down (cực đại)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{images/hes8.png}
+    \caption{Hessian có eigenvalue âm → concave down → cực đại.}
+\end{figure}
+
+\textbf{Saddle Point (Điểm Yên Ngựa)}
+Khi đạo hàm bằng 0 thì ngoài các trường hợp rơi vào các điểm cực trị thì còn một điểm nữa chính là điểm yên ngựa. Một điểm yên ngựa là điểm mà tại đó đạo hàm bằng 0 nhưng không phải là một điểm cực tiểu. Xét hàm số $f(x)=5^3$ hàm số này có đạo hàm bằng 0 tại x=0 nhưng x=0 lại không phải giá trị cực tiểu của hàm số này vì nó có thể âm. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{images/hes9.png}
+    \caption{Eigenvalue trái dấu → saddle point.}
+\end{figure}
+
+\subsection*{6. Ứng dụng trực tiếp vào Logistic Regression}
+
+Sau khi đã hiểu Hessian của hàm hai biến ở các phần trước, ta quay trở lại Logistic Regression để xây dựng Hessian của Binary Cross-Entropy (BCE).  
+Toàn bộ quá trình dưới đây được viết cực kỳ chi tiết nhằm giúp người đọc “ôn lại toán từ gốc”.
+
+\subsubsection*{6.1 Nhắc lại dạng Loss và Gradient}
+
+Hàm Loss dạng vector của Logistic Regression:
+
+\[
+J(\theta)
+=
+-\left[
+y^T\ln(h) + (1-y)^T\ln(1-h)
+\right],
+\qquad
+h = \sigma(X\theta).
+\]
+
+Gradient (đạo hàm bậc nhất theo vector $\theta$):
+
+\[
+\nabla_\theta J(\theta) 
+= 
+X^T(h - y).
+\]
+
+BCE là convex nếu Hessian (đạo hàm bậc hai) của $J(\theta)$ là \href{https://machinelearningcoban.com/2017/03/12/convexity/#-first-order-condition}{Positive Semi-Definite} (i.e. chỉ cần các trị riêng của nó là không âm là positive semi-definite / bán dương).
+
+
+\subsubsection*{6.2 Bắt đầu từ Gradient để tìm Hessian}
+
+Ta cần đạo hàm của:
+
+\[
+X^T (h - y)
+\]
+
+theo $\theta$.
+
+
+\subsubsection*{6.3 Đạo hàm của $h = \sigma(X\theta)$}
+
+Đầu tiên ta xét:
+
+\[
+z = X\theta.
+\]
+
+\paragraph{Giải thích:}  
+Đây là phép nhân ma trận cơ bản: mỗi hàng của $X$ nhân với vector $\theta$ tạo nên một giá trị $z^{(i)}$.  
+Nhớ rằng với ma trận $(m \times n)$ nhân vector $(n \times 1)$:
+
+\[
+(X\theta)_i = \sum_{j=1}^n X_{ij}\theta_j.
+\]
+
+\subsubsection*{(a) Đạo hàm của Sigmoid}
+
+Sigmoid:
+
+\[
+\sigma(z) = \frac{1}{1+e^{-z}}.
+\]
+
+Đạo hàm:
+
+\[
+\sigma'(z) = \sigma(z)(1-\sigma(z)).
+\]
+
+Khi áp dụng cho vector:
+
+\[
+h = 
+\begin{bmatrix}
+h^{(1)}\\
+h^{(2)}\\
+\vdots\\
+h^{(m)}
+\end{bmatrix},
+\qquad
+h^{(i)} = \sigma(z^{(i)}).
+\]
+
+Do đó:
+
+\[
+\frac{\partial h^{(i)}}{\partial z^{(i)}} 
+=
+h^{(i)} (1 - h^{(i)}).
+\]
+
+
+
+\subsubsection*{(b) Đạo hàm của $z = X\theta$}
+
+Vì:
+
+\[
+z^{(i)} = X_{i,:}\theta
+\]
+trong đó $i$ là hàng, $:$ nghĩa là mọi cột
+\noindent nên:
+
+\[
+\frac{\partial z^{(i)}}{\partial \theta}
+= X_{i,:}
+\]
+
+Đây là quy tắc tuyến tính quen thuộc: đạo hàm của một tổng tuyến tính theo vector chính là vector hệ số.
+
+
+
+\subsubsection*{(c) Áp dụng Chain Rule để lấy $\frac{\partial h}{\partial \theta}$}
+
+Theo chain rule đa biến:
+
+\[
+\frac{\partial h^{(i)}}{\partial \theta}
+=
+\frac{\partial h^{(i)}}{\partial z^{(i)}}
+\cdot
+\frac{\partial z^{(i)}}{\partial \theta}.
+\]
+
+Thay vào:
+
+\[
+\frac{\partial h^{(i)}}{\partial \theta}
+=
+h^{(i)}(1-h^{(i)}) \cdot X_{i,:}
+\]
+
+Gộp tất cả mẫu thành một ma trận:
+
+\[
+\frac{\partial h}{\partial \theta}
+=
+D X,
+\]
+
+với:
+
+\[
+	D = \operatorname{diag}\left(h^{(i)}(1-h^{(i)})\right).
+\]
+trong đó diag() là đường chéo của ma trận, đại diện cho các giá trị Eigenvaleu (vector riêng) của mỗi phép tính trong ma trận.
+
+\subsubsection*{6.4 Bây giờ đạo hàm Gradient để tìm Hessian}
+
+Gradient (đạo hàm bậc 1):
+
+\[
+\nabla_\theta J(\theta) = X^T(h - y).
+\]
+
+Đạo hàm bậc 2 theo $\theta$:
+
+\[
+H = \nabla^2_\theta J(\theta)
+=
+X^T \frac{\partial h}{\partial \theta}.
+\]
+
+Thay $\frac{\partial h}{\partial \theta} = DX$:
+
+\[
+H = X^T D X.
+\]
+
+Đây chính là Hessian của BCE.
+
+
+\subsubsection*{6.5 Giải thích hình thức của $H = X^T D X$}
+
+Để hiểu sâu hơn, ta phân rã theo từng lớp:
+
+\begin{itemize}
+    \item $X$: mô tả đặc trưng của dữ liệu.  
+    \item $X^T$: tổng hợp nghịch đảo từng tham số $\theta_j$.
+    \item $D$: mô tả độ cong của Sigmoid tại từng mẫu, vì $h(1-h)$ chính là độ nhạy (sensitivity) của Sigmoid.
+\end{itemize}
+
+Do đó $X^T D X$ là cách mô hình “kết hợp” độ cong từ Sigmoid với cấu trúc của dữ liệu.
+
+Hình~\ref{fig:hes5} đã minh họa việc gom các đạo hàm bậc hai vào ma trận Hessian; ta đang làm điều tương tự nhưng mở rộng lên nhiều biến và nhiều mẫu.
+
+
+
+\subsubsection*{6.6 Vì sao $D$ luôn không âm (PSD component)?}
+
+Ta nhắc lại:
+
+\[
+D_{ii} = h^{(i)} (1 - h^{(i)}).
+\]
+
+Ta biết rằng Sigmoid trả về giá trị từ 0 đến 1:
+
+\[
+0 < h^{(i)} < 1.
+\]
+
+Do đó:
+
+\[
+h^{(i)}(1-h^{(i)}) > 0
+\qquad\text{và}\qquad
+h^{(i)}(1-h^{(i)}) \le \frac{1}{4}.
+\]
+
+\textbf{Nghĩa là mỗi phần tử đường chéo của $D$ luôn không âm.}
+
+Vì vậy, $D$ là một ma trận đường chéo \textbf{Positive Semi-Definite}.
+
+
+
+\subsubsection*{6.7 Chứng minh Hessian PSD: phân rã từng bước}
+
+Ta cần chứng minh:
+
+\[
+v^T H v \ge 0 \quad \forall v.
+\]
+
+Thay $H = X^T D X$:
+
+\[
+v^T X^T D X v.
+\]
+
+Nhóm lại:
+
+\[
+(Xv)^T D (Xv).
+\]
+
+Đặt:
+
+\[
+z = Xv.
+\]
+
+Khi đó:
+
+\[
+z^T D z
+=
+\sum_{i=1}^m D_{ii} z_i^2.
+\]
+
+Vì: $D_{ii} \ge 0$ và $z_i^2 \ge 0$
+
+nên mỗi số hạng đều không âm → tổng cũng không âm:
+
+\[
+\Rightarrow
+z^T D z \ge 0.
+\]
+
+Suy ra:
+
+\[
+H \text{ là Positive Semi-Definite}.
+\]
+
+Và do đó:
+
+\[
+\boxed{J(\theta) \text{ là một hàm convex}.}
+\]
+
+
+
+\subsubsection*{6.8 Trực giác hình học cuối cùng}
+
+\begin{itemize}
+    \item Sigmoid luôn có độ cong dương: $h(1-h)$.
+    \item Dữ liệu chỉ định hướng của độ cong thông qua $X$.
+    \item $H = X^T D X$ thu gom toàn bộ độ cong của Sigmoid theo mọi hướng trong không gian tham số.
+    \item Không tồn tại hướng nào mà Loss cong xuống → không có local minima.
+\end{itemize}
+
+\[
+\boxed{
+\text{Convexity của BCE đến từ độ cong nội tại của Sigmoid + cấu trúc tuyến tính của mô hình}.
+}
+

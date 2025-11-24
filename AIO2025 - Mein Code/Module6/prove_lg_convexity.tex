@@ -1,36 +1,110 @@
-\subsection{Chứng Minh Convex (độ lồi) của MSE và BCE}
-\textbf{Chứng Minh Convex (độ lồi) của MSE}
+\subsubsection{Chứng Minh Convex (độ lồi) của MSE và BCE}
+
+Ở phần trước, ta thấy rằng Logistic Regression dùng MSE không những học chậm mà còn dễ rơi vào các vùng gradient bằng 0. Trực giác ban đầu chỉ cho thấy “MSE không phù hợp”, nhưng để kết luận một cách chắc chắn, ta cần nhìn vào hình dạng của mặt Loss. Đây là lúc khái niệm \textbf{Convexity} trở nên quan trọng: nếu Loss là convex (độ lồi), Gradient Descent sẽ luôn hội tụ về nghiệm tối ưu duy nhất; nhưng nếu Loss non-convex, mô hình có thể mắc kẹt ở các local minima.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/convexProb.png}
+    \caption{Đạo hàm bậc hai của MSE đổi dấu → Non-Convex}
+\end{figure}
+
+Phần này tập trung vào ba điểm chính:
+\begin{itemize}
+    \item \textbf{(1) MSE khi kết hợp với Sigmoid trở thành non-convex} \\
+    Hàm Loss bị biến dạng thành dạng ``gợn sóng'', xuất hiện nhiều vùng phẳng và đáy cục bộ, khiến Gradient Descent dễ mắc kẹt.
+
+    \item \textbf{(2) BCE tạo ra một hàm Loss convex} \\
+    Độ cong của BCE khi kết hợp với Sigmoid luôn không âm, bề mặt Loss cong mượt và có duy nhất một cực tiểu toàn cục.
+
+    \item \textbf{(3) Do đó BCE phù hợp hơn MSE cho Logistic Regression} \\
+    BCE tạo không gian tối ưu hóa ổn định, có gradient rõ ràng, không bị bão hòa như MSE.
+\end{itemize}
+
+
+\medskip
+
+\textbf{Chứng Minh MSE là Non-Convex trong Logistic Regression}
+
+Với Logistic Regression ta có:
+
+\[
+\hat{y} = \sigma(z) = \frac{1}{1+e^{-z}}, \qquad L = (\hat{y}-y)^2.
+\]
+
+Lấy đạo hàm bậc hai của Loss theo từng tham số $\theta_i$:
+
+\[
+\frac{\partial^2 L}{\partial \theta_i^2} 
+= 2x_i^2\,\hat{y}(1-\hat{y})\left[-3\hat{y}^2 + 2\hat{y} - y + 2y\hat{y}\right].
+\]
+
+Điểm quan trọng nằm ở biểu thức ngoặc vuông. Khi $\hat{y}$ chạy trong khoảng $(0,1)$, giá trị trong ngoặc có thể dương hoặc âm tùy vùng. Do đó đạo hàm bậc hai có thể âm → \textbf{Loss có vùng cong lên và cong xuống xen kẽ → non-convex}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{images/mse_convex1.png}
-    \caption{MSE vs BCE}
+    \caption{Đạo hàm bậc hai của MSE đổi dấu → Non-Convex.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{images/mse_convex2.png}
-    \caption{MSE vs BCE}
+    \caption{Một số vùng $\frac{\partial^2 L}{\partial \theta_i^2} < 0$ chứng minh Loss không lồi. Vậy Logistic Regression + MSE tạo ra mặt Loss Non-Convex}
 \end{figure}
+Đây chính là lý do thực nghiệm MSE học rất chậm: khi Loss có nhiều vùng cong xuống, Gradient Descent thường bị kẹt hoặc cập nhật rất nhỏ.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\linewidth]{images/mse_convex3.png}
-    \caption{MSE vs BCE}
-\end{figure}
+\medskip
 
-\textbf{Chứng Minh Convex (độ lồi) của BCE}
+Ngược lại, với \textbf{Binary Cross-Entropy}:
+\[
+L(y,\hat{y}) = -y\log(\hat{y}) - (1-y)\log(1-\hat{y}),
+\qquad \hat{y}=\sigma(z).
+\]
+
+Đạo hàm bậc nhất rất đơn giản:
+
+\[
+\frac{\partial L}{\partial \theta_i} = x_i(\hat{y}-y).
+\]
+
+Lấy đạo hàm bậc hai:
+
+\[
+\frac{\partial^2 L}{\partial \theta_i^2}
+= x_i^2\,\hat{y}(1-\hat{y}).
+\]
+
+Vì:
+
+\[
+x_i^2 \ge 0, \qquad
+\hat{y}(1-\hat{y}) \in \left[0, \tfrac{1}{4}\right],
+\]
+
+nên đạo hàm bậc hai luôn không âm → \textbf{hàm Loss BCE luôn convex}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{images/bce_convex.png}
-    \caption{BCE Convex}
+    \caption{Đạo hàm bậc hai BCE luôn dương → mặt Loss convex}
 \end{figure}
 
-\subsection{So sánh MSE và BCE}
+Điều này khẳng định BCE luôn có \textbf{một nghiệm tối ưu duy nhất} và Gradient Descent sẽ hội tụ ổn định.
+
+\medskip
+
+\subsubsection{So sánh MSE và BCE}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{images/mse_bce.png}
-    \caption{MSE vs BCE}
+    \caption{So sánh hàm Loss MSE và BCE}
 \end{figure}
-\textbf{MSE:} gentle curve, Phạt nhẹ các dự đoán sai.
-\textbf{BCE:} shallow curve, Phạt nặng các dự đoán sai.
-Vậy BCE là lựa chọn nhất để tính Loss cho Logistic Regression.
+\noindent
+\item \textbf{MSE: đường cong nhẹ, dải giá trị bị chặn} \\
+    Loss chỉ dao động trong khoảng hẹp (\(\approx 0.25 \rightarrow 0.5\)), 
+    độ cong thấp và nhiều vùng bằng phẳng khi \(\hat{y}\) bão hòa.
+    Điều này khiến gradient nhỏ, mô hình dễ đứng yên và khó điều chỉnh tham số.
+
+\item \textbf{BCE: đường cong sâu, dải giá trị mở rộng} \\
+    Loss tăng rất mạnh khi dự đoán sai tự tin (ví dụ \(\hat{y} \approx 0\) nhưng \(y=1\)), 
+    tạo thành “đáy rộng” và độ cong lớn. 
+    Nhờ đó gradient rõ ràng, mô hình học ổn định và hội tụ đúng.

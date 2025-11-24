@@ -3,10 +3,11 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T5]{fontenc}
 
-
 % Biblatex + biber
 \usepackage[backend=biber, style=alphabetic, sorting=ynt]{biblatex}
-% \addbibresource{references.bib}
+\addbibresource{references.bib}
+ \usepackage{hyperref}	
+
 \usepackage{listings}
 \usepackage{xcolor}
 \lstdefinestyle{shell}{
@@ -21,7 +22,7 @@
 	frame=single,
 	breaklines=true,
 	emph={[1]\$\ },  % This is the key part: highlight the prompt
-	emph=[1]{git, conda, mkdir, cd, pip} % Also emphasize key commands
+	emph=[1]{git, conda, m	kdir, cd, pip} % Also emphasize key commands
 }
 
 % Toán học & font Times
@@ -59,9 +60,9 @@
 \setlength{\droptitle}{-10em}
 \renewcommand{\maketitle}{%
     \begin{center}
-        \fontsize{18}{20}\selectfont\textbf{Logistic Regression \\[0.2em] from the Grounth Up}\\[1em]
-        \fontsize{14}{16}\selectfont Nhóm MLOps\\[0.5em]
-        \fontsize{14}{16}\selectfont Ngày 18 tháng 10 năm 2025
+        \fontsize{18}{20}\selectfont\textbf{Learn to Build Loss Function for Linear Regression \& Logistic Regression from the Grounth Up}\\[1em]
+        \fontsize{14}{16}\selectfont Nhóm AIO\_TimeSeries\\[0.5em]
+        \fontsize{14}{16}\selectfont Ngày 18 tháng 11 năm 2025
     \end{center}
     \vspace{1.5em}
 }
@@ -107,43 +108,52 @@
 \maketitle
 
 \begin{summarybox}
-Nội dung về Logistic Regression được chia thành 2 phần chính, phần 1 giải thích vấn đề của Linear Regression và vì sao lại cần Logistic Regression cũng như cách xây dựng nó. Phần 2 tập trung giải thích sâu hơn về việc tại sao lại sử dụng những công thức này và ý nghĩa của chúng.
-    \begin{itemize}
-	\item \textbf{Phần 1: Từ Linear Regression đến Logistic Regression}
-	\item \textbf{Phần 2: Mở Rộng: Nhân ma trận với Logistic Regression}
-	\item \textbf{Phần 3: Tại Sao}
-    \end{itemize}
+Toàn bộ nội dung Logistic Regression được tổ chức thành 3 phần lớn, mỗi phần giải quyết một lớp vấn đề khác nhau - từ trực giác nền tảng, đến cách xây dựng mô hình dựa trên xác suất, và cuối cùng là phân tích toán học sâu để hiểu bản chất tại sao Logistic Regression lại hoạt động tốt như vậy. \\
+\item \textbf{Phần 1: Từ Linear Regression đến Logistic Regression}  \\
+Giải quyết vấn đề cốt lõi: tại sao Linear Regression + MSE không phù hợp cho Classification.  
+Trực giác về Sigmoid, Bernoulli Distribution, Likelihood và Log-Likelihood được xây dựng từ đầu.  
+Từ đó hình thành Binary Cross-Entropy như Negative Log-Likelihood một cách tự nhiên. \\
+
+\item \textbf{Phần 2: Mở rộng - Logistic Regression khi đưa về dạng Vector–Matrix}  \\
+Phát triển lại toàn bộ công thức dưới dạng vector hoá:  
+\begin{itemize}
+    \item chuyển dữ liệu sang ma trận \(X\),  
+    \item viết Loss, Gradient gọn bằng đại số tuyến tính,  
+    \item giải thích từng phép nhân ma trận từ nguyên lý cơ bản.  
+\end{itemize}  
+Phần này giúp mô hình mở rộng sang tập dữ liệu lớn, đồng thời tạo cầu nối sang phần đạo hàm bậc hai (Hessian). \\
+
+\item \textbf{Phần 3: Tại sao BCE là hàm Convex - Phân tích bằng Hessian Matrix}  \\
+Dùng kiến thức Second Derivative mở rộng từ 1 biến sang nhiều biến.  
+Giải thích toàn bộ quy trình:  
+\begin{itemize}
+    \item hiểu Hessian là gì từ ví dụ \(f(x,y)\),  
+    \item dựng Hessian của BCE từ gradient,  
+    \item phân tích cấu trúc \(H = X^T D X\),  
+    \item chứng minh Hessian luôn Positive Semi-Definite vì \(D = \mathrm{diag}(h(1-h))\).  
+\end{itemize}
+Từ đó, chứng minh BCE là một hàm convex trong không gian tham số - lý do căn bản khiến Logistic Regression học ổn định và không rơi vào local minima. \\
+
 \end{summarybox}
 
-
-% --- PHẦN 1 ---
+% --- PHẦN 1 \textemdash
 \section{Phần 1: Từ Linear Regression đến Logistic Regression}
+Thay vì đi thẳng vào giải thích lý thuyết và công thức, \textbf{mục tiêu} của mình lần này sẽ là đi cùng bạn hiểu từng thành phần từ ground up bắt đầu từ trực giác và giả thuyết hình thành nên Linear Regression rồi phát triển lên Logistic Regression.
 \input{lr_explain.tex}
-% - Batch Gradient Descent  và Stochastic Gradient Descent cùng với ưu điểm và nhược điểm
-% - Batch is for calc large dataset (calc by batch)
-% - Stochastic (shuffle sample - calc)
 
-
-
-\subsection{Phần 1.2: Logistic Regression}
+\subsection{Giới thiệu Logistic Regression}
 \input{lg_intro.tex}
-
-\subsection{Phần 1.3: Xây dựng hàm Loss từ Suy Luận}
+\subsection{Xây dựng hàm Loss cho Logistic Regression từ Suy Luận}
 \input{lg_loss_intuition.tex}
 \input{what_is_convexity.tex}
 \input{prove_lg_convexity.tex}
 
-\subsection{Phần 1.4: Xây dựng hàm Loss từ Xác Suất Thống Kê}
-\input{lg_loss_from_stats.tex}
+\input{lg_loss_from_stats.tex} % Logarithm and Log-Likelihood Function	
 
-
-\section{Phần 2: Mở Rộng: Nhân ma trận với Logistic Regression}
+\section{Phần 3 Mở Rộng: Nhân ma trận với Logistic Regression}
 \input{lg_matrix.tex}
 \input{hessianmatrix_convex_prove.tex}
 
-\section{Phần 3: Tại sao}
-\input{why.tex}
-
-% \printbibliography % Bỏ comment dòng này nếu bạn có tệp .bib
+\printbibliography % Bỏ comment dòng này nếu bạn có tệp .bib
 
 \end{document}
