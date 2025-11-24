@@ -1,5 +1,543 @@
-\subsection{Giải thích Binary-Cross Entropy từ góc nhìn của Xác Suất Thống Kê}
-\textbf{Entropy là gì?}
-Entropy measure information, blah blah
+\section{Xây dựng Hàm Loss cho Logistic Regression từ Xác Suất Thống Kê}
 
-\textbf{Entropy thể hiện ở dâu trong Logistic Regression ?}
+\subsection{Bắt đầu từ vấn đề: Vì sao Logistic Regression không thể dựa vào MSE?}
+
+Trong bài toán phân loại nhị phân, đầu ra chỉ có hai giá trị:
+\[
+y \in \{0,1\}.
+\]
+Nếu dùng MSE như Linear Regression, mô hình có thể dự đoán giá trị lớn hơn 1 hoặc nhỏ hơn 0, điều này không phù hợp với ý nghĩa “xác suất”. Ngoài ra, MSE kết hợp với Sigmoid tạo ra bề mặt Loss non-convex, khiến việc tối ưu hóa bằng Gradient Descent trở nên khó khăn.  \\
+
+Vì thế, ta cần một cách tiếp cận đúng bản chất hơn: \emph{xây dựng hàm Loss dựa trên xác suất thống kê}. Để làm được điều đó, ta sẽ bắt đầu từ những khái niệm nền tảng nhất.
+
+\subsection{Ôn lại nền tảng: Logarithm và Natural Logarithm}
+
+Trước khi đi vào xác suất, ta cần hiểu lý do vì sao Logarithm (log) và Natural Logarithm (ln) đóng vai trò quan trọng trong Logistic Regression.  
+
+\subsubsection*{(a) Logarithm là gì?}
+
+Logarithm trả lời câu hỏi:  
+\[
+\log_b(a) = c \quad \text{khi} \quad b^c = a.
+\]
+
+Nói cách khác, log tìm ra \textbf{phần số mũ} cần có để tạo ra một số. Đây là lý do log đặc biệt hữu ích khi ta làm việc với dữ liệu có dạng tăng giảm theo bội số, hoặc khi các xác suất nhỏ được nhân liên tiếp với nhau.
+
+\subsubsection*{(b) Ứng dụng: Log chuẩn hoá tỉ lệ để đưa về cùng một thang đo}
+
+Xét ví dụ trực quan trong hình~\ref{fig:logaxis}.  
+Hai giá trị:
+\[
+8 = 2^3,
+\qquad
+\frac{1}{8} = 2^{-3}
+\]
+cách nhau 8 lần so với 1, nhưng trên trục số thông thường, khoảng cách $\frac{1}{8} \leftrightarrow 1$ và $1 \leftrightarrow 8$ không đối xứng.
+
+Tuy nhiên, nếu dùng log cơ số 2:
+\[
+\log_2(8)=3, \qquad \log_2(1/8)=-3,
+\]
+thì hai giá trị này trở nên đối xứng. Điều này cho thấy log biến tỉ lệ (ratio) thành khoảng cách tuyến tính. Việc chuẩn hóa này cực kỳ quan trọng khi các trị số quá nhỏ hoặc quá lớn khiến việc tối ưu với gradient khó khăn.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\linewidth]{images/logApplication.png}
+    \caption{Log biến tỉ lệ lũy thừa thành khoảng cách tuyến tính đối xứng: một công cụ cực kỳ quan trọng khi xử lý xác suất nhỏ và dữ liệu trải dài nhiều bậc độ lớn.}
+    \label{fig:logaxis}
+\end{figure}
+
+\subsubsection*{(c) Vì sao dùng $\ln(x)$ thay vì $\log_{10}(x)$?}
+
+Trong học máy, ta dùng $\ln(x)$ vì:
+
+\begin{itemize}
+    \item ln liên quan trực tiếp đến hàm mũ $e^x$, vốn xuất hiện liên tục trong xác suất và tối ưu hóa.
+    \item Đạo hàm của ln rất đơn giản:
+    \[
+    \frac{d}{dx}\ln(x)=\frac{1}{x}.
+    \]
+    \item Khi tối ưu hóa Likelihood, toàn bộ biểu thức sẽ trở nên gọn, tránh phải mang thêm hệ số $\ln(10)$.
+\end{itemize}
+
+Tóm lại: ln giúp công thức đẹp, dễ đạo hàm, và phù hợp với mọi phân phối dùng trong thống kê hiện đại.
+
+\subsection{Probability và Likelihood (giải thích liền mạch bằng ví dụ đồng xu)}
+
+Để hiểu Logistic Regression dựa vào xác suất như thế nào, điều quan trọng nhất là phân biệt \textbf{Probability} và \textbf{Likelihood}. \\
+
+\textbf{Probability} là xác suất ta \emph{giả định} \textbf{trước khi quan sát dữ liệu}. Hãy tưởng tượng bạn có một đồng xu công bằng. Trước khi tung, bạn cho rằng xác suất ra mặt ngửa là $P(\text{Head})=0.5$ và xác suất ra mặt sấp cũng là 0.5. Khi tính Probability, ta đang hỏi: “Nếu mô hình đúng như ta tin (đồng xu công bằng), thì khả năng xảy ra một sự kiện là bao nhiêu?” Đây chính là \emph{probability without testing} — hoàn toàn dựa trên giả định mô hình, không dựa vào dữ liệu thực tế. \\
+
+Trong khi đó, \textbf{Likelihood} xuất hiện ở tình huống ngược lại: \textbf{khi đã quan sát dữ liệu}, và muốn biết tham số mô hình có hợp lý không. Ví dụ: bạn tung đồng xu 50 lần, nhưng chỉ thấy 14 lần ra mặt ngửa. Điều này khiến bạn nghi ngờ rằng giả định $P(\text{Head})=0.5$ có thể không đúng. Lúc này, ta hỏi: “Với dữ liệu này, giá trị nào của $p$ là hợp lý nhất?” Đây là \emph{probability after testing}. Dữ liệu đã cố định, còn tham số $p$ là thứ thay đổi. Likelihood đo độ hợp lý của từng giá trị $p$ trong việc sinh ra dữ liệu quan sát. \\
+
+Tóm lại:
+\[
+\text{Probability: mô hình cố định → dữ liệu thay đổi},
+\qquad
+\text{Likelihood: dữ liệu cố định → mô hình thay đổi}.
+\]
+
+Và Logistic Regression dùng Likelihood để tìm ra tham số tốt nhất.
+
+\subsection{Bernoulli Distribution: Mô hình chính xác cho phân loại nhị phân}
+
+Trong phân loại nhị phân, $y$ chỉ có hai giá trị 0 hoặc 1. Đây chính xác là định nghĩa của biến Bernoulli. Phân phối Bernoulli được viết:
+\[
+P(Y=1)=p,
+\qquad
+P(Y=0)=1-p.
+\]
+
+Để gọn hơn, ta viết dưới dạng hợp nhất:
+\[
+P(Y=y)=p^y(1-p)^{1-y}.
+\]
+
+Điều này phản ánh chính xác ý nghĩa của $y$:
+\begin{itemize}
+    \item nếu $y=1$, biểu thức còn lại là $p$,
+    \item nếu $y=0$, biểu thức còn lại là $1-p$.
+\end{itemize}
+
+\subsection{Mô hình Logistic Regression: Mô hình hóa xác suất $P(y=1\mid x)$}
+
+Ý tưởng của Logistic Regression đơn giản:
+
+\[
+p = P(y=1\mid x)
+\]
+
+Nhưng vì $\theta^T x$ có thể âm hoặc dương, ta cần một hàm ép giá trị về đoạn $[0,1]$.  
+Sigmoid làm điều này rất tự nhiên:
+\[
+h_\theta(x)=\sigma(z)=\frac{1}{1+e^{-z}},\qquad z=\theta^T x.
+\]
+
+\subsection{Xây dựng Likelihood cho toàn bộ tập dữ liệu}
+\noindent
+Trong bối cảnh mô hình hóa bằng Bernoulli, ta giả định rằng mỗi điểm dữ liệu $(x^{(i)}, y^{(i)})$ được sinh ra bởi một biến ngẫu nhiên có xác suất:
+\[
+P(y^{(i)}=1 \mid x^{(i)}, \theta) = h_\theta(x^{(i)}), 
+\quad
+P(y^{(i)}=0 \mid x^{(i)}, \theta) = 1 - h_\theta(x^{(i)}).
+\]
+
+Dùng dạng hợp nhất của phân phối Bernoulli, ta có thể viết xác suất cho từng mẫu:
+\[
+P(y^{(i)} \mid x^{(i)}, \theta)
+= 
+h_\theta(x^{(i)})^{\,y^{(i)}} 
+\left(1 - h_\theta(x^{(i)})\right)^{\,1 - y^{(i)}}.
+\] 
+
+\textbf{Trực giác của biểu thức này:} 
+\begin{itemize}
+\item Nếu mẫu có nhãn $y^{(i)} = 1$, biểu thức trở thành $h_\theta(x^{(i)})$. Mô hình được “thưởng” nếu $h_\theta(x^{(i)})$ lớn (xác suất cao cho lớp đúng). 
+\item Nếu $y^{(i)} = 0$, biểu thức trở thành $1 - h_\theta(x^{(i)})$. Mô hình được “thưởng” nếu nó giảm xác suất dự đoán dương. 
+\item Số mũ $y^{(i)}$ và $1-y^{(i)}$ đóng vai trò như “công tắc” (on/off). Chúng bật đúng biểu thức cần dùng cho từng nhãn. Cách viết này cực kỳ hiệu quả vì cùng một công thức xử lý được cả hai trường hợp.
+\end{itemize}
+
+\subsection{Vậy Likelihood cho toàn bộ tập dữ liệu là gì?}
+Vì các điểm dữ liệu được giả định là \textbf{độc lập} (IID — independent and identically distributed), xác suất quan sát cả tập dữ liệu chính là:
+
+\[
+\mathcal{L}(\theta) 
+= 
+\prod_{i=1}^{m} 
+P(y^{(i)} \mid x^{(i)}, \theta)
+=
+\prod_{i=1}^{m} 
+h_\theta(x^{(i)})^{\,y^{(i)}} 
+\left(1 - h_\theta(x^{(i)})\right)^{\,1 - y^{(i)}}.
+\]
+
+\\[-0.7em]
+\paragraph*{Tại sao dùng phép nhân (Product) thay vì phép cộng ?}.
+
+Còn trong xác suất, Đây là điểm rất nhiều người hay nhầm khi mới học xác suất.
+\begin{itemize}
+    \item Với các sự kiện độc lập, xác suất xảy ra đồng thời bằng \textbf{tích} các xác suất thành phần.
+    \item Mỗi điểm dữ liệu đều là 1 tham số $\theta$ độc lập.
+    \item Vì thế, để xem toàn bộ tập dữ liệu ``ủng hộ'' tham số $\theta$ bao nhiêu, ta phải nhân toàn bộ các xác suất lại.
+\end{itemize}
+
+Đây chính là nơi xuất hiện khái niệm \textbf{“likelihood của mô hình”} $--$ nó là mức độ mô hình “hợp lý” khi nhìn vào toàn bộ dữ liệu.
+
+\vspace{1em}
+\subsubsection*{Ôn tập lại kiến thức toán cơ bản}
+
+Biểu thức Likelihood sử dụng lại hai quy tắc quen thuộc:
+
+\begin{itemize}
+    \item \textbf{Product Rule}  
+    Nếu các sự kiện độc lập,  
+    \[
+    P(A \cap B) = P(A)P(B).
+    \]
+
+    \item \textbf{Power Rule}  
+    Khi viết lại $p$ hoặc $(1-p)$ tuỳ theo nhãn $y$, ta dùng quy tắc:
+    \[
+    a^1 = a, \quad a^0 = 1.
+    \]
+\end{itemize}
+
+Đây là lý do công thức Bernoulli gộp được 2 trường hợp vào một.
+
+\vspace{1em}
+\subsubsection*{Nhìn vào một ví dụ thực tế để hiểu rõ hơn}
+
+Giả sử ta cần dự đoán khả năng mắc ung thư dựa trên chỉ số PSA (theo ví dụ trong tài liệu bạn cung cấp).  
+Mỗi bệnh nhân có:
+
+- giá trị PSA (đầu vào $x^{(i)}$),
+- nhãn: \texttt{Cancer} (1) hoặc \texttt{Healthy} (0),
+- mô hình dự đoán xác suất $p^{(i)} = h_\theta(x^{(i)})$.
+
+Ví dụ một đoạn dữ liệu (rút gọn):
+
+\[
+\begin{array}{c|c|c}
+\text{PSA} & y & h_\theta(x) \\
+\hline
+3.8 & 1 & 0.99 \\
+3.4 & 1 & 0.97 \\
+2.9 & 1 & 0.92 \\
+2.1 & 0 & 0.50 \\
+1.2 & 0 & 0.13 \\
+\end{array}
+\]
+
+Likelihood của mô hình là:
+\[
+\mathcal{L}(\theta)
+= 
+0.99^1 \cdot 0.97^1 \cdot 0.92^1
+\cdot (1-0.50)^1
+\cdot (1-0.13)^1.
+\]
+
+Nếu nhân đầy đủ:
+\[
+0.99 \cdot 0.97 \cdot 0.92 \cdot 0.50 \cdot 0.87
+\approx
+0.386.
+\]
+
+\vspace{0.5em}
+\noindent
+\textbf{Trực giác:} \\
+- Mô hình càng chính xác → các xác suất đúng càng cao → tích càng lớn.  \\
+- Mô hình sai tự tin → một số hạng rất nhỏ → kéo toàn bộ tích xuống gần 0. Đây chính là logic cốt lõi của Likelihood.
+
+\vspace{1em}
+
+\noindent
+\textbf{Tới đây, ta đã xây dựng xong Likelihood.} Ở phần tiếp theo, ta sẽ đối mặt với vấn đề lớn nhất của Likelihood:  \emph{tích nhiều xác suất nhỏ khiến giá trị nhanh chóng tiến về 0}. Và đó là lúc \textbf{Log-Likelihood} xuất hiện .
+
+\subsection{Log-Likelihood: Khi phép nhân không còn chịu nổi dữ liệu thực tế}
+
+Một trong những vấn đề lớn nhất của Likelihood là giá trị của nó \textbf{giảm rất nhanh} khi nhân nhiều xác suất nhỏ lại với nhau. Trong thực tế, các mô hình phân loại thường dự đoán xác suất như $0.93, 0.71, 0.85,\dots$ hoặc có những điểm “khó đoán” với xác suất $0.02$ hoặc $0.15$.
+
+Khi nhân 100–10,000 giá trị như vậy, ta sẽ thu được những con số nhỏ tới mức:
+\[
+10^{-50},\; 10^{-200},\; 10^{-500}\;\text{hoặc thậm chí nhỏ hơn}.
+\]
+
+Kết quả là máy tính sẽ tràn số (underflow), biến toàn bộ kết quả về $0$. Hoặc ngược lại overflow khi số quá lớn. 
+Điều này khiến việc tối ưu trở nên bất khả thi.
+
+\\[0.5em]
+\noindent
+Vậy làm thế nào để biến một tích “siêu nhỏ” thành thứ có thể tính toán, đạo hàm và tối ưu được?  
+Câu trả lời chính là: \textbf{dùng Logarithm}.
+
+\subsubsection*{Tại sao log giúp giải quyết vấn đề ? Hiểu bằng trực giác trước}
+
+Ta có quy tắc cực kì quan trọng của log
+\[
+\ln(a \cdot b \cdot c) 
+= 
+\ln(a) + \ln(b) + \ln(c).
+\]
+
+Một phép nhân hàng trăm số nhỏ  
+\[
+0.99 \cdot 0.92 \cdot 0.85 \cdots
+\]  
+trở thành một phép cộng hoàn toàn vô hại:
+\[
+\ln(0.99) + \ln(0.92) + \ln(0.85) + \cdots
+\]
+
+\textbf{Phép cộng luôn ổn định và dễ đạo hàm hơn phép nhân.}
+
+Không chỉ vậy, log còn “kéo” các xác suất về một dải giá trị dễ quản lý:  
+- $\ln(0.99) \approx -0.01$  \\
+- $\ln(0.92) \approx -0.083$  \\
+- $\ln(0.85) \approx -0.16$ \\
+Các con số nhỏ gọn, không bị “lọt” vào vùng quá nhỏ như $10^{-50}$.
+
+\subsubsection*{Dùng log để viết lại Likelihood}
+Ta đã có Likelihood gốc:
+\[
+\mathcal{L}(\theta) 
+= 
+\prod_{i=1}^{m} 
+h_\theta(x^{(i)})^{y^{(i)}}
+(1 - h_\theta(x^{(i)}))^{1-y^{(i)}}.
+\]
+
+\noindent Lấy log hai vế (dùng Product Rule và Power Rule):
+\[
+\ln(a \cdot b) = \ln(a) + \ln(b), 
+\qquad
+\ln(a^k) = k\ln(a).
+\] \\
+Ta được 
+\[
+\ell(\theta)
+=
+\ln \mathcal{L}(\theta)
+=
+\sum_{i=1}^{m}
+\left[
+y^{(i)} \ln h_\theta(x^{(i)})
++
+(1 - y^{(i)})\ln\left(1 - h_\theta(x^{(i)})\right)
+\right].
+\]
+
+\noindent \textbf{Hàm được gọi là “Log-Likelihood”?} vì \\
+- $\mathcal{L}(\theta)$ là Likelihood (một phép nhân).  \\
+- $\ell(\theta)=\ln(\mathcal{L}(\theta))$ là Log-Likelihood (một phép cộng). Điều quan trọng nhất là Hàm log là hàm đơn điệu, tức là việc tối đa hóa Likelihood và tối đa hóa Log-Likelihood là như nhau:
+\[
+\theta^* = \arg\max_\theta \ell(\theta)
+\quad\Longleftrightarrow\quad
+\theta^* = \arg\max_\theta \mathcal{L}(\theta).
+\] 
+Túm lại mình mất công đổi qua log là vì: Log-Likelihood dễ tính loss hơn, dễ đạo hàm hơn, dễ phân tích hình dạng hơn, mượt hơn cho việc tối ưu.  
+
+\subsection{Một ví dụ rõ ràng: Log-Likelihood trong bài toán dự đoán ung thư}
+Giả sử bạn có 5 bệnh nhân, nhãn như sau (giống ví dụ ở phần Likelihood):
+
+\[
+\begin{array}{c|c|c}
+\text{PSA} & y & h_\theta(x) \\
+\hline
+3.8 & 1 & 0.99 \\
+3.4 & 1 & 0.97 \\
+2.9 & 1 & 0.92 \\
+2.1 & 0 & 0.50 \\
+1.2 & 0 & 0.13 \\
+\end{array}
+\]
+
+Ta đã tính được Likelihood trước đó:
+\[
+\mathcal{L}(\theta) \approx 0.386.
+\]
+
+Giờ tính Log-Likelihood:
+
+\[
+\ell(\theta)
+=
+\ln(0.99)
++ \ln(0.97) 
++ \ln(0.92)
++ \ln(0.50)
++ \ln(0.87).
+\]
+
+Tính từng giá trị:
+
+\[
+\begin{aligned}
+\ln(0.99) &\approx -0.01005,\\
+\ln(0.97) &\approx -0.03046,\\
+\ln(0.92) &\approx -0.08338,\\
+\ln(0.50) &\approx -0.69315,\\
+\ln(0.87) &\approx -0.13926.
+\end{aligned}
+\]
+
+Cộng lại:
+
+\[
+\ell(\theta) \approx -0.956.
+\]
+
+\noindent So sánh trực giác: \\
+- Likelihood: $0.386$ → rất nhỏ nhưng khó so sánh giữa mô hình. \\
+- Log-Likelihood: $-0.956$ → con số “tự nhiên”, dễ đọc, dễ so sánh. \\
+Nếu một mô hình khác có LL = -10 → chắc chắn tệ hơn.  \\
+Nếu LL = -0.3 → tốt hơn. \\
+
+\subsection*{Ý nghĩa sâu hơn: Log-Likelihood thưởng/phạt mô hình thế nào?}
+Quan sát cấu trúc:
+\[
+y\ln(h) \quad \text{và} \quad (1-y)\ln(1-h).
+\]
+
+\\[-1em]
+\noindent
+Nếu $y=1$:
+\[
+\ell_i = \ln(h_\theta(x^{(i)})).
+\] \\ 
+Nếu mô hình dự đoán đúng và tự tin ($h$ gần 1), log gần 0 → \textbf{điểm thưởng lớn}. Nếu dự đoán sai tự tin ($h$ gần 0), log tiến về $-\infty$ → \textbf{phạt rất mạnh}. 
+
+\\[-1em]
+\noindent
+Nếu $y=0$:
+\[
+\ell_i = \ln(1-h_\theta(x^{(i)})).
+\] \\
+- Nếu mô hình gần 0 → tốt  \\
+- Nếu mô hình gần 1 → log rất âm → phạt mạnh. Đây chính là lý do Log-Likelihood phản ánh tốt chất lượng mô hình phân loại: mô hình sai tự tin sẽ bị trừng phạt rất nặng. \\
+
+\subsection{Binary Cross-Entropy: Hàm Loss xuất phát tự nhiên từ Log-Likelihood}
+Sau khi đã xây dựng Log-Likelihood, ta có một biểu thức mô tả mức độ “hợp lý” của tham số $\theta$ khi nhìn vào toàn bộ dữ liệu.  
+Tuy nhiên, trong học máy, ta thường quen với \emph{tối thiểu hóa} thay vì \emph{tối đa hóa}. Vì vậy, theo lẽ rất tự nhiên là tối thiểu hàm Loss:
+
+\[
+J(\theta) = -\ell(\theta).
+\]
+
+Biểu thức này chính là \textbf{Binary Cross-Entropy (BCE)}.  
+Không phải được định nghĩa tuỳ ý, mà là kết quả tất yếu khi ta lấy dấu trừ của log-likelihood.
+
+\[
+J(\theta)
+=
+-\sum_{i=1}^{m}
+\left[
+y^{(i)}\ln h_\theta(x^{(i)})
++
+(1-y^{(i)})\ln (1 - h_\theta(x^{(i)}))
+\right].
+\]
+
+\noindent  Nếu mẫu thuộc lớp $1$ ($y = 1$), ta nhìn vào $-\ln(h_\theta(x))$.
+\begin{itemize}
+	\item Nếu mô hình “tự tin đúng” ($h \approx 1$),  
+           $-\ln(h)$ gần $0$ → \textbf{ít phạt}.
+           \item Nếu mô hình “tự tin sai” ($h \approx 0$),  
+            $-\ln(h)$ tiến tới $+\infty$ → \textbf{phạt cực mạnh}.
+\end{itemize} \\
+
+\noindent Nếu mẫu thuộc lớp $0$ ($y = 0$), ta nhìn vào $-\ln(1 - h_\theta(x))$.
+\begin{itemize}
+	\item Nếu mô hình “tự tin đúng” ($h \approx 0$),  
+	$-\ln(1-h)$ gần $0$.
+           \item Nếu mô hình “tự tin sai” ($h \approx 1$),  
+           $-\ln(1-h)$ tiến tới $+\infty$.
+\end{itemize}
+
+\subsection{Tổng kết bước của Logistic Regression}
+Để hiểu sâu Binary Cross-Entropy, ta cần nhìn lại toàn bộ mô hình Logistic Regression ở dạng cơ bản nhất. Mục tiêu của Logistic Regression là mô hình hóa xác suất một điểm dữ liệu thuộc lớp $1$ dưới dạng:
+
+\[
+h_\theta(x) = P(y=1 \mid x ; \theta).
+\]
+
+Hãy phân tích từng thành phần một cách liền mạch và trực quan.
+
+\subsubsection*{(1) Mô hình tuyến tính: $z = \theta^T x$}
+
+\[
+z = \theta_0 x_0 + \theta_1 x_1 + \theta_2 x_2 + \dots + \theta_n x_n.
+\]
+
+Trong đó, $x$ là vector đặc trưng đầu vào, $\theta$ là vector trọng số mô hình cần học và $x_0 = 1$ để biểu diễn hệ số chặn (bias). Mô hình lấy tổng có trọng số của các đặc trưng để tạo thành một dạng “điểm số” có thể âm, dương hoặc rất lớn, nhưng chưa thể diễn giải như xác suất; vì thế ta cần đến hàm Sigmoid.
+
+\subsubsection*{(2) Biến đổi $z$ thành xác suất bằng hàm Sigmoid}
+
+\[
+h_\theta(x)=\sigma(z)=\frac{1}{1+e^{-z}}.
+\]
+
+Sigmoid ép đầu ra về đoạn $[0,1]$, cho phép diễn giải như xác suất: khi $z$ lớn thì $h \to 1$, khi $z$ nhỏ thì $h \to 0$, còn khi $z = 0$ thì $h = 0.5$ thể hiện trạng thái “không biết / trung lập”. Vì vậy, Sigmoid đóng vai trò như bộ chuyển đổi giữa không gian tuyến tính và không gian xác suất.
+
+\subsubsection*{(3) Xác suất dự đoán cho từng nhãn $y$}
+
+Theo phân phối Bernoulli:
+
+\[
+P(y \mid x,\theta)
+=
+h_\theta(x)^{y} \big(1 - h_\theta(x)\big)^{1-y}.
+\]
+
+Công thức này hoạt động nhờ số mũ $y$ và $1-y$ đóng vai trò như “công tắc”: khi $y=1$ nó giữ lại $h$, còn khi $y=0$ nó giữ lại $(1-h)$. Như vậy, một công thức duy nhất có thể biểu diễn cả hai trường hợp.
+
+\subsubsection*{(4) Likelihood cho cả tập dữ liệu}
+
+Vì các mẫu độc lập theo giả định IID, ta nhân tất cả xác suất lại để đo độ “hợp lý tổng thể” của mô hình:
+
+\[
+\mathcal{L}(\theta)
+=
+\prod_{i=1}^{m}
+h_\theta(x^{(i)})^{y^{(i)}}
+\big(1 - h_\theta(x^{(i)})\big)^{1-y^{(i)}}.
+\]
+
+Phép nhân xuất hiện vì mỗi điểm dữ liệu là một bằng chứng độc lập ủng hộ hoặc bác bỏ $\theta$, và tích của chúng thể hiện mức độ mô hình phù hợp với toàn bộ dữ liệu.
+
+\subsubsection*{(5) Log-Likelihood}
+
+Tích trên rất nhỏ khi nhân nhiều xác suất → dẫn đến underflow, nên ta lấy log để chuyển tích thành tổng dễ tính và ổn định:
+
+\[
+\ell(\theta)
+=
+\sum_{i=1}^{m}
+\left[
+y^{(i)}\ln h_\theta(x^{(i)})
++
+(1-y^{(i)})\ln\big(1 - h_\theta(x^{(i)})\big)
+\right].
+\]
+
+Việc lấy log giúp số nhỏ trở nên lớn hơn, loại bỏ vấn đề tràn số, đồng thời giữ nguyên điểm cực đại vì hàm log là hàm đơn điệu.
+
+\subsubsection*{(6) Binary Cross-Entropy: NegLogLikelihood}
+
+\[
+J(\theta) = -\ell(\theta).
+\]
+
+\[
+J(\theta)
+=
+-\sum_{i=1}^{m}
+\left[
+y^{(i)}\ln h_\theta(x^{(i)})
++
+(1-y^{(i)})\ln\big(1 - h_\theta(x^{(i)})\big)
+\right].
+\]
+
+Việc thêm dấu trừ biến bài toán tối đa hóa thành tối thiểu hóa, giúp BCE trở thành hàm Loss chuẩn. BCE thưởng mô hình đoán đúng và phạt rất mạnh mô hình đoán sai tự tin, đồng thời phản ánh đúng bản chất thống kê của phân phối Bernoulli.
+
+\subsection*{Giải thích pipeline của Logistic Regression theo trực giác liền mạch}
+
+\begin{itemize}
+    \item $\theta^T x$ tạo ra một điểm số tuyến tính dựa trên đặc trưng đầu vào.  
+    \item $\sigma(\theta^T x)$ chuyển điểm số đó thành xác suất hợp lệ nằm trong khoảng $[0,1]$.  
+    \item $h_\theta(x)^y(1-h_\theta(x))^{1-y}$ mô tả xác suất mô hình “cho điểm” đúng sai cho từng mẫu dữ liệu.  
+    \item $\prod_{i=1}^m$ kết hợp tất cả bằng chứng độc lập thành một mức độ “hợp lý tập thể” của mô hình.  
+    \item $\log$ biến tích thành tổng để tránh underflow và làm cho việc đạo hàm dễ dàng hơn.  
+    \item $-\log$ biến bài toán thành tối thiểu hóa, phù hợp với các thuật toán tối ưu chuẩn như Gradient Descent.  
+    \item Tổng cuối cùng trở thành một giá trị Loss: mô hình càng chính xác thì Loss càng nhỏ.  
+\end{itemize}
+
+\subsection*{Kết luận cô đọng}
+\[
+\boxed{
+\text{Logistic Regression = Bernoulli Model } \;+\; \text{ Log-Likelihood } \; \Rightarrow\; \text{ Binary Cross-Entropy}.
+}
+\]
+Mọi biểu thức đều xuất phát từ nguyên lý xác suất.

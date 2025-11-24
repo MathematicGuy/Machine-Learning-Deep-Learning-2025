@@ -1,27 +1,133 @@
-\subsection{Nhược Điểm của MSE}
-+ Tích tiến đến 0.
-+ Non-Convex -> khó hội tụ. (Giải thích sâu hơi sau khi xây dựng xong BCE)
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\linewidth]{images/convexProblem.png}
-    \caption{Problem with Non-Convex Loss Function}
-\end{figure}
+\subsubsection{Hành trình tìm hàm Loss: thử nghiệm vì sao MSE không hợp cho Logistic Regressions}
 
-\subsection{Lựa chọn và Xây dựng hàm Loss cho bài toán phân loại}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\linewidth]{images/findloss1.png}
-    \caption{Suggesst Loss Function}
-\end{figure}
+Trước khi lựa chọn một hàm Loss mới cho Logistic Regression, mình muốn cho bạn thấy rõ ràng hơn vì sao \textbf{Mean Squared Error (MSE)}—vốn hoạt động rất tốt trong Linear Regression—lại \textbf{không phù hợp} khi kết hợp với hàm Sigmoid. Thay vì chỉ nói rằng MSE làm Loss trở nên non-convex (nhiều điểm cực tiểu, khó hội tụ) , chúng ta sẽ kiểm chứng điều này từ ba góc nhìn: hành vi của nó khi thực nghiệm, phản ứng của Loss theo từng điểm dữ liệu, và cuối cùng là đạo hàm. \\
+
+\textbf{(1) Quan sát từ thử nghiệm thực tế}
+
+Hãy xem thử điều gì xảy ra khi ta huấn luyện Logistic Regression nhưng vẫn dùng Loss là MSE. Ở hình dưới, mô hình đã cố gắng dự đoán phân loại 0 và 1, nhưng ta nhanh chóng thấy rằng hàm Loss gần như dừng lại rất sớm và không giảm được nữa. Accuracy đôi khi đạt mức “tạm được”, nhưng mô hình không học sâu hơn, và sai số vẫn cao dù chạy rất lâu.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{images/findloss2.png}
-    \caption{Binary Cross Entropy Loss}
+    \includegraphics[width=0.85\linewidth]{images/whyMSE.png}
+    \caption{Huấn luyện Logistic Regression với MSE: Loss dừng quá sớm, mô hình không học tiếp}
 \end{figure}
+
+Điều rõ ràng ở đây là mô hình rơi vào vùng “mặt phẳng” của Loss—nơi gradient gần như bằng 0—nên không thể tiếp tục cập nhật tham số. Đây là hậu quả trực tiếp của việc Sigmoid bóp $\hat{y}$ về gần 0 hoặc 1, làm cho $(\hat{y}-y)^2$ trở nên gần như phẳng khi đạo hàm nhỏ. \\
+
+\textbf{(2) Quan sát sai số theo từng điểm dữ liệu}
+
+Ở hình tiếp theo ta thấy cách MSE tương tác với từng điểm dự đoán. Với một $\theta$ nhất định, Sigmoid có vùng rất phẳng ở hai đầu (đoạn gần 0 và gần 1). Khi tính MSE, vùng phẳng này làm cho sai số thay đổi rất ít ngay cả khi mô hình dự đoán sai nghiêm trọng. Điều đó nghĩa là mô hình không được “phạt đủ mạnh” để học tiếp.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{images/findloss3.png}
-    \caption{BCE Summarize}
+    \includegraphics[width=0.85\linewidth]{images/whyMSE2.png}
+    \caption{Sigmoid làm mất độ nhạy của MSE tại hai vùng 0 và 1, mô hình không được phạt đủ mạnh}
 \end{figure}
+
+Khi dữ liệu là phân loại, ta cần một hàm Loss phản ứng mạnh khi dự đoán sai, đặc biệt khi mô hình sai nhưng lại tự tin. Nhưng MSE hoàn toàn không làm điều này. \\
+
+\textbf{(3) Phân tích đạo hàm của MSE trong Logistic Regression}
+
+Đây là phần quan trọng nhất để thấy vấn đề nằm ở đâu. Với Logistic Regression, ta có:
+
+\[
+z = \theta^T x,
+\qquad
+\hat{y} = \sigma(z) = \frac{1}{1 + e^{-z}},
+\qquad
+L = (\hat{y} - y)^2.
+\]
+
+Lấy đạo hàm theo từng tham số $\theta_i$:
+
+\[
+\frac{\partial L}{\partial \theta_i}
+= 2(\hat{y}-y)\,\frac{\partial \hat{y}}{\partial z}\,\frac{\partial z}{\partial \theta_i}
+= 2(\hat{y}-y)\,\hat{y}(1-\hat{y})\,x_i.
+\]
+
+Điều quan trọng nằm ở nhân tử:
+
+\[
+\hat{y}(1-\hat{y})
+\]
+
+Đây chính là đạo hàm của Sigmoid, và nó luôn rất nhỏ khi $\hat{y}$ gần 0 hoặc gần 1. Khi nhân vào công thức đạo hàm tổng, gradient trở nên vô cùng nhỏ—gây ra hiện tượng:
+
+\[
+\text{gradient} \approx 0 \quad \Rightarrow \quad \text{học rất chậm hoặc không học được}.
+\]
+
+Hình dưới đây mô tả đầy đủ các bước đạo hàm và thành phần gradient gây ra vấn đề.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{images/lg_mse_deriv.png}
+    \caption{Đạo hàm của MSE trong Logistic Regression: gradient bị nhân với $\hat{y}(1-\hat{y})$ khiến cập nhật gần bằng 0}
+\end{figure}
+
+
+\noindent Kết luận từ ba quan sát trên:
+\begin{itemize}
+	\item Khi Sigmoid “bóp đầu ra” về 0 hoặc 1, đạo hàm Sigmoid $\hat{y}(1-\hat{y})$ gần bằng 0.  
+	\item Khi nhân với $(\hat{y}-y)$ trong công thức của MSE, gradient càng bị làm nhỏ thêm.  
+	\item Kết quả: Loss MSE trở nên phẳng, khó tối ưu, và mô hình không thể hội tụ tốt.  
+	\item Hậu quả nghiêm trọng nhất: \textbf{toàn bộ hàm Loss trở thành non-convex có nhiều cực tiểu và khó hội tụ.}.
+\end{itemize}
+
+Chính vì vậy, MSE không phải là hàm Loss phù hợp cho Logistic Regression. \textbf{Vậy một hàm Loss đúng cho phân loại cần có đặc điểm gì?}. Để trả lời, ta trở lại bản chất của Classification:
+\begin{itemize}
+	\item Nếu mô hình dự đoán đúng và tự tin, Loss phải rất nhỏ.  
+	\item Nếu mô hình dự đoán sai nhưng lại tự tin, Loss phải tăng thật nhanh.  
+	\item Hàm phải có dạng trơn (ie. hàm có thể đạo hàm vô tận, 1 đường cong ko bị gãy), liên tục, dễ tối ưu bằng Gradient Descent.  
+\end{itemize}
+
+Với các điều kiện trên, ta thử quan sát các dạng hàm quen thuộc và xem phản ứng của chúng khi đầu vào tiến gần 0 hoặc 1.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{images/findloss1.png}
+    \caption{Quan sát các dạng hàm: chỉ các hàm logarithm tăng rất mạnh khi $\hat{y}$ tiến về 0. Từ hình này, ta nhận thấy rằng hai ứng viên tự nhiên cho bài toán phân loại là:}
+\end{figure}
+\begin{enumerate}
+	\item $-\log(\hat{y})$ khi $y=1$  
+	\item $-\log(1-\hat{y})$ khi $y=0$
+\end{enumerate}
+
+
+Cả hai đều “bùng nổ” khi mô hình sai một cách tự tin—đúng thứ chúng ta cần, và trái ngược hoàn toàn với MSE vốn phạt rất nhẹ.
+
+
+Thay vì viết theo kiểu \texttt{if/else}, ta chỉ cần kết hợp hai hàm bằng biểu thức gọn gàng:
+
+\[
+L(y, \hat{y}) = -y\log(\hat{y}) - (1-y)\log(1-\hat{y}).
+\]
+
+Đây chính là \textbf{Binary Cross-Entropy (BCE)}—hàm Loss chuẩn cho Logistic Regression. Không chỉ phù hợp trực giác, BCE còn khớp hoàn hảo với bản chất xác suất khi mô hình hoá nhãn $y$ như một biến Bernoulli, và công thức trên chính là negative log-likelihood.
+
+Khi kết hợp với Logistic Regression:
+
+\[
+z = \theta^T x,
+\qquad
+\hat{y} = \sigma(z),
+\]
+
+gradient trở nên cực kỳ gọn:
+
+\[
+\frac{\partial L}{\partial \theta_i} = x_i(\hat{y} - y),
+\]
+
+tương tự Linear Regression nhưng mang đầy đủ ý nghĩa xác suất.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{images/findloss3.png}
+    \caption{Pipeline Logistic Regression + BCE: đơn giản và chặt chẽ}
+\end{figure}
+
+Từ trực giác đến công thức, BCE đáp ứng tất cả nhu cầu của bài toán phân loại: phạt mạnh khi sai, ổn định khi đúng, đạo hàm đơn giản và học rất nhanh. Điều quan trọng nhất là khi quan sát mặt Loss của BCE, ta thấy nó có dạng “bát úp” ở không gian tham số—một dấu hiệu mạnh mẽ của \textbf{Convexity}.
+
+Convexity chính là chìa khóa giúp Logistic Regression hội tụ ổn định và tránh bẫy local minima. Vì vậy, trước khi chứng minh BCE convex và so sánh BCE với MSE, ta cần xây dựng trực giác về “độ cong” của một hàm thông qua đạo hàm bậc hai — đây chính là chủ đề của phần tiếp theo.

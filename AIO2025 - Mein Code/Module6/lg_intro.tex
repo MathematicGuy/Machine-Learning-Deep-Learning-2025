@@ -1,11 +1,53 @@
-- Liên kết với Linear Regression và vấn đề Logistic Regression giải quyết
-- giải thích thuật ngữ
-- giải thích công thức qua 1 ví dụ từ đầu đến cuối
-1. Initialize Parameters
-2. Calculating y -> Calculate Sigmoid z
-3. Calculate Loss base on $\hat{y}$ and $y$
-4. Calculate Parameters Gradient
-5. Update Parameters Gradient (w and b)
+\label{subsec:logistic_regression_intro}
 
-- giải thích ý nghĩa công thức
-- code lại sử dụng ví dụ.
+Trong phần trước, mình đã cùng xây dựng toàn bộ Linear Regression từ trực giác, đến thiết kế hàm Loss, cách tối ưu bằng Gradient Descent và nghiệm đóng dạng ma trận. Khi nhìn lại workflow đó, ta thấy Linear Regression vận hành rất tốt cho các bài toán dự đoán giá trị liên tục, nhưng lại không phù hợp khi bài toán yêu cầu dự đoán theo xác suất hoặc phân loại nhị phân (0 và 1). Đây chính là điểm bắt đầu để ta phát triển Logistic Regression.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{images/newData.png}
+    \caption{Nhược điểm của Linear Regression với giá trị không tuyến tính}
+\end{figure}
+
+Trước khi đi vào chi tiết, mình sẽ tham khảo cách Andrew Ng trình bày quá trình “tái thiết kế” một mô hình phân loại từ Linear Regression, trong đó ông giải thích rằng chìa khóa nằm ở việc chọn hàm ánh xạ	 đầu ra sao cho phù hợp bản chất xác suất (\href{https://youtu.be/4b4MUYve_U8?si=c3Z9EnSvapGnTbI6}{linear regression and gradient descent}).
+
+Với suy nghĩ này, ta vẫn giữ phần “lõi” của Linear Regression – tức là vẫn tính một đại lượng tuyến tính:
+\[
+z = \theta^T x,
+\]
+nhưng thay vì dùng trực tiếp $z$ làm dự đoán như Linear Regression, Logistic Regression sẽ đưa $z$ đi qua một hàm phi tuyến đặc biệt để ánh xạ giá trị thực $(-\infty, +\infty)$ về đoạn $[0,1]$ — đó chính là hàm Sigmoid:
+\[
+    \hat{y} = \sigma(z) = \frac{1}{1 + e^{-z}}.
+\]
+
+Điều này khiến mô hình trở thành một bộ dự đoán xác suất:
+\[
+    \hat{y} = P(y=1\mid x).	
+\]
+
+Trực giác của Sigmoid rất đơn giản: khi $z$ càng lớn thì xác suất càng tiến gần 1, khi $z$ càng âm thì xác suất tiến gần 0, còn vùng gần $z = 0$ là vùng “không chắc chắn”, nơi mô hình phản ứng nhạy nhất. Nhờ đặc tính cong hình chữ S này, Logistic Regression có thể mô hình hóa ranh giới phân loại tốt hơn Linear Regression.
+
+Tóm lại, Logistic Regression chính là:
+\[
+\text{Linear Regression} + \text{hàm Sigmoid}.
+\]
+
+Phần tiếp theo sẽ tập trung trả lời câu hỏi: Nếu đầu ra giờ đã là xác suất, vậy ta cần xây dựng hàm Loss mới như thế nào để việc tối ưu hóa vẫn có ý nghĩa?
+
+%
+%
+%- Liên kết với Linear Regression và vấn đề Logistic Regression giải quyết
+%- giải thích thuật ngữ
+%- giải thích công thức qua 1 ví dụ từ đầu đến cuối
+%1. Initialize Parameters
+%2. Calculating y -> Calculate Sigmoid z
+%3. Calculate Loss base on $\hat{y}$ and $y$
+%4. Calculate Parameters Gradient
+%5. Update Parameters Gradient (w and b)
+%
+%- giải thích ý nghĩa công thức
+%- code lại sử dụng ví dụ.
+
+
+
+
+
