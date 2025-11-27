@@ -1,5 +1,0 @@
-2025-06-10 11:55:21,550 - root - DEBUG - Thông tin chi tiết cho debug
-2025-06-10 11:55:21,551 - root - INFO - Thông tin thông thường
-2025-06-10 11:55:21,551 - root - WARNING - Cảnh báo: có vấn đề nhỏ xảy ra
-2025-06-10 11:55:21,551 - root - ERROR - Lỗi: có vấn đề nghiêm trọng
-2025-06-10 11:55:21,551 - root - CRITICAL - NGUY HIỂM: chương trình có thể crash
