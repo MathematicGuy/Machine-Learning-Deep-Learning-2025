@@ -12,11 +12,11 @@ Vì thế, ta cần một cách tiếp cận đúng bản chất hơn: \emph{xâ
 
 \subsection{Ôn lại nền tảng: Logarithm và Natural Logarithm}
 
-Trước khi đi vào xác suất, ta cần hiểu lý do vì sao Logarithm (log) và Natural Logarithm (ln) đóng vai trò quan trọng trong Logistic Regression.  
+Trước khi đi vào xác suất, ta cần hiểu lý do vì sao Logarithm (log) và Natural Logarithm (ln) đóng vai trò quan trọng trong Logistic Regression.
 
 \subsubsection*{(a) Logarithm là gì?}
 
-Logarithm trả lời câu hỏi:  
+Logarithm trả lời câu hỏi:
 \[
 \log_b(a) = c \quad \text{khi} \quad b^c = a.
 \]
@@ -25,14 +25,14 @@ Nói cách khác, log tìm ra \textbf{phần số mũ} cần có để tạo ra 
 
 \subsubsection*{(b) Ứng dụng: Log chuẩn hoá tỉ lệ để đưa về cùng một thang đo}
 
-Xét ví dụ trực quan trong hình~\ref{fig:logaxis}.  
+Xét ví dụ trực quan trong hình~\ref{fig:logaxis}.
 Hai giá trị:
 \[
 8 = 2^3,
 \qquad
 \frac{1}{8} = 2^{-3}
 \]
-cách nhau 8 lần so với 1, nhưng trên trục số thông thường, khoảng cách $\frac{1}{8} \leftrightarrow 1$ và $1 \leftrightarrow 8$ không đối xứng.
+cách nhau 8 lần so với 1, nhưng trên trục số thông thường, khoảng cách $\frac{1}{8} \leftrightarrow 1$ và $1 \leftrightarrow 8$ không đối xứng. \\
 
 Tuy nhiên, nếu dùng log cơ số 2:
 \[
@@ -107,7 +107,7 @@ P(Y=y)=p^y(1-p)^{1-y}.
 p = P(y=1\mid x)
 \]
 
-Nhưng vì $\theta^T x$ có thể âm hoặc dương, ta cần một hàm ép giá trị về đoạn $[0,1]$.  
+Nhưng vì $\theta^T x$ có thể âm hoặc dương, ta cần một hàm ép giá trị về đoạn $[0,1]$.
 Sigmoid làm điều này rất tự nhiên:
 \[
 h_\theta(x)=\sigma(z)=\frac{1}{1+e^{-z}},\qquad z=\theta^T x.
@@ -117,7 +117,7 @@ h_\theta(x)=\sigma(z)=\frac{1}{1+e^{-z}},\qquad z=\theta^T x.
 \noindent
 Trong bối cảnh mô hình hóa bằng Bernoulli, ta giả định rằng mỗi điểm dữ liệu $(x^{(i)}, y^{(i)})$ được sinh ra bởi một biến ngẫu nhiên có xác suất:
 \[
-P(y^{(i)}=1 \mid x^{(i)}, \theta) = h_\theta(x^{(i)}), 
+P(y^{(i)}=1 \mid x^{(i)}, \theta) = h_\theta(x^{(i)}),
 \quad
 P(y^{(i)}=0 \mid x^{(i)}, \theta) = 1 - h_\theta(x^{(i)}).
 \]
@@ -125,15 +125,15 @@ P(y^{(i)}=0 \mid x^{(i)}, \theta) = 1 - h_\theta(x^{(i)}).
 Dùng dạng hợp nhất của phân phối Bernoulli, ta có thể viết xác suất cho từng mẫu:
 \[
 P(y^{(i)} \mid x^{(i)}, \theta)
-= 
-h_\theta(x^{(i)})^{\,y^{(i)}} 
+=
+h_\theta(x^{(i)})^{\,y^{(i)}}
 \left(1 - h_\theta(x^{(i)})\right)^{\,1 - y^{(i)}}.
-\] 
+\]
 
-\textbf{Trực giác của biểu thức này:} 
+\textbf{Trực giác của biểu thức này:}
 \begin{itemize}
-\item Nếu mẫu có nhãn $y^{(i)} = 1$, biểu thức trở thành $h_\theta(x^{(i)})$. Mô hình được “thưởng” nếu $h_\theta(x^{(i)})$ lớn (xác suất cao cho lớp đúng). 
-\item Nếu $y^{(i)} = 0$, biểu thức trở thành $1 - h_\theta(x^{(i)})$. Mô hình được “thưởng” nếu nó giảm xác suất dự đoán dương. 
+\item Nếu mẫu có nhãn $y^{(i)} = 1$, biểu thức trở thành $h_\theta(x^{(i)})$. Mô hình được “thưởng” nếu $h_\theta(x^{(i)})$ lớn (xác suất cao cho lớp đúng).
+\item Nếu $y^{(i)} = 0$, biểu thức trở thành $1 - h_\theta(x^{(i)})$. Mô hình được “thưởng” nếu nó giảm xác suất dự đoán dương.
 \item Số mũ $y^{(i)}$ và $1-y^{(i)}$ đóng vai trò như “công tắc” (on/off). Chúng bật đúng biểu thức cần dùng cho từng nhãn. Cách viết này cực kỳ hiệu quả vì cùng một công thức xử lý được cả hai trường hợp.
 \end{itemize}
 
@@ -141,18 +141,17 @@ h_\theta(x^{(i)})^{\,y^{(i)}}
 Vì các điểm dữ liệu được giả định là \textbf{độc lập} (IID — independent and identically distributed), xác suất quan sát cả tập dữ liệu chính là:
 
 \[
-\mathcal{L}(\theta) 
-= 
-\prod_{i=1}^{m} 
+\mathcal{L}(\theta)
+=
+\prod_{i=1}^{m}
 P(y^{(i)} \mid x^{(i)}, \theta)
 =
-\prod_{i=1}^{m} 
-h_\theta(x^{(i)})^{\,y^{(i)}} 
+\prod_{i=1}^{m}
+h_\theta(x^{(i)})^{\,y^{(i)}}
 \left(1 - h_\theta(x^{(i)})\right)^{\,1 - y^{(i)}}.
 \]
 
-\\[-0.7em]
-\paragraph*{Tại sao dùng phép nhân (Product) thay vì phép cộng ?}.
+\paragraph*{Tại sao dùng phép nhân (Product) thay vì phép cộng ?}
 
 Còn trong xác suất, Đây là điểm rất nhiều người hay nhầm khi mới học xác suất.
 \begin{itemize}
@@ -163,19 +162,20 @@ Còn trong xác suất, Đây là điểm rất nhiều người hay nhầm khi 
 
 Đây chính là nơi xuất hiện khái niệm \textbf{“likelihood của mô hình”} $--$ nó là mức độ mô hình “hợp lý” khi nhìn vào toàn bộ dữ liệu.
 
+
 \vspace{1em}
 \subsubsection*{Ôn tập lại kiến thức toán cơ bản}
 
 Biểu thức Likelihood sử dụng lại hai quy tắc quen thuộc:
 
 \begin{itemize}
-    \item \textbf{Product Rule}  
-    Nếu các sự kiện độc lập,  
+    \item \textbf{Product Rule}
+    Nếu các sự kiện độc lập,
     \[
     P(A \cap B) = P(A)P(B).
     \]
 
-    \item \textbf{Power Rule}  
+    \item \textbf{Power Rule}
     Khi viết lại $p$ hoặc $(1-p)$ tuỳ theo nhãn $y$, ta dùng quy tắc:
     \[
     a^1 = a, \quad a^0 = 1.
@@ -187,7 +187,7 @@ Biểu thức Likelihood sử dụng lại hai quy tắc quen thuộc:
 \vspace{1em}
 \subsubsection*{Nhìn vào một ví dụ thực tế để hiểu rõ hơn}
 
-Giả sử ta cần dự đoán khả năng mắc ung thư dựa trên chỉ số PSA (theo ví dụ trong tài liệu bạn cung cấp).  
+Giả sử ta cần dự đoán khả năng mắc ung thư dựa trên chỉ số PSA (theo ví dụ trong tài liệu bạn cung cấp).
 Mỗi bệnh nhân có:
 
 - giá trị PSA (đầu vào $x^{(i)}$),
@@ -211,7 +211,7 @@ Ví dụ một đoạn dữ liệu (rút gọn):
 Likelihood của mô hình là:
 \[
 \mathcal{L}(\theta)
-= 
+=
 0.99^1 \cdot 0.97^1 \cdot 0.92^1
 \cdot (1-0.50)^1
 \cdot (1-0.13)^1.
@@ -244,27 +244,26 @@ Khi nhân 100–10,000 giá trị như vậy, ta sẽ thu được những con s
 10^{-50},\; 10^{-200},\; 10^{-500}\;\text{hoặc thậm chí nhỏ hơn}.
 \]
 
-Kết quả là máy tính sẽ tràn số (underflow), biến toàn bộ kết quả về $0$. Hoặc ngược lại overflow khi số quá lớn. 
+Kết quả là máy tính sẽ tràn số (underflow), biến toàn bộ kết quả về $0$. Hoặc ngược lại overflow khi số quá lớn.
 Điều này khiến việc tối ưu trở nên bất khả thi.
 
-\\[0.5em]
 \noindent
-Vậy làm thế nào để biến một tích “siêu nhỏ” thành thứ có thể tính toán, đạo hàm và tối ưu được?  
+Vậy làm thế nào để biến một tích “siêu nhỏ” thành thứ có thể tính toán, đạo hàm và tối ưu được?
 Câu trả lời chính là: \textbf{dùng Logarithm}.
 
 \subsubsection*{Tại sao log giúp giải quyết vấn đề ? Hiểu bằng trực giác trước}
 
 Ta có quy tắc cực kì quan trọng của log
 \[
-\ln(a \cdot b \cdot c) 
-= 
+\ln(a \cdot b \cdot c)
+=
 \ln(a) + \ln(b) + \ln(c).
 \]
 
-Một phép nhân hàng trăm số nhỏ  
+Một phép nhân hàng trăm số nhỏ
 \[
 0.99 \cdot 0.92 \cdot 0.85 \cdots
-\]  
+\]
 trở thành một phép cộng hoàn toàn vô hại:
 \[
 \ln(0.99) + \ln(0.92) + \ln(0.85) + \cdots
@@ -272,7 +271,7 @@ trở thành một phép cộng hoàn toàn vô hại:
 
 \textbf{Phép cộng luôn ổn định và dễ đạo hàm hơn phép nhân.}
 
-Không chỉ vậy, log còn “kéo” các xác suất về một dải giá trị dễ quản lý:  
+Không chỉ vậy, log còn “kéo” các xác suất về một dải giá trị dễ quản lý: \\
 - $\ln(0.99) \approx -0.01$  \\
 - $\ln(0.92) \approx -0.083$  \\
 - $\ln(0.85) \approx -0.16$ \\
@@ -281,20 +280,20 @@ Các con số nhỏ gọn, không bị “lọt” vào vùng quá nhỏ như $1
 \subsubsection*{Dùng log để viết lại Likelihood}
 Ta đã có Likelihood gốc:
 \[
-\mathcal{L}(\theta) 
-= 
-\prod_{i=1}^{m} 
+\mathcal{L}(\theta)
+=
+\prod_{i=1}^{m}
 h_\theta(x^{(i)})^{y^{(i)}}
 (1 - h_\theta(x^{(i)}))^{1-y^{(i)}}.
 \]
 
 \noindent Lấy log hai vế (dùng Product Rule và Power Rule):
 \[
-\ln(a \cdot b) = \ln(a) + \ln(b), 
+\ln(a \cdot b) = \ln(a) + \ln(b),
 \qquad
 \ln(a^k) = k\ln(a).
 \] \\
-Ta được 
+Ta được
 \[
 \ell(\theta)
 =
@@ -315,8 +314,8 @@ y^{(i)} \ln h_\theta(x^{(i)})
 \theta^* = \arg\max_\theta \ell(\theta)
 \quad\Longleftrightarrow\quad
 \theta^* = \arg\max_\theta \mathcal{L}(\theta).
-\] 
-Túm lại mình mất công đổi qua log là vì: Log-Likelihood dễ tính loss hơn, dễ đạo hàm hơn, dễ phân tích hình dạng hơn, mượt hơn cho việc tối ưu.  
+\]
+Túm lại mình mất công đổi qua log là vì: Log-Likelihood dễ tính loss hơn, dễ đạo hàm hơn, dễ phân tích hình dạng hơn, mượt hơn cho việc tối ưu.
 
 \subsection{Một ví dụ rõ ràng: Log-Likelihood trong bài toán dự đoán ung thư}
 Giả sử bạn có 5 bệnh nhân, nhãn như sau (giống ví dụ ở phần Likelihood):
@@ -344,7 +343,7 @@ Giờ tính Log-Likelihood:
 \ell(\theta)
 =
 \ln(0.99)
-+ \ln(0.97) 
++ \ln(0.97)
 + \ln(0.92)
 + \ln(0.50)
 + \ln(0.87).
@@ -380,17 +379,13 @@ Quan sát cấu trúc:
 y\ln(h) \quad \text{và} \quad (1-y)\ln(1-h).
 \]
 
-\\[-1em]
-\noindent
-Nếu $y=1$:
+\noindent Nếu $y=1$:
 \[
 \ell_i = \ln(h_\theta(x^{(i)})).
-\] \\ 
-Nếu mô hình dự đoán đúng và tự tin ($h$ gần 1), log gần 0 → \textbf{điểm thưởng lớn}. Nếu dự đoán sai tự tin ($h$ gần 0), log tiến về $-\infty$ → \textbf{phạt rất mạnh}. 
+\] \\
+Nếu mô hình dự đoán đúng và tự tin ($h$ gần 1), log gần 0 → \textbf{điểm thưởng lớn}. Nếu dự đoán sai tự tin ($h$ gần 0), log tiến về $-\infty$ → \textbf{phạt rất mạnh}.
 
-\\[-1em]
-\noindent
-Nếu $y=0$:
+\noindent Nếu $y=0$:
 \[
 \ell_i = \ln(1-h_\theta(x^{(i)})).
 \] \\
@@ -398,14 +393,14 @@ Nếu $y=0$:
 - Nếu mô hình gần 1 → log rất âm → phạt mạnh. Đây chính là lý do Log-Likelihood phản ánh tốt chất lượng mô hình phân loại: mô hình sai tự tin sẽ bị trừng phạt rất nặng. \\
 
 \subsection{Binary Cross-Entropy: Hàm Loss xuất phát tự nhiên từ Log-Likelihood}
-Sau khi đã xây dựng Log-Likelihood, ta có một biểu thức mô tả mức độ “hợp lý” của tham số $\theta$ khi nhìn vào toàn bộ dữ liệu.  
+Sau khi đã xây dựng Log-Likelihood, ta có một biểu thức mô tả mức độ “hợp lý” của tham số $\theta$ khi nhìn vào toàn bộ dữ liệu.
 Tuy nhiên, trong học máy, ta thường quen với \emph{tối thiểu hóa} thay vì \emph{tối đa hóa}. Vì vậy, theo lẽ rất tự nhiên là tối thiểu hàm Loss:
 
 \[
 J(\theta) = -\ell(\theta).
 \]
 
-Biểu thức này chính là \textbf{Binary Cross-Entropy (BCE)}.  
+Biểu thức này chính là \textbf{Binary Cross-Entropy (BCE)}.
 Không phải được định nghĩa tuỳ ý, mà là kết quả tất yếu khi ta lấy dấu trừ của log-likelihood.
 
 \[
@@ -421,18 +416,18 @@ y^{(i)}\ln h_\theta(x^{(i)})
 
 \noindent  Nếu mẫu thuộc lớp $1$ ($y = 1$), ta nhìn vào $-\ln(h_\theta(x))$.
 \begin{itemize}
-	\item Nếu mô hình “tự tin đúng” ($h \approx 1$),  
-           $-\ln(h)$ gần $0$ → \textbf{ít phạt}.
-           \item Nếu mô hình “tự tin sai” ($h \approx 0$),  
-            $-\ln(h)$ tiến tới $+\infty$ → \textbf{phạt cực mạnh}.
-\end{itemize} \\
+	\item Nếu mô hình “tự tin đúng” ($h \approx 1$),
+		$-\ln(h)$ gần $0$ → \textbf{ít phạt}.
+		\item Nếu mô hình “tự tin sai” ($h \approx 0$),
+		$-\ln(h)$ tiến tới $+\infty$ → \textbf{phạt cực mạnh}.
+\end{itemize}
 
 \noindent Nếu mẫu thuộc lớp $0$ ($y = 0$), ta nhìn vào $-\ln(1 - h_\theta(x))$.
 \begin{itemize}
-	\item Nếu mô hình “tự tin đúng” ($h \approx 0$),  
+	\item Nếu mô hình “tự tin đúng” ($h \approx 0$),
 	$-\ln(1-h)$ gần $0$.
-           \item Nếu mô hình “tự tin sai” ($h \approx 1$),  
-           $-\ln(1-h)$ tiến tới $+\infty$.
+	\item Nếu mô hình “tự tin sai” ($h \approx 1$),
+	$-\ln(1-h)$ tiến tới $+\infty$.
 \end{itemize}
 
 \subsection{Tổng kết bước của Logistic Regression}
@@ -525,13 +520,13 @@ Việc thêm dấu trừ biến bài toán tối đa hóa thành tối thiểu h
 \subsection*{Giải thích pipeline của Logistic Regression theo trực giác liền mạch}
 
 \begin{itemize}
-    \item $\theta^T x$ tạo ra một điểm số tuyến tính dựa trên đặc trưng đầu vào.  
-    \item $\sigma(\theta^T x)$ chuyển điểm số đó thành xác suất hợp lệ nằm trong khoảng $[0,1]$.  
-    \item $h_\theta(x)^y(1-h_\theta(x))^{1-y}$ mô tả xác suất mô hình “cho điểm” đúng sai cho từng mẫu dữ liệu.  
-    \item $\prod_{i=1}^m$ kết hợp tất cả bằng chứng độc lập thành một mức độ “hợp lý tập thể” của mô hình.  
-    \item $\log$ biến tích thành tổng để tránh underflow và làm cho việc đạo hàm dễ dàng hơn.  
-    \item $-\log$ biến bài toán thành tối thiểu hóa, phù hợp với các thuật toán tối ưu chuẩn như Gradient Descent.  
-    \item Tổng cuối cùng trở thành một giá trị Loss: mô hình càng chính xác thì Loss càng nhỏ.  
+    \item $\theta^T x$ tạo ra một điểm số tuyến tính dựa trên đặc trưng đầu vào.
+    \item $\sigma(\theta^T x)$ chuyển điểm số đó thành xác suất hợp lệ nằm trong khoảng $[0,1]$.
+    \item $h_\theta(x)^y(1-h_\theta(x))^{1-y}$ mô tả xác suất mô hình “cho điểm” đúng sai cho từng mẫu dữ liệu.
+    \item $\prod_{i=1}^m$ kết hợp tất cả bằng chứng độc lập thành một mức độ “hợp lý tập thể” của mô hình.
+    \item $\log$ biến tích thành tổng để tránh underflow và làm cho việc đạo hàm dễ dàng hơn.
+    \item $-\log$ biến bài toán thành tối thiểu hóa, phù hợp với các thuật toán tối ưu chuẩn như Gradient Descent.
+    \item Tổng cuối cùng trở thành một giá trị Loss: mô hình càng chính xác thì Loss càng nhỏ.
 \end{itemize}
 
 \subsection*{Kết luận cô đọng}

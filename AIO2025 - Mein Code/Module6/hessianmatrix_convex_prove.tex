@@ -23,7 +23,7 @@ f''(x) = \text{tốc độ thay đổi của tốc độ thay đổi}.
 Với hàm hai biến $f(x,y)$, đạo hàm bậc nhất trở thành vector gradient:
 
 \[
-\nabla f = 
+\nabla f =
 \begin{bmatrix}
 f_x \\ f_y
 \end{bmatrix}
@@ -114,13 +114,13 @@ f_{yx} & f_{yy}
 Hessian chứa toàn bộ thông tin về độ cong (curvature) của hàm $f(x,y)$. Tương tự như lúc ta cùng giải thích đạo hàm bậc 2 ở phần trước.
 
 \subsection*{5. Dùng Hessian để phân loại điểm tối ưu}
-Bằng cách phân tích ma trận Hessian, ta có thể xác định 1 điểm là cực tiểu, cực đại hay là điểm yên ngựa (khi cực tiểu của hàm bé hơn 0, nhưng đạo hàm ra 0) dựa vào Eigen value của nó ((giá trị riêng của ma trận). 
+Bằng cách phân tích ma trận Hessian, ta có thể xác định 1 điểm là cực tiểu, cực đại hay là điểm yên ngựa (khi cực tiểu của hàm bé hơn 0, nhưng đạo hàm ra 0) dựa vào Eigen value của nó ((giá trị riêng của ma trận).
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{images/hes6.png}
     \caption{So sánh bậc hai trong 1 biến và nhiều biến.}
     \label{fig:hes6}
-\end{figure} \\
+\end{figure}
 
 Quy tắc phân loại:
 \begin{itemize}
@@ -128,7 +128,7 @@ Quy tắc phân loại:
     \item nếu mọi eigenvalue $<0$ → cong xuống (local maximum),
     \item nếu có eigenvalue $>0$ và $<0$ → saddle point,
     \item nếu có eigenvalue = 0 → không đủ thông tin.
-\end{itemize} 
+\end{itemize}
 \textbf{Ví dụ minh hoạ} qua cách xác định cực tiểu dựa trên giá trị của ma trận Hessian: \\
 
 \textbf{Concave Up (cực tiểu)}
@@ -146,16 +146,16 @@ Quy tắc phân loại:
 \end{figure}
 
 \textbf{Saddle Point (Điểm Yên Ngựa)}
-Khi đạo hàm bằng 0 thì ngoài các trường hợp rơi vào các điểm cực trị thì còn một điểm nữa chính là điểm yên ngựa. Một điểm yên ngựa là điểm mà tại đó đạo hàm bằng 0 nhưng không phải là một điểm cực tiểu. Xét hàm số $f(x)=5^3$ hàm số này có đạo hàm bằng 0 tại x=0 nhưng x=0 lại không phải giá trị cực tiểu của hàm số này vì nó có thể âm. 
+Khi đạo hàm bằng 0 thì ngoài các trường hợp rơi vào các điểm cực trị thì còn một điểm nữa chính là điểm yên ngựa. Một điểm yên ngựa là điểm mà tại đó đạo hàm bằng 0 nhưng không phải là một điểm cực tiểu. Xét hàm số $f(x)=5^3$ hàm số này có đạo hàm bằng 0 tại x=0 nhưng x=0 lại không phải giá trị cực tiểu của hàm số này vì nó có thể âm.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\linewidth]{images/hes9.png}
-    \caption{Eigenvalue trái dấu → saddle point.}
+    \caption{Eigenvalue trái dấu $\rightarrow$ saddle point.}
 \end{figure}
 
 \subsection*{6. Ứng dụng trực tiếp vào Logistic Regression}
 
-Sau khi đã hiểu Hessian của hàm hai biến ở các phần trước, ta quay trở lại Logistic Regression để xây dựng Hessian của Binary Cross-Entropy (BCE).  
+Sau khi đã hiểu Hessian của hàm hai biến ở các phần trước, ta quay trở lại Logistic Regression để xây dựng Hessian của Binary Cross-Entropy (BCE).
 Toàn bộ quá trình dưới đây được viết cực kỳ chi tiết nhằm giúp người đọc “ôn lại toán từ gốc”.
 
 \subsubsection*{6.1 Nhắc lại dạng Loss và Gradient}
@@ -175,8 +175,8 @@ h = \sigma(X\theta).
 Gradient (đạo hàm bậc nhất theo vector $\theta$):
 
 \[
-\nabla_\theta J(\theta) 
-= 
+\nabla_\theta J(\theta)
+=
 X^T(h - y).
 \]
 
@@ -202,8 +202,8 @@ theo $\theta$.
 z = X\theta.
 \]
 
-\paragraph{Giải thích:}  
-Đây là phép nhân ma trận cơ bản: mỗi hàng của $X$ nhân với vector $\theta$ tạo nên một giá trị $z^{(i)}$.  
+\paragraph{Giải thích:}
+Đây là phép nhân ma trận cơ bản: mỗi hàng của $X$ nhân với vector $\theta$ tạo nên một giá trị $z^{(i)}$.
 Nhớ rằng với ma trận $(m \times n)$ nhân vector $(n \times 1)$:
 
 \[
@@ -227,7 +227,7 @@ Sigmoid:
 Khi áp dụng cho vector:
 
 \[
-h = 
+h =
 \begin{bmatrix}
 h^{(1)}\\
 h^{(2)}\\
@@ -241,7 +241,7 @@ h^{(i)} = \sigma(z^{(i)}).
 Do đó:
 
 \[
-\frac{\partial h^{(i)}}{\partial z^{(i)}} 
+\frac{\partial h^{(i)}}{\partial z^{(i)}}
 =
 h^{(i)} (1 - h^{(i)}).
 \]
@@ -332,7 +332,7 @@ H = X^T D X.
 Để hiểu sâu hơn, ta phân rã theo từng lớp:
 
 \begin{itemize}
-    \item $X$: mô tả đặc trưng của dữ liệu.  
+    \item $X$: mô tả đặc trưng của dữ liệu.
     \item $X^T$: tổng hợp nghịch đảo từng tham số $\theta_j$.
     \item $D$: mô tả độ cong của Sigmoid tại từng mẫu, vì $h(1-h)$ chính là độ nhạy (sensitivity) của Sigmoid.
 \end{itemize}
@@ -368,7 +368,6 @@ h^{(i)}(1-h^{(i)}) \le \frac{1}{4}.
 \textbf{Nghĩa là mỗi phần tử đường chéo của $D$ luôn không âm.}
 
 Vì vậy, $D$ là một ma trận đường chéo \textbf{Positive Semi-Definite}.
-
 
 
 \subsubsection*{6.7 Chứng minh Hessian PSD: phân rã từng bước}
@@ -441,4 +440,4 @@ Và do đó:
 \boxed{
 \text{Convexity của BCE đến từ độ cong nội tại của Sigmoid + cấu trúc tuyến tính của mô hình}.
 }
-
+\]
