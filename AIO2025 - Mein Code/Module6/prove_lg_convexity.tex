@@ -33,7 +33,7 @@ Với Logistic Regression ta có:
 Lấy đạo hàm bậc hai của Loss theo từng tham số $\theta_i$:
 
 \[
-\frac{\partial^2 L}{\partial \theta_i^2} 
+\frac{\partial^2 L}{\partial \theta_i^2}
 = 2x_i^2\,\hat{y}(1-\hat{y})\left[-3\hat{y}^2 + 2\hat{y} - y + 2y\hat{y}\right].
 \]
 
@@ -99,12 +99,12 @@ nên đạo hàm bậc hai luôn không âm → \textbf{hàm Loss BCE luôn conv
     \caption{So sánh hàm Loss MSE và BCE}
 \end{figure}
 \noindent
-\item \textbf{MSE: đường cong nhẹ, dải giá trị bị chặn} \\
-    Loss chỉ dao động trong khoảng hẹp (\(\approx 0.25 \rightarrow 0.5\)), 
-    độ cong thấp và nhiều vùng bằng phẳng khi \(\hat{y}\) bão hòa.
-    Điều này khiến gradient nhỏ, mô hình dễ đứng yên và khó điều chỉnh tham số.
+\textbf{MSE: đường cong nhẹ, dải giá trị bị chặn} \\
+Loss chỉ dao động trong khoảng hẹp (\(\approx 0.25 \rightarrow 0.5\)),
+độ cong thấp và nhiều vùng bằng phẳng khi \(\hat{y}\) bão hòa.
+Điều này khiến gradient nhỏ, mô hình dễ đứng yên và khó điều chỉnh tham số.
 
-\item \textbf{BCE: đường cong sâu, dải giá trị mở rộng} \\
-    Loss tăng rất mạnh khi dự đoán sai tự tin (ví dụ \(\hat{y} \approx 0\) nhưng \(y=1\)), 
-    tạo thành “đáy rộng” và độ cong lớn. 
-    Nhờ đó gradient rõ ràng, mô hình học ổn định và hội tụ đúng.
+\textbf{BCE: đường cong sâu, dải giá trị mở rộng} \\
+Loss tăng rất mạnh khi dự đoán sai tự tin (ví dụ \(\hat{y} \approx 0\) nhưng \(y=1\)),
+tạo thành “đáy rộng” và độ cong lớn.
+Nhờ đó gradient rõ ràng, mô hình học ổn định và hội tụ đúng.
