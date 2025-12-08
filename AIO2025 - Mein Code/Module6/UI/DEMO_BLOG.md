@@ -304,6 +304,6 @@ The **FPT Stock Price Forecasting System** combines cutting-edge machine learnin
 
 ---
 
-THIS IS SO COOL, AHAHAHAHH, 
+THIS IS SO COOL, AHAHAHAHH, COOOL
 
 *Experience the future of stock price prediction with AI-powered forecasting!* 🎯📈
