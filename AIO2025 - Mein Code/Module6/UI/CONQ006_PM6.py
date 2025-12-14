@@ -1,4 +1,3 @@
-"""
 # ============================================================
 # FPT Forecast : Hybrid + Pricing
 #
@@ -36,71 +35,125 @@
 #  NOTE:
 #       - Pricing-layer được chọn bằng time-series CV trên chính FPT_train.
 # ============================================================
-"""
 
-# ============================================================
-# 2.0. IMPORT & GLOBAL CONFIG
-# ============================================================
-
+# =====================
+# Helper Functions (2.1 - 2.2)
+# =====================
 
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import warnings
-import random
-import json
-from dataclasses import dataclass
-from typing import List, Optional, Tuple
-
 from statsmodels.tsa.seasonal import STL
-from xgboost import XGBRegressor
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import mean_squared_error, mean_absolute_error
-from sklearn.linear_model import LinearRegression
-from pandas.tseries.offsets import BDay
-import os
-import subprocess
-warnings.filterwarnings("ignore")
 
+def preprocess_fpt_train(df_raw: pd.DataFrame) -> pd.DataFrame:
+    """
+    Preprocess tối thiểu cho pipeline.
+    Mục tiêu: clean time-axis + sanity check OHLCV + xử lý missing/outlier
 
-if not os.path.exists("FPT_train.csv"):
-    subprocess.run(["gdown", "--id", "1l2TtEaWrp4yieMDWE4Cmehnf5mLx3rop"], capture_output=True, text=True, check=True)
+    Steps:
+		(1) Parse time, sort, drop duplicate days
+		(2) Ensure numeric OHLCV
+		(3) Sanity check:
+			- close > 0
+			- high >= max(open, close) ; low <= min(open, close)
+			- volume >= 0
+		(4) Missing handling: forward-fill
+		(5) Optional: clip extreme 1-day returns để tránh data lỗi phá STL/rolling
+    """
+    df = df_raw.copy()
 
-SEED = 98 # 9 = Cửu, 8 = Bát. 98 = Cửu Bát = Mãi Phát
-random.seed(SEED)
-np.random.seed(SEED)
+    # (1) time parse + sort + drop duplicates
+    if "time" not in df.columns:
+        raise ValueError("[PREPROCESS] Missing column: time")
 
-FPT_TRAIN_PATH = "FPT_train.csv"
+    df["time"] = pd.to_datetime(df["time"], errors="coerce")
+    df = df.dropna(subset=["time"]).sort_values("time").reset_index(drop=True)
 
-# Nếu muốn test generalization, ép chỉ train tới 1 ngày nào đó:
-# FORCE_TRAIN_END_DATE = "2024-10-06"
-FORCE_TRAIN_END_DATE = None
+    # Nếu dữ liệu có nhiều dòng cùng ngày -> lấy dòng cuối (hoặc mean)
+    df = df.drop_duplicates(subset=["time"], keep="last").reset_index(drop=True)
 
-TOTAL_PREDICT_DAYS = 100  # horizon chính khi forecast
-HORIZON = 1               # future_ret = T+1
-STL_PERIOD = 20           # ~1 tháng giao dịch
+    # (2) ensure numeric
+    for c in ["open", "high", "low", "close", "volume"]:
+        if c in df.columns:
+            df[c] = pd.to_numeric(df[c], errors="coerce")
 
-# Uncertainty band (analytic)
-UNCERT_Z = 1.28155        # ~90% interval
+    # (3) sanity checks cơ bản
+    if "close" not in df.columns:
+        raise ValueError("[PREPROCESS] Missing column: close")
 
-# CV config
-CV_START_YEAR = 2020
-CV_END_YEAR = 2024
-CV_HORIZON = 100          # forecast H ngày trong CV (same as competition horizon)
-N_RANDOM_TRIALS = 120     # số cấu hình pricing-layer thử
+    # close phải > 0
+    bad_close = df["close"].isna() | (df["close"] <= 0)
+    if bad_close.any():
+        n_bad = int(bad_close.sum())
+        print(f"[PREPROCESS] Found {n_bad} bad close (NaN/<=0). Will forward-fill then drop if needed.")
 
-## **2.1. FEATURE ENGINEERING**"""
+    # OHLC constraints
+    has_ohlc = all(c in df.columns for c in ["open", "high", "low"])
+    if has_ohlc:
+        # high >= max(open, close)
+        bad_high = df["high"].isna() | (df["high"] < df[["open", "close"]].max(axis=1))
+        # low <= min(open, close)
+        bad_low  = df["low"].isna() | (df["low"]  > df[["open", "close"]].min(axis=1))
+        if bad_high.any() or bad_low.any():
+            print(f"[PREPROCESS] OHLC sanity issue: bad_high={int(bad_high.sum())}, bad_low={int(bad_low.sum())}. Fixing by projection.")
+            # Project sửa thô: ép high/low về hợp lệ
+            df["high"] = np.maximum(df["high"], df[["open", "close"]].max(axis=1))
+            df["low"]  = np.minimum(df["low"],  df[["open", "close"]].min(axis=1))
 
-def add_stl_ohlcv_features(df_raw: pd.DataFrame, stl_period: int = STL_PERIOD) -> pd.DataFrame:
+    # volume >= 0
+    if "volume" in df.columns:
+        bad_vol = df["volume"].isna() | (df["volume"] < 0)
+        if bad_vol.any():
+            print(f"[PREPROCESS] Found {int(bad_vol.sum())} bad volume (NaN/<0). Will fill.")
+            df.loc[df["volume"] < 0, "volume"] = np.nan
+
+    # (4) Missing handling (safe: forward fill -> backward fill)
+    # Chỉ fill trong cột numeric.
+    num_cols = [c for c in ["open", "high", "low", "close", "volume"] if c in df.columns]
+    if num_cols:
+        df[num_cols] = df[num_cols].ffill().bfill()
+
+    # drop nếu vẫn còn NaN ở close
+    df = df.dropna(subset=["close"]).reset_index(drop=True)
+    df = df[df["close"] > 0].reset_index(drop=True)
+
+    # (5) Optional anti-spike: clip log-return 1d cực rộng
+    # Mục tiêu: nếu data có 1 ngày giá nhảy lỗi (gấp 3–10 lần) thì đừng cho nó phá STL.
+    close = df["close"].values.astype(float)
+    logp = np.log(close + 1e-8)
+    ret1 = np.diff(logp, prepend=logp[0])
+    # clip rộng: +-20% log-return/day ~ cực kỳ rộng cho cổ phiếu
+    ret1_clip = np.clip(ret1, -0.20, 0.20)
+    if np.any(ret1 != ret1_clip):
+        n_clip = int(np.sum(ret1 != ret1_clip))
+        print(f"[PREPROCESS] Clipped {n_clip} extreme 1d log-returns (anti bad-tick).")
+        # reconstruct close (giữ close[0], update theo ret clip)
+        logp2 = np.empty_like(logp)
+        logp2[0] = logp[0]
+        for i in range(1, len(logp2)):
+            logp2[i] = logp2[i-1] + ret1_clip[i]
+        df["close"] = np.exp(logp2)
+
+        # Projection lại cho hợp lệ
+        if has_ohlc:
+            df["open"] = df["close"].shift(1).fillna(df["close"])
+            df["high"] = np.maximum(df["high"], df[["open", "close"]].max(axis=1))
+            df["low"]  = np.minimum(df["low"],  df[["open", "close"]].min(axis=1))
+
+    print(f"[PREPROCESS] Done. Range: {df['time'].min().date()} -> {df['time'].max().date()}, shape={df.shape}")
+    return df
+
+def add_stl_ohlcv_features(df_raw: pd.DataFrame,
+                           stl_period: int) -> pd.DataFrame:
     """
     FE cho FPT OHLCV:
-        - close_log
-        - Price action OHLC: body, range, shadows, gaps, range_pct, ATR, Parkinson
-        - Volume & money flow
-        - STL trend/seasonal/resid
-        - Returns: ret_1d, ret_5d, ret_10d
-        - Patterns: up/down, 3-streak
-        - Trend slopes, accel, rolling stats, z-score
+      - close_log
+      - Price action OHLC: body, range, shadows, gaps, range_pct, ATR, Parkinson
+      - Volume & money flow
+      - STL trend/seasonal/resid
+      - Returns: ret_1d, ret_5d, ret_10d
+      - Patterns: up/down, 3-streak
+      - Trend slopes, accel, rolling stats, z-score
     """
     df = df_raw.copy()
     if "close" not in df.columns:
@@ -229,7 +282,7 @@ def add_stl_ohlcv_features(df_raw: pd.DataFrame, stl_period: int = STL_PERIOD) -
         & (df["ret_1d"].shift(2) < 0)
     ).astype(float)
 
-    # --- Trend slopes & stats ---
+    # --- Trend slopes & stats ---\
     df["trend_slope_1"] = df["trend_stl"].diff(1)
     df["trend_slope_3"] = df["trend_stl"].diff(3)
     df["trend_slope_7"] = df["trend_stl"].diff(7)
@@ -245,6 +298,53 @@ def add_stl_ohlcv_features(df_raw: pd.DataFrame, stl_period: int = STL_PERIOD) -
 
     return df
 
+# =====================
+# Main Code (Section 2.0 onwards)
+# =====================
+
+# 2.0. IMPORT & GLOBAL CONFIG
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import warnings
+import random
+from dataclasses import dataclass
+from typing import List, Optional, Tuple
+
+from statsmodels.tsa.seasonal import STL
+from xgboost import XGBRegressor
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+from sklearn.linear_model import LinearRegression
+from pandas.tseries.offsets import BDay
+
+warnings.filterwarnings("ignore")
+
+SEED = 98 # 9 = Cửu, 8 = Bát. 98 = Cửu Bát = Mãi Phát
+random.seed(SEED)
+np.random.seed(SEED)
+
+FPT_TRAIN_PATH = "FPT_train.csv"
+
+# Nếu muốn test generalization, ép chỉ train tới 1 ngày nào đó:
+# FORCE_TRAIN_END_DATE = "2024-10-06"
+FORCE_TRAIN_END_DATE = None          # nếu muốn "cắt" train đến 1 ngày cố định
+
+TOTAL_PREDICT_DAYS = 100             # horizon chính khi forecast
+HORIZON = 1                          # future_ret = T+1
+STL_PERIOD = 20                      # ~1 tháng giao dịch
+
+# Uncertainty band (analytic)
+UNCERT_Z = 1.28155                   # ~90% interval
+
+# CV config (dùng cho Pricing-layer)
+CV_START_YEAR = 2020
+CV_END_YEAR = 2024
+CV_HORIZON = 100                     # forecast H ngày trong CV (same as competition horizon)
+N_RANDOM_TRIALS = 120                # số cấu hình pricing-layer thử
+
+
+# 2.2. FEATURE ENGINEERING (continued)
 
 def get_feature_cols() -> List[str]:
     base_cols = [
@@ -339,7 +439,8 @@ def build_modeling_df(
     print("Modeling DF shape:", df_model.shape)
     return df_feat, df_model, feature_cols
 
-"""## **2.2. MODEL STRUCTS**"""
+
+# 2.3. MODEL STRUCTS
 
 @dataclass
 class CutoffModel:
@@ -376,9 +477,13 @@ class FinalBaseModel:
     resid_std: float
     resid_mean: float
 
-"""## **2.3. [TRAIN] TRAIN XGB RESIDUAL**"""
 
-def train_xgb_on_dfmodel(df_model: pd.DataFrame, feature_cols: List[str]) -> Tuple[XGBRegressor, StandardScaler, float, float]:
+# 2.4. TRAIN XGB RESIDUAL [TRAIN + nội bộ EVAL]
+
+def train_xgb_on_dfmodel(
+    df_model: pd.DataFrame,
+    feature_cols: List[str]
+) -> Tuple[XGBRegressor, StandardScaler, float, float]:
     """
     [TRAIN] Train XGB trên resid_ret = future_ret - math_ret.
     Đồng thời in ra MSE/MAE trên train/val/test (nội bộ).
@@ -445,7 +550,8 @@ def train_xgb_on_dfmodel(df_model: pd.DataFrame, feature_cols: List[str]) -> Tup
     print(f"[RESID] std={resid_std:.6e}, mean={resid_mean:.6e}")
     return xgb, scaler_X, resid_std, resid_mean
 
-"""## **2.4. [FORECAST helper] RAW BASE PATH HYBRID (MATH + ML RESIDUAL)**"""
+
+# 2.5. RAW BASE PATH HYBRID (MATH + XGB) [FORECAST building block]
 
 def build_raw_base_path_hybrid(
     df_hist: pd.DataFrame,
@@ -457,13 +563,13 @@ def build_raw_base_path_hybrid(
 ) -> Tuple[np.ndarray, np.ndarray]:
     """
     [FORECAST helper] Chạy recursive hybrid:
-      - Math backbone: linear trend trên log-price (fit trên df_hist ban đầu)
-      - XGB: dự đoán residual (resid_ret)
-      - future_ret_final = math_ret_forecast + resid_pred
+		- Math backbone: linear trend trên log-price (fit trên df_hist ban đầu)
+		- XGB: dự đoán residual (resid_ret)
+		- future_ret_final = math_ret_forecast + resid_pred
 
     Trả về:
-      - raw_base_prices: giá future nếu chỉ dùng hybrid
-      - raw_base_rets:   future_ret_final (log-return) mỗi bước
+		- raw_base_prices: giá future nếu chỉ dùng hybrid
+		- raw_base_rets:   future_ret_final (log-return) mỗi bước
     """
     df_state = df_hist.sort_values("time").reset_index(drop=True).copy()
     df_state["close"] = df_state["close"].astype(float)
@@ -497,6 +603,7 @@ def build_raw_base_path_hybrid(
         last_close = df_state["close"].iloc[-1]
         last_time = df_state["time"].iloc[-1]
 
+        # tạo row mới với close = last_close (sẽ bị update lại ở cuối vòng)
         new_row = {"time": last_time + BDay(1), "close": last_close}
         if "volume" in df_state.columns:
             new_row["volume"] = df_state["volume"].iloc[-1]
@@ -509,6 +616,7 @@ def build_raw_base_path_hybrid(
         df_state["close"] = df_state["close"].astype(float)
         df_state["close_log"] = np.log(df_state["close"] + 1e-8)
 
+        # FE lại cho toàn bộ state (bao gồm ngày mới)
         df_state_feat = add_stl_ohlcv_features(df_state, stl_period=stl_period)
         last_row = df_state_feat.iloc[-1]
         feat_vals = []
@@ -520,11 +628,15 @@ def build_raw_base_path_hybrid(
 
         X_last = np.array(feat_vals, dtype=np.float32).reshape(1, -1)
         X_last_s = scaler_X.transform(X_last)
+
+        # XGB dự đoán residual
         resid_pred = float(xgb.predict(X_last_s)[0])
 
+        # Math drift + residual = hybrid return
         math_ret = float(math_rets_forecast[step_idx])
-        final_ret = math_ret + resid_pred  # hybrid
+        final_ret = math_ret + resid_pred
 
+        # Cập nhật giá
         last_log = df_state["close_log"].iloc[-2]
         next_log = last_log + final_ret
         next_price = float(np.exp(next_log))
@@ -542,9 +654,11 @@ def build_raw_base_path_hybrid(
 
     return np.array(raw_prices, dtype=float), np.array(raw_rets, dtype=float)
 
-"""##**2.5. [FORECAST + CV] REGIME DETECTOR**"""
 
-def detect_regime(hist_close: np.ndarray, df_feat_hist: pd.DataFrame) -> str:
+# 2.6. REGIME DETECTOR + PRICING LAYER [CV-EVAL + FORECAST]
+
+def detect_regime(hist_close: np.ndarray,
+                  df_feat_hist: pd.DataFrame) -> str:
     """
     [FORECAST + CV] Phân loại chế độ thị trường:
       - BULL: giá trên MA120 và vol_20 thấp hơn vol dài hạn
@@ -575,12 +689,8 @@ def detect_regime(hist_close: np.ndarray, df_feat_hist: pd.DataFrame) -> str:
     else:
         regime = "SIDEWAYS"
 
-    print(f"[REGIME] last_price={price_last:.2f}, MA120={ma_long:.2f}, "
-          f"price_pos={price_pos*100:.2f}%, vol_ratio={vol_ratio:.2f} -> {regime}")
-
     return regime
 
-"""##**2.6. [FORECAST + CV] PRICING LAYER**"""
 
 def apply_pricing_on_raw_path(
     hist_close: np.ndarray,
@@ -596,18 +706,21 @@ def apply_pricing_on_raw_path(
     """
     total_days = len(raw_rets)
 
+    # Fair value level ~ MA60
     FAIR_MA_LEN = 60
     if len(hist_close) >= FAIR_MA_LEN:
         fair_level = float(hist_close[-FAIR_MA_LEN:].mean())
     else:
         fair_level = float(hist_close.mean())
 
+    # Clip theo quantile của |ret_1d|
     hist_abs_ret = df_feat_hist["ret_1d"].dropna().abs()
     if len(hist_abs_ret) == 0:
         base_ret_clip = 0.05
     else:
         base_ret_clip = float(hist_abs_ret.quantile(pricing.ret_clip_quantile))
 
+    # Vol ratio
     ret_1d = df_feat_hist["ret_1d"].dropna()
     if len(ret_1d) >= 30:
         vol_20 = ret_1d.rolling(20).std().iloc[-1]
@@ -616,6 +729,7 @@ def apply_pricing_on_raw_path(
     else:
         vol_ratio = 1.0
 
+    # Regime
     regime = detect_regime(hist_close, df_feat_hist)
 
     # Regime-based scaling
@@ -698,7 +812,8 @@ def apply_pricing_on_raw_path(
 
     return prices
 
-"""##**2.7. [CV-EVAL] CV CUTOFF BUILDER**"""
+
+# 2.7. CV CUTOFF BUILDER [CV-EVAL]
 
 def build_cv_cutoffs(
     df_train: pd.DataFrame,
@@ -729,12 +844,13 @@ def build_cv_cutoffs(
                 cutoffs.append(candidate)
 
     cutoffs = sorted(list(set(cutoffs)))
-    print("[CV] Cutoffs (multi-month, in FPT_train):")
+    print("[CV] Cutoffs (multi-month, trong FPT_train):")
     for c in cutoffs:
         print(" -", c.date())
     return cutoffs
 
-"""##**2.8. [TRAIN cho CV] BUILD CUTOFF MODELS**"""
+
+# 2.8. BUILD CUTOFF MODELS [TRAIN (mini-model) cho CV-EVAL]
 
 def build_cutoff_models(
     df_train: pd.DataFrame,
@@ -742,6 +858,11 @@ def build_cutoff_models(
     stl_period: int,
     horizon: int,
 ) -> List[CutoffModel]:
+    """
+    [TRAIN cho CV] – với mỗi cutoff:
+      - Train một XGB residual + scaler trên history <= cutoff
+      - Sinh raw hybrid path 100 ngày sau cutoff để dùng trong CV Pricing
+    """
     models: List[CutoffModel] = []
     for cutoff in cv_cutoffs:
         df_hist_cut = df_train[df_train["time"] <= cutoff].copy().reset_index(drop=True)
@@ -756,8 +877,10 @@ def build_cutoff_models(
             horizon=horizon,
         )
 
+        # [TRAIN] mini XGB cho cutoff này
         xgb, scaler_X, _, _ = train_xgb_on_dfmodel(df_model_cut, feature_cols)
 
+        # [FORECAST helper] tạo raw hybrid path cho CV_HORIZON
         raw_prices_cv, raw_rets_cv = build_raw_base_path_hybrid(
             df_hist=df_hist_cut,
             xgb=xgb,
@@ -782,7 +905,8 @@ def build_cutoff_models(
 
     return models
 
-"""##**2.9. [CV-EVAL] RANDOM SEARCH SPACE**"""
+
+# 2.9. RANDOM SEARCH PRICING [CV-EVAL chính]
 
 def sample_pricing_params() -> PricingParams:
     """Sample ngẫu nhiên 1 bộ tham số Pricing-layer."""
@@ -797,8 +921,6 @@ def sample_pricing_params() -> PricingParams:
         trend_ret_thresh=random.uniform(0.08, 0.25),
     )
 
-"""##**2.10. [CV-EVAL] CV METRIC FOR PRICING (MSE50/100)**"""
-
 def cv_mse_for_pricing(
     models: List[CutoffModel],
     df_train: pd.DataFrame,
@@ -807,11 +929,11 @@ def cv_mse_for_pricing(
 ) -> float:
     """
     [CV-EVAL] Tính metric của pricing-layer trên nhiều cutoff:
-      - Với mỗi cutoff:
-          + true close sau cutoff
-          + giá predicted khi áp pricing lên raw_base_rets_cv
-      - Metric:
-          M = 0.5 * MSE_50 + 0.5 * MSE_100
+	- Với mỗi cutoff:
+		+ true close sau cutoff
+		+ giá predicted khi áp pricing lên raw_base_rets_cv
+	- Metric:
+		M = 0.5 * MSE_50 + 0.5 * MSE_100
     """
     mses = []
     for cm in models:
@@ -853,21 +975,11 @@ def random_search_pricing(
     df_train: pd.DataFrame,
     horizon: int,
     n_trials: int,
-    custom_params: Optional[PricingParams] = None,
 ) -> PricingParams:
     """
     [CV-EVAL] Random search trên không gian PricingParams
     để tìm bộ có metric trung bình tốt nhất trên các cutoff.
     """
-    # If custom parameters are provided, use them directly
-    if custom_params is not None:
-        print("\n=== USING CUSTOM PRICING PARAMS ===")
-        print(custom_params)
-        score = cv_mse_for_pricing(cutoff_models, df_train, horizon, custom_params)
-        print("CV METRIC (0.5*MSE_50 + 0.5*MSE_100):", score)
-        return custom_params
-
-    # Otherwise, perform random search
     best_params: Optional[PricingParams] = None
     best_score = np.inf
 
@@ -884,7 +996,8 @@ def random_search_pricing(
     print("CV METRIC (0.5*MSE_50 + 0.5*MSE_100):", best_score)
     return best_params
 
-"""##**2.11. [FORECAST] UNCERTAINTY BAND**"""
+
+# 2.10. UNCERTAINTY BAND [FORECAST]
 
 def build_uncertainty_band(
     base_path: np.ndarray,
@@ -910,7 +1023,8 @@ def build_uncertainty_band(
 
     return center, lower, upper
 
-"""##**2.12. [TRAIN] TRAIN FINAL BASE**"""
+
+# 2.11. TRAIN FINAL BASE MODEL [TRAIN]
 
 def train_final_base_model(
     df_train: pd.DataFrame,
@@ -939,69 +1053,45 @@ def train_final_base_model(
         resid_mean=resid_mean,
     )
 
-"""##**2.13. [PIPELINE] MAIN**"""
+
+# 2.12. MAIN [gồm TRAIN + CV-EVAL + FORECAST + OUTPUT]
 
 def main():
     # --------------------------------------------------------
-    # (1) LOAD RAW + PREPROCESS
+    # (1) LOAD RAW
     # --------------------------------------------------------
-    # 1) Load train data (pure FPT)
-    df_train = pd.read_csv(FPT_TRAIN_PATH)
-    df_train["time"] = pd.to_datetime(df_train["time"])
-    df_train = df_train.sort_values("time").reset_index(drop=True)
+    df_train_raw = pd.read_csv(FPT_TRAIN_PATH)
 
-    # 1a) Check for custom parameters from Streamlit app
-    custom_pricing_params = None
-    if os.path.exists("custom_params.json"):
-        print("\n[CUSTOM] Found custom_params.json - loading user-defined parameters...")
-        try:
-            with open("custom_params.json", "r") as f:
-                custom_config = json.load(f)
-            if "my_config" in custom_config:
-                cfg = custom_config["my_config"]
-                custom_pricing_params = PricingParams(
-                    ret_clip_quantile=cfg.get("ret_clip_quantile", 0.97),
-                    half_life_days=cfg.get("half_life", 60),
-                    mean_revert_alpha=cfg.get("mean_revert_alpha", 0.02),
-                    mean_revert_start=cfg.get("mean_revert_start", 40),
-                    fair_up_mult=cfg.get("fair_up_mult", 1.4),
-                    fair_down_mult=cfg.get("fair_down_mult", 0.75),
-                    trend_lookback=cfg.get("trend_lookback", 30),
-                    trend_ret_thresh=cfg.get("trend_ret_thresh", 0.18),
-                )
-                # Update TOTAL_PREDICT_DAYS if horizon is specified
-                global TOTAL_PREDICT_DAYS
-                TOTAL_PREDICT_DAYS = cfg.get("horizon")
-                print("TOTAL_PREDICT_DAYS:", TOTAL_PREDICT_DAYS)
-                print("CFG:", cfg)
-                print(f"[CUSTOM] Using custom forecast horizon: {TOTAL_PREDICT_DAYS} days")
-        except Exception as e:
-            print(f"[CUSTOM] Error loading custom params: {e}, using random search...")
-            custom_pricing_params = None
+    # --------------------------------------------------------
+    # (1a) PREPROCESS (clean time-axis + sanity OHLCV)
+    # --------------------------------------------------------
+    df_train = preprocess_fpt_train(df_train_raw)
 
-    # 1b) CẮT TRAIN TỚI FORCE_TRAIN_END_DATE (NẾU CÓ)
+    # --------------------------------------------------------
+    # (1b) OPTIONAL: FORCE CUT TRAIN END DATE
+    # --------------------------------------------------------
     if FORCE_TRAIN_END_DATE is not None:
         cutoff_dt = pd.to_datetime(FORCE_TRAIN_END_DATE)
         orig_min = df_train["time"].min()
         orig_max = df_train["time"].max()
         df_train = df_train[df_train["time"] <= cutoff_dt].copy().reset_index(drop=True)
         print(f"[TRICK] FORCE_TRAIN_END_DATE = {cutoff_dt.date()} "
-            f"(original train range: {orig_min.date()} -> {orig_max.date()})")
+              f"(original train range: {orig_min.date()} -> {orig_max.date()})")
     else:
-        print("[TRICK] FORCE_TRAIN_END_DATE = None (train to last day in FPT_train).")
+        print("[TRICK] FORCE_TRAIN_END_DATE = None (train tới ngày cuối trong FPT_train).")
 
-    print("FPT_train (pure, after cutoff):", df_train["time"].min(), "->", df_train["time"].max(), ",", df_train.shape)
+    print("FPT_train (pure, after cutoff):", df_train["time"].min(),
+          "->", df_train["time"].max(), ",", df_train.shape)
     train_end_date = df_train["time"].max()
 
     # --------------------------------------------------------
-    # (2) BUILD CV CUTOFFS + CUTOFF MODELS  [TRAIN + CV-EVAL]
+    # (2) BUILD CV CUTOFFS + CUTOFF MODELS [TRAIN + CV-EVAL]
     # --------------------------------------------------------
-    # 3) CV cutoffs in FPT_train
     cv_cutoffs = build_cv_cutoffs(df_train, CV_START_YEAR, CV_END_YEAR, CV_HORIZON)
 
     if not cv_cutoffs:
-        print("[CV] Could not find suitable cutoff, using default pricing params.")
-        pricing_best = custom_pricing_params if custom_pricing_params else PricingParams(
+        print("[CV] Không tìm được cutoff phù hợp, dùng default pricing params.")
+        pricing_best = PricingParams(
             ret_clip_quantile=0.99,
             half_life_days=60,
             mean_revert_alpha=0.06,
@@ -1012,7 +1102,6 @@ def main():
             trend_ret_thresh=0.18,
         )
     else:
-        # 4) Train cutoff models + raw hybrid base path
         cutoff_models = build_cutoff_models(
             df_train=df_train,
             cv_cutoffs=cv_cutoffs,
@@ -1020,8 +1109,8 @@ def main():
             horizon=HORIZON,
         )
         if not cutoff_models:
-            print("[CV] Could not train any cutoff model, using default pricing params.")
-            pricing_best = custom_pricing_params if custom_pricing_params else PricingParams(
+            print("[CV] Không train được cutoff model nào, dùng default pricing params.")
+            pricing_best = PricingParams(
                 ret_clip_quantile=0.99,
                 half_life_days=60,
                 mean_revert_alpha=0.06,
@@ -1032,20 +1121,16 @@ def main():
                 trend_ret_thresh=0.18,
             )
         else:
-            # 5) Random search pricing-layer (clean CV, hybrid + regime, pure FPT)
-            # Use custom params if provided, otherwise do random search
             pricing_best = random_search_pricing(
                 cutoff_models=cutoff_models,
                 df_train=df_train,
                 horizon=CV_HORIZON,
                 n_trials=N_RANDOM_TRIALS,
-                custom_params=custom_pricing_params,
             )
 
     # --------------------------------------------------------
-    # (3) TRAIN FINAL BASE MODEL  [TRAIN]
+    # (3) TRAIN FINAL BASE MODEL [TRAIN]
     # --------------------------------------------------------
-    # 6) Train FINAL BASE MODEL (hybrid residual, pure FPT)
     final_base = train_final_base_model(
         df_train=df_train,
         stl_period=STL_PERIOD,
@@ -1053,9 +1138,8 @@ def main():
     )
 
     # --------------------------------------------------------
-    # (4) FORECAST 100 NGÀY  [FORECAST]
+    # (4) FORECAST 100 NGÀY [FORECAST]
     # --------------------------------------------------------
-    # 7) RAW hybrid base path trên full train
     raw_base_prices_final, raw_rets_final = build_raw_base_path_hybrid(
         df_hist=final_base.df_train,
         xgb=final_base.xgb,
@@ -1067,7 +1151,6 @@ def main():
 
     hist_close_full = final_base.df_train["close"].values.astype(float)
 
-    # 8) BASE forecast = hybrid path + pricing_best (regime-aware, pure FPT)
     base_path = apply_pricing_on_raw_path(
         hist_close=hist_close_full,
         df_feat_hist=final_base.df_feat,
@@ -1075,43 +1158,45 @@ def main():
         pricing=pricing_best,
     )
 
-    # 9) TREND model (simple linear on price)
     df_trend = final_base.df_train.sort_values("time").reset_index(drop=True)
     df_trend["time_idx"] = np.arange(len(df_trend))
     lr = LinearRegression()
     lr.fit(df_trend[["time_idx"]].values, df_trend["close"].values.astype(float))
     last_idx = int(df_trend["time_idx"].iloc[-1])
-    future_idx = np.arange(last_idx + 1, last_idx + 1 + TOTAL_PREDICT_DAYS).reshape(-1, 1)
+    future_idx = np.arange(last_idx + 1,
+							last_idx + 1 + TOTAL_PREDICT_DAYS).reshape(-1, 1)
     trend_price = lr.predict(future_idx)
 
-    # 10) Uncertainty band analytic
     uncert_center_ana, uncert_lower_ana, uncert_upper_ana = build_uncertainty_band(
         base_path,
         final_base.resid_std,
         final_base.resid_mean,
     )
 
-    # 11) CENTRAL_DET (ensemble nhẹ: BASE + TREND + RISK center)
     central_det = 0.7 * base_path + 0.25 * trend_price + 0.05 * uncert_center_ana
     bull = np.maximum(base_path, trend_price)
     bear = np.minimum(base_path, trend_price)
 
-    # 12) Future dates
     start_date = train_end_date + BDay(1)
     future_dates = pd.bdate_range(start=start_date, periods=TOTAL_PREDICT_DAYS)
 
     # --------------------------------------------------------
-    # (5) PLOT & SAVE OUTPUT  [OUTPUT]
+    # (5) PLOT & SAVE OUTPUT [OUTPUT]
     # --------------------------------------------------------
-    # 14) Plot (FPT_train + forecast)
     plt.figure(figsize=(14, 7))
-    plt.plot(df_train["time"], df_train["close"], label="FPT Train", alpha=0.4)
+    plt.plot(df_train["time"], df_train["close"],
+			label="FPT Train", alpha=0.4)
 
-    plt.axvline(train_end_date, color="gray", linestyle="--", label="Train End")
-    plt.plot(future_dates, base_path, label="BASE (Hybrid + Pricing)", linestyle=":")
-    plt.plot(future_dates, trend_price, label="TREND (Linear)", linestyle="--")
-    plt.plot(future_dates, central_det, label="CENTRAL_DET", linewidth=2)
-    plt.fill_between(future_dates, uncert_lower_ana, uncert_upper_ana, alpha=0.10, label="UNCERT analytic")
+    plt.axvline(train_end_date, color="gray",
+                linestyle="--", label="Train End")
+    plt.plot(future_dates, base_path,
+			label="BASE (Hybrid + Pricing)", linestyle=":")
+    plt.plot(future_dates, trend_price,
+			label="TREND (Linear)", linestyle="--")
+    plt.plot(future_dates, central_det,
+			label="CENTRAL_DET", linewidth=2)
+    plt.fill_between(future_dates, uncert_lower_ana, uncert_upper_ana,
+					alpha=0.10, label="UNCERT analytic")
 
     plt.title("FPT 100-day Forecast (Hybrid + Pricing)")
     plt.xlabel("Time")
@@ -1121,7 +1206,6 @@ def main():
     plt.tight_layout()
     plt.show()
 
-    # 15) Save CSV forecast
     out = pd.DataFrame({
         "time": future_dates,
         "base": base_path,
@@ -1133,29 +1217,16 @@ def main():
         "bull": bull,
         "bear": bear,
     })
+    out.to_csv("FPT_forecast.csv", index=False)
+    print("Saved FPT_forecast.csv ✅")
 
-
-    # Save a copy for custom forecast comparison
-    if os.path.exists("custom_params.json"):
-        out.to_csv("FPT_forecast2.csv", index=False)
-        print("Saved FPT_forecast2.csv (custom parameters) [OK]")
-    else:
-        out.to_csv("FPT_forecast.csv", index=False)
-        print("Saved FPT_forecast.csv [OK]")
-
-    # 16) Save submission file (competition style)
-    EVAL_DAYS = TOTAL_PREDICT_DAYS
-    future_res = pd.DataFrame({
-        "price_med": central_det,
-    })
-    sub_days = min(EVAL_DAYS, TOTAL_PREDICT_DAYS)
+    sub_days = min(TOTAL_PREDICT_DAYS, TOTAL_PREDICT_DAYS)
     submission = pd.DataFrame({
         "id": np.arange(1, sub_days + 1),
-        "close": future_res["price_med"].values[:sub_days],
+        "close": central_det[:sub_days],
     })
     submission.to_csv("submission.csv", index=False)
-    print("Saved submission.csv [OK]")
-
+    print("Saved submission.csv ✅")
 
 if __name__ == "__main__":
     main()
