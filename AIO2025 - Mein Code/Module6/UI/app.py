@@ -64,8 +64,8 @@ st.markdown("""
 @st.cache_data
 def load_training_data():
     """Load historical training data"""
-    if os.path.exists("FPT_train.csv"):
-        df = pd.read_csv("FPT_train.csv")
+    if os.path.exists("Bank_train.csv"):
+        df = pd.read_csv("Bank_train.csv")
         df['time'] = pd.to_datetime(df['time'])
         return df
     return None
@@ -73,17 +73,17 @@ def load_training_data():
 @st.cache_data
 def load_forecast_data():
     """Load forecast results"""
-    if os.path.exists("FPT_forecast.csv"):
-        df = pd.read_csv("FPT_forecast.csv")
+    if os.path.exists("Bank_forecast.csv"):
+        df = pd.read_csv("Bank_forecast.csv")
         df['time'] = pd.to_datetime(df['time'])
         return df
     return None
 
 @st.cache_data
 def load_forecast_data2():
-    """Load custom forecast results (FPT_forecast2.csv)"""
-    if os.path.exists("FPT_forecast2.csv"):
-        df = pd.read_csv("FPT_forecast2.csv")
+    """Load custom forecast results (Bank_forecast2.csv)"""
+    if os.path.exists("Bank_forecast2.csv"):
+        df = pd.read_csv("Bank_forecast2.csv")
         df['time'] = pd.to_datetime(df['time'])
         return df
     return None
@@ -100,9 +100,9 @@ def load_realdata(start_date=None, end_date=None):
         DataFrame with real stock data, optionally filtered by date range
     """
     # First try to load FPT_realdata.csv
-    if os.path.exists("FPT_realdata.csv"):
+    if os.path.exists("Bank_realdata.csv"):
         try:
-            df = pd.read_csv("FPT_realdata.csv")
+            df = pd.read_csv("Bank_realdata.csv")
             # Check if it's the Vietnamese format
             if 'Ngày' in df.columns:
                 # Convert Vietnamese format
@@ -136,10 +136,10 @@ def load_realdata(start_date=None, end_date=None):
         except Exception as e:
             st.warning(f"Could not load FPT_realdata.csv: {e}")
 
-    # Fallback to FPT_train.csv
-    if os.path.exists("FPT_train.csv"):
+    # Fallback to Bank_train.csv
+    if os.path.exists("Bank_train.csv"):
         try:
-            df = pd.read_csv("FPT_train.csv")
+            df = pd.read_csv("Bank_train.csv")
             # Check if it's the Vietnamese format
             if 'Ngày' in df.columns:
                 # Convert Vietnamese format
@@ -284,7 +284,7 @@ def run_forecast_with_params(params_dict, status_text=None, progress_bar=None):
         import time
 
         process = subprocess.Popen(
-            [sys.executable, "finalpm6_kaggle.py"],
+            [sys.executable, "CONQ006_PM6.py"],
             cwd=current_dir,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
@@ -1189,7 +1189,7 @@ def main():
                 "Return Clip Quantile",
                 min_value=0.95,
                 max_value=0.999,
-                value=0.97,
+                value=0.9666050519509314,
                 step=0.001,
                 help="Quantile for clipping extreme returns"
             )
@@ -1198,7 +1198,7 @@ def main():
                 "Half-Life (days)",
                 min_value=10,
                 max_value=120,
-                value=60,
+                value=41,
                 step=5,
                 help="Half-life for exponential damping"
             )
@@ -1207,7 +1207,7 @@ def main():
                 "Mean Revert Alpha",
                 min_value=0.02,
                 max_value=0.10,
-                value=0.06,
+                value=0.06370043603749463,
                 step=0.01,
                 help="Mean reversion strength coefficient"
             )
@@ -1216,7 +1216,7 @@ def main():
                 "Mean Revert Start Day",
                 min_value=10,
                 max_value=65,
-                value=40,
+                value=28,
                 step=5,
                 help="Day to start applying mean reversion"
             )
@@ -1226,7 +1226,7 @@ def main():
                 "Fair Up Multiplier",
                 min_value=1.25,
                 max_value=1.60,
-                value=1.40,
+                value=1.4583280453345258,
                 step=0.05,
                 help="Multiplier for upward fair value adjustment"
             )
@@ -1235,7 +1235,7 @@ def main():
                 "Fair Down Multiplier",
                 min_value=0.65,
                 max_value=0.90,
-                value=0.75,
+                value=0.8462786873053278,
                 step=0.05,
                 help="Multiplier for downward fair value adjustment"
             )
@@ -1244,7 +1244,7 @@ def main():
                 "Trend Lookback",
                 min_value=25,
                 max_value=60,
-                value=30,
+                value=57,
                 step=5,
                 help="Days to look back for trend analysis"
             )
@@ -1253,7 +1253,7 @@ def main():
                 "Trend Return Threshold",
                 min_value=0.08,
                 max_value=0.25,
-                value=0.18,
+                value=0.23490859000899916,
                 step=0.01,
                 help="Minimum return to classify as strong trend"
             )
@@ -1277,6 +1277,24 @@ def main():
                 use_container_width=True,
                 help="Run the forecast model with custom parameters"
             )
+
+            # Reset parameters button
+            reset_btn = st.button(
+                "🔄 Reset to Default Parameters",
+                use_container_width=True,
+                help="Reset all parameters to their default values"
+            )
+
+            if reset_btn:
+                # Only clear slider-related session state keys, not everything
+                keys_to_clear = [key for key in st.session_state.keys()
+                                if not key.startswith('_')]
+                for key in keys_to_clear:
+                    del st.session_state[key]
+                st.success("✅ Parameters reset to default values!")
+                # Mark that reset was performed to prevent re-triggering on reload
+                st.session_state['_reset_done'] = True
+                st.rerun()
 
             if run_forecast_btn:
                 # Prepare parameters dictionary
@@ -1332,7 +1350,7 @@ def main():
     # Check if data is loaded
     if train_df is None or forecast_df is None:
         st.error("❌ Data files not found! Please run the model first to generate forecast data.")
-        st.info("Expected files: FPT_train.csv, FPT_forecast.csv")
+        st.info("Expected files: Bank_train.csv, Bank_forecast.csv")
         return
 
     # Main content tabs
@@ -1352,7 +1370,7 @@ def main():
                 "1M": "Monthly",
                 "3M": "Quarterly"
             }
-            chart_subtitle = f"*{timeframe_desc[timeframe]} candlesticks - Complete Open, High, Low, and Close data from training set FPT_train.csv"
+            chart_subtitle = f"*{timeframe_desc[timeframe]} candlesticks - Complete Open, High, Low, and Close data from training set Bank_train.csv"
         else:
             chart_subtitle = "*Price data with moving averages (MA20, MA60)*"
 
@@ -1418,7 +1436,7 @@ def main():
                 'modeBarButtonsToRemove': ['lasso2d', 'select2d', 'autoScale2d', 'toggleSpikelines'],
                 'toImageButtonOptions': {
                     'format': 'png',
-                    'filename': 'fpt_forecast_chart',
+                    'filename': 'Bank_forecast_chart',
                     'height': 650,
                     'width': 1200,
                     'scale': 1
@@ -1487,7 +1505,7 @@ def main():
                 st.plotly_chart(regime_fig, width='stretch')
 
         # ============================================================
-        # CUSTOM FORECAST DISPLAY (FPT_forecast2.csv)
+        # CUSTOM FORECAST DISPLAY (Bank_forecast2.csv)
         # ============================================================
         forecast_df2 = load_forecast_data2()
 
@@ -1597,15 +1615,15 @@ def main():
             col_dl1, col_dl2 = st.columns(2)
 
             with col_dl1:
-                # Download FPT_forecast2.csv
-                if os.path.exists("FPT_forecast2.csv"):
-                    with open("FPT_forecast2.csv", "rb") as file:
+                # Download Bank_forecast2.csv
+                if os.path.exists("Bank_forecast2.csv"):
+                    with open("Bank_forecast2.csv", "rb") as file:
                         st.download_button(
                             label="📊 Download Custom Forecast (CSV)",
                             data=file,
-                            file_name="FPT_forecast2.csv",
+                            file_name="Bank_forecast2.csv",
                             mime="text/csv",
-                            help="Download the custom forecast data (FPT_forecast2.csv)",
+                            help="Download the custom forecast data (Bank_forecast2.csv)",
                             use_container_width=True
                         )
                 else:
@@ -1736,7 +1754,7 @@ def main():
             st.download_button(
                 label="📥 Download Training Data",
                 data=csv,
-                file_name="FPT_train.csv",
+                file_name="Bank_train.csv",
                 mime="text/csv"
             )
 
@@ -1748,7 +1766,7 @@ def main():
             st.download_button(
                 label="📥 Download Forecast Data",
                 data=csv,
-                file_name="FPT_forecast.csv",
+                file_name="Bank_forecast.csv",
                 mime="text/csv"
             )
 

@@ -40,10 +40,13 @@
 # Helper Functions (2.1 - 2.2)
 # =====================
 
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from statsmodels.tsa.seasonal import STL
+
+FORECAST_PATH = 'Bank_forecast.csv'
 
 def preprocess_fpt_train(df_raw: pd.DataFrame) -> pd.DataFrame:
     """
@@ -69,7 +72,7 @@ def preprocess_fpt_train(df_raw: pd.DataFrame) -> pd.DataFrame:
     df["time"] = pd.to_datetime(df["time"], errors="coerce")
     df = df.dropna(subset=["time"]).sort_values("time").reset_index(drop=True)
 
-    # Nếu dữ liệu có nhiều dòng cùng ngày -> lấy dòng cuối (hoặc mean)
+    # Nếu dữ liệu có nhiều dòng cùng ngàBank_realdata_transformedy -> lấy dòng cuối (hoặc mean)
     df = df.drop_duplicates(subset=["time"], keep="last").reset_index(drop=True)
 
     # (2) ensure numeric
@@ -308,6 +311,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import warnings
 import random
+import json
+import os
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
@@ -324,7 +329,9 @@ SEED = 98 # 9 = Cửu, 8 = Bát. 98 = Cửu Bát = Mãi Phát
 random.seed(SEED)
 np.random.seed(SEED)
 
-FPT_TRAIN_PATH = "FPT_train.csv"
+# FPT_TRAIN_PATH = "FPT_train.csv"
+FPT_TRAIN_PATH = "Bank_train.csv"
+
 
 # Nếu muốn test generalization, ép chỉ train tới 1 ngày nào đó:
 # FORCE_TRAIN_END_DATE = "2024-10-06"
@@ -1078,7 +1085,7 @@ def main():
         print(f"[TRICK] FORCE_TRAIN_END_DATE = {cutoff_dt.date()} "
               f"(original train range: {orig_min.date()} -> {orig_max.date()})")
     else:
-        print("[TRICK] FORCE_TRAIN_END_DATE = None (train tới ngày cuối trong FPT_train).")
+        print("[TRICK] FORCE_TRAIN_END_DATE = None (train to last day of FPT_train).")
 
     print("FPT_train (pure, after cutoff):", df_train["time"].min(),
           "->", df_train["time"].max(), ",", df_train.shape)
@@ -1087,29 +1094,55 @@ def main():
     # --------------------------------------------------------
     # (2) BUILD CV CUTOFFS + CUTOFF MODELS [TRAIN + CV-EVAL]
     # --------------------------------------------------------
-    cv_cutoffs = build_cv_cutoffs(df_train, CV_START_YEAR, CV_END_YEAR, CV_HORIZON)
 
-    if not cv_cutoffs:
-        print("[CV] Không tìm được cutoff phù hợp, dùng default pricing params.")
-        pricing_best = PricingParams(
-            ret_clip_quantile=0.99,
-            half_life_days=60,
-            mean_revert_alpha=0.06,
-            mean_revert_start=40,
-            fair_up_mult=1.4,
-            fair_down_mult=0.75,
-            trend_lookback=30,
-            trend_ret_thresh=0.18,
-        )
-    else:
-        cutoff_models = build_cutoff_models(
-            df_train=df_train,
-            cv_cutoffs=cv_cutoffs,
-            stl_period=STL_PERIOD,
-            horizon=HORIZON,
-        )
-        if not cutoff_models:
-            print("[CV] Không train được cutoff model nào, dùng default pricing params.")
+    # Initialize pricing_best with default values
+    pricing_best = PricingParams(
+        ret_clip_quantile=0.97,
+        half_life_days=60,
+        mean_revert_alpha=0.02,
+        mean_revert_start=40,
+        fair_up_mult=1.4,
+        fair_down_mult=0.75,
+        trend_lookback=30,
+        trend_ret_thresh=0.18,
+    )
+
+    # Check if custom parameters are provided
+    custom_params_path = "custom_params.json"
+    use_custom_params = os.path.exists(custom_params_path)
+
+    if use_custom_params:
+        print(f"\n{'='*60}")
+        print("[CUSTOM] LOADING CUSTOM PARAMETERS from custom_params.json")
+        print(f"{'='*60}")
+        with open(custom_params_path, "r") as f:
+            custom_config = json.load(f)
+
+        if "my_config" in custom_config:
+            cfg = custom_config["my_config"]
+            pricing_best = PricingParams(
+                ret_clip_quantile=cfg.get("ret_clip_quantile", 0.9666050519509314),
+                half_life_days=int(cfg.get("half_life", 41)),
+                mean_revert_alpha=cfg.get("mean_revert_alpha", 0.06370043603749463),
+                mean_revert_start=int(cfg.get("mean_revert_start", 28)),
+                fair_up_mult=cfg.get("fair_up_mult", 1.4583280453345258),
+                fair_down_mult=cfg.get("fair_down_mult", 0.8462786873053278),
+                trend_lookback=int(cfg.get("trend_lookback", 57)),
+                trend_ret_thresh=cfg.get("trend_ret_thresh", 0.23490859000899916),
+            )
+            print("\n[OK] Custom Pricing Parameters Loaded:")
+            print(pricing_best)
+            print(f"{'='*60}\n")
+        else:
+            print("[WARNING] 'my_config' key not found in custom_params.json, using CV search...")
+            use_custom_params = False
+
+    if not use_custom_params:
+        # Original CV-based parameter search
+        cv_cutoffs = build_cv_cutoffs(df_train, CV_START_YEAR, CV_END_YEAR, CV_HORIZON)
+
+        if not cv_cutoffs:
+            print("[CV] Không tìm được cutoff phù hợp, dùng default pricing params.")
             pricing_best = PricingParams(
                 ret_clip_quantile=0.99,
                 half_life_days=60,
@@ -1121,12 +1154,49 @@ def main():
                 trend_ret_thresh=0.18,
             )
         else:
-            pricing_best = random_search_pricing(
-                cutoff_models=cutoff_models,
+            cutoff_models = build_cutoff_models(
                 df_train=df_train,
-                horizon=CV_HORIZON,
-                n_trials=N_RANDOM_TRIALS,
+                cv_cutoffs=cv_cutoffs,
+                stl_period=STL_PERIOD,
+                horizon=HORIZON,
             )
+            if not cutoff_models:
+                print("[CV] Không train được cutoff model nào, dùng default pricing params.")
+                pricing_best = PricingParams(
+                    ret_clip_quantile=0.99,
+                    half_life_days=60,
+                    mean_revert_alpha=0.06,
+                    mean_revert_start=40,
+                    fair_up_mult=1.4,
+                    fair_down_mult=0.75,
+                    trend_lookback=30,
+                    trend_ret_thresh=0.18,
+                )
+            else:
+                pricing_best = random_search_pricing(
+                    cutoff_models=cutoff_models,
+                    df_train=df_train,
+                    horizon=CV_HORIZON,
+                    n_trials=N_RANDOM_TRIALS,
+                )
+
+            # Save the best parameters for reference
+            params_to_save = {
+                "my_config": {
+                    "horizon": TOTAL_PREDICT_DAYS,
+                    "ret_clip_quantile": pricing_best.ret_clip_quantile,
+                    "half_life": pricing_best.half_life_days,
+                    "mean_revert_alpha": pricing_best.mean_revert_alpha,
+                    "mean_revert_start": pricing_best.mean_revert_start,
+                    "fair_up_mult": pricing_best.fair_up_mult,
+                    "fair_down_mult": pricing_best.fair_down_mult,
+                    "trend_lookback": pricing_best.trend_lookback,
+                    "trend_ret_thresh": pricing_best.trend_ret_thresh,
+                }
+            }
+            with open("saved_params.json", "w") as f:
+                json.dump(params_to_save, f, indent=2)
+            print("Saved best pricing params to saved_params.json")
 
     # --------------------------------------------------------
     # (3) TRAIN FINAL BASE MODEL [TRAIN]
@@ -1206,6 +1276,7 @@ def main():
     plt.tight_layout()
     plt.show()
 
+    # 15) Save CSV forecast
     out = pd.DataFrame({
         "time": future_dates,
         "base": base_path,
@@ -1217,16 +1288,29 @@ def main():
         "bull": bull,
         "bear": bear,
     })
-    out.to_csv("FPT_forecast.csv", index=False)
-    print("Saved FPT_forecast.csv ✅")
 
-    sub_days = min(TOTAL_PREDICT_DAYS, TOTAL_PREDICT_DAYS)
+
+    # Save a copy for custom forecast comparison
+    if os.path.exists("custom_params.json"):
+        out.to_csv("FPT_forecast2.csv", index=False)
+        print("Saved FPT_forecast2.csv (custom parameters) [OK]")
+    else:
+        out.to_csv(FORECAST_PATH, index=False)
+        print("Saved FPT_forecast.csv [OK]")
+
+    # 16) Save submission file (competition style)
+    EVAL_DAYS = TOTAL_PREDICT_DAYS
+    future_res = pd.DataFrame({
+        "price_med": central_det,
+    })
+    sub_days = min(EVAL_DAYS, TOTAL_PREDICT_DAYS)
     submission = pd.DataFrame({
         "id": np.arange(1, sub_days + 1),
-        "close": central_det[:sub_days],
+        "close": future_res["price_med"].values[:sub_days],
     })
     submission.to_csv("submission.csv", index=False)
-    print("Saved submission.csv ✅")
+    print("Saved submission.csv [OK]")
+
 
 if __name__ == "__main__":
     main()
