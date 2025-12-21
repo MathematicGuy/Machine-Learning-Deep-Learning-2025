@@ -1,0 +1,314 @@
+Ở phần trước, ta đã xây dựng được hàm Loss của Logistic Regression ở dạng từng mẫu (không dùng ma trận). Tuy nhiên, \textbf{khi số lượng đặc trưng và số lượng mẫu trở nên lớn, cách viết tường minh theo từng điểm dữ liệu trở nên cồng kềnh và khó tối ưu hoá}. Để xử lý mô hình ở quy mô lớn, ta cần chuyển toàn bộ bài toán về dạng \textbf{vector–matrix}. Ngoài ra, nó cũng giống việc viết hàm tính toán trong code gọn và dễ dàng hơn.
+
+\subsection{Khởi động bằng một bài toán cụ thể}
+
+Giả sử ta có ba bệnh nhân với ba giá trị PSA và ta muốn mô hình Logistic Regression dự đoán xác suất mắc bệnh.  
+Bảng dữ liệu:
+
+\[
+\begin{array}{c|c|c}
+\text{Bệnh nhân} & x^{(i)} & y^{(i)} \\
+\hline
+1 & 1.0 & 1 \\
+2 & 2.0 & 1 \\
+3 & 3.0 & 0 \\
+\end{array}
+\]
+
+\noindent
+Hệ số mô hình:
+\[
+\theta =
+\begin{bmatrix}
+\theta_0 \\ \theta_1
+\end{bmatrix}	
+=
+\begin{bmatrix}
+-3 \\ 2
+\end{bmatrix}.
+\]
+
+Ta muốn tính:
+\[
+h_\theta(x^{(i)}) = \sigma(\theta_0 + \theta_1 x^{(i)}).
+\]
+
+Nếu làm thủ công từng mẫu:
+\[
+z^{(1)} = -3 + 2(1) = -1,\qquad h^{(1)} = \sigma(-1),
+\]
+\[
+z^{(2)} = -3 + 2(2) = 1,\qquad h^{(2)} = \sigma(1),
+\]
+\[
+z^{(3)} = -3 + 2(3) = 3,\qquad h^{(3)} = \sigma(3).
+\]
+
+Cách này hoàn toàn đúng nhưng không thể mở rộng cho 1000 mẫu, 20 đặc trưng.
+
+\subsection{Ôn lại nhân ma trận từ góc nhìn “tổng trọng số”}
+	
+Nhân ma trận chỉ là:
+
+\[
+\text{(hàng của ma trận) } \cdot \text{(vector)} = \text{tổng có trọng số}.
+\]
+
+Ví dụ:
+\[
+\begin{bmatrix}
+1 & 2
+\end{bmatrix}
+\begin{bmatrix}
+3 \\ 4
+\end{bmatrix}
+= 1\cdot 3 + 2 \cdot 4 = 11.
+\]
+
+\paragraph*{Trực giác:}
+\begin{itemize}
+    \item ma trận là tập hợp nhiều hàng,
+    \item mỗi hàng là một mẫu dữ liệu,
+    \item nhân ma trận với vector $\theta$ đơn giản là tính điểm số tuyến tính $z$ cho tất cả mẫu cùng lúc.
+\end{itemize}
+
+\subsection{Chuyển dữ liệu sang dạng ma trận}
+
+Ta gom tất cả đầu vào vào một ma trận thiết kế:
+
+\[
+X =
+\begin{bmatrix}
+1 & 1.0 \\
+1 & 2.0 \\
+1 & 3.0 \\
+\end{bmatrix}.
+\]
+
+\begin{itemize}
+    \item Cột đầu tiên là $1$ (cho bias term $\theta_0$).
+    \item Mỗi hàng là một bệnh nhân.
+\end{itemize}
+
+Khi đó:
+\[
+z = X\theta
+=
+\begin{bmatrix}
+1 & 1.0 \\
+1 & 2.0 \\
+1 & 3.0 \\
+\end{bmatrix}
+\begin{bmatrix}
+-3 \\ 2
+\end{bmatrix}
+=
+\begin{bmatrix}
+-1 \\ 1 \\ 3
+\end{bmatrix}.
+\]
+
+\subsection{Áp sigmoid lên toàn bộ vector cùng lúc}
+
+\[
+h = \sigma(z)
+=
+\begin{bmatrix}
+\sigma(-1)\\
+\sigma(1)\\
+\sigma(3)
+\end{bmatrix}.
+\]
+
+Bây giờ ta đã tính được xác suất cho toàn bộ dataset chỉ bằng hai bước:
+
+\begin{itemize}
+    \item nhân ma trận: $z = X\theta$,
+    \item áp sigmoid: $h = \sigma(X\theta)$.
+\end{itemize}
+
+\subsection{Loss của Logistic Regression ở dạng vector}
+
+Theo định nghĩa ở phần trước, hàm Loss cho Logistic Regression ở dạng từng mẫu là:
+
+\[
+J(\theta)
+=
+-\sum_{i=1}^{m}
+\left[
+y^{(i)}\ln h^{(i)}
++
+(1-y^{(i)})\ln(1-h^{(i)})
+\right].
+\]
+
+Để xử lý toàn bộ dữ liệu đồng thời, ta chuyển sang dạng vector hoá. Khi đó:
+
+\[
+J(\theta) 
+= 
+-\left(
+y^T \ln(h) 
++ 
+(1-y)^T \ln(1-h)
+\right),
+\]
+
+trong đó:
+
+\begin{itemize}
+    \item $y = [y^{(1)}, y^{(2)}, \ldots, y^{(m)}]^T$ là vector nhãn.
+    \item $h = [h^{(1)}, h^{(2)}, \ldots, h^{(m)}]^T$ là vector xác suất mô hình dự đoán.
+    \item $\ln(h)$ là log theo từng phần tử:  
+    \[
+    \ln(h) = 
+    [\ln h^{(1)}, \ln h^{(2)}, \ldots, \ln h^{(m)}]^T.
+    \]
+\end{itemize}
+
+Công thức vector hoá này giúp Loss được viết gọn gàng hơn và cho phép tính gradient và hessian dễ dàng.
+
+
+\subsubsection*{Ví dụ đầy đủ: Tính toàn bộ Loss bằng vector cho bài toán PSA}
+
+Ta sử dụng lại dataset nhỏ gồm 3 bệnh nhân:
+
+\[
+X=
+\begin{bmatrix}
+1 & 1.0 \\
+1 & 2.0 \\
+1 & 3.0
+\end{bmatrix},
+\qquad
+y=
+\begin{bmatrix}
+1 \\ 1 \\ 0
+\end{bmatrix},
+\qquad
+\theta=
+\begin{bmatrix}
+-3 \\ 2
+\end{bmatrix}.
+\]
+
+\paragraph*{Bước 1: Tính $z = X\theta$}
+
+\[
+z = 
+\begin{bmatrix}
+1 & 1.0 \\
+1 & 2.0 \\
+1 & 3.0
+\end{bmatrix}
+\begin{bmatrix}
+-3 \\ 2
+\end{bmatrix}
+=
+\begin{bmatrix}
+-1 \\ 1 \\ 3
+\end{bmatrix}.
+\]
+
+\paragraph*{Bước 2: Tính $h = \sigma(z)$}
+
+\[
+h =
+\begin{bmatrix}
+\sigma(-1) \\
+\sigma(1) \\
+\sigma(3)
+\end{bmatrix}
+=
+\begin{bmatrix}
+0.2689 \\ 0.7311 \\ 0.9526
+\end{bmatrix}.
+\]
+
+\paragraph*{Bước 3: Tính log từng phần tử}
+
+\[
+\ln(h) =
+\begin{bmatrix}
+\ln 0.2689 \\
+\ln 0.7311 \\
+\ln 0.9526
+\end{bmatrix}
+=
+\begin{bmatrix}
+-1.313 \\ -0.313 \\ -0.048
+\end{bmatrix},
+\]
+
+\[
+\ln(1-h) =
+\begin{bmatrix}
+\ln(1-0.2689) \\
+\ln(1-0.7311) \\
+\ln(1-0.9526)
+\end{bmatrix}
+=
+\begin{bmatrix}
+-0.314 \\ -1.313 \\ -3.046
+\end{bmatrix}.
+\]
+
+\paragraph*{Bước 4: Tính từng phần của Loss}
+
+\[
+y^T \ln(h)
+=
+[1 \;\; 1 \;\; 0]
+\begin{bmatrix}
+-1.313 \\ -0.313 \\ -0.048
+\end{bmatrix}
+=
+(-1.313) + (-0.313) + (0)
+=
+-1.626.
+\]
+
+\[
+(1-y)^T \ln(1-h)
+=
+[0 \;\; 0 \;\; 1]
+\begin{bmatrix}
+-0.314 \\ -1.313 \\ -3.046
+\end{bmatrix}
+=
+-3.046.
+\]
+
+\paragraph*{Bước 5: Loss cuối cùng}
+
+\[
+J(\theta)
+=
+-\left( -1.626 + (-3.046) \right)
+=
+4.672.
+\]
+
+\subsubsection*{Ý nghĩa ví dụ}
+\begin{itemize}
+    \item Hai mẫu đầu có nhãn $1$ nhưng mô hình dự đoán không quá cao ($0.26$ và $0.73$), dẫn đến giá trị $\ln(h)$ âm đáng kể.
+    \item Mẫu thứ ba có nhãn $0$ nhưng mô hình lại dự đoán gần $1$ ($0.95$), dẫn đến $\ln(1-h)$ rất âm và tạo Loss lớn.
+    \item Loss tổng cộng $4.672$ là khá cao cho dataset nhỏ như thế này, phản ánh mô hình chưa tốt.
+\end{itemize}
+
+Nhờ ví dụ này, ta thấy rõ:
+
+\begin{itemize}
+    \item dạng vector hoá của Logistic Regression hoàn toàn tương đương dạng từng mẫu,  
+    \item nhưng cô đọng và phù hợp cho việc triển khai bằng phần mềm và cho phân tích đạo hàm vector ở phần sau.
+\end{itemize}
+
+\subsubsection*{Kết nối sang phần Đạo hàm và Hessian}
+Ngay sau đây, khi tính đạo hàm của Loss, ta sẽ thấy dạng vector đem lại lợi thế vượt trội.  
+
+Công thức đẹp:
+
+\[
+\nabla_\theta J(\theta) = X^T(h-y)
+\]
+

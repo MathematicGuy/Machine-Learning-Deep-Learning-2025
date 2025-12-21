@@ -217,5 +217,8 @@ __marimo__/
 
 *.csv
 *.zip
-AIO2025 - Mein Code/Module6/Pytorch/creditcard.csv
-AIO2025 - Mein Code/LightGBM
+AIO2025_Mein Code/Module6/Pytorch/creditcard.csv
+AIO2025_Mein Code/LightGBM
+AIO2025_Mein Code/Module7/Anomally-Behaviour-Detection
+AIO2025_Mein Code/Module7/data/*
+AIO2025_Mein Code/Module7/data/img_cls_weather_dataset
