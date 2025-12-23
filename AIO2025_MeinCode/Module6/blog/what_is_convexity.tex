@@ -1,0 +1,47 @@
+\subsubsection{Convexity là gì? Trực giác của đạo hàm bậc hai}
+
+Trước khi chứng minh hàm Loss của Logistic Regression là convex, mình muốn cùng bạn quay lại trực giác toán học nền tảng: \textbf{đạo hàm bậc hai cho ta biết Rate of change of  "the rate of change"} – hay nói cách khác, nó cho ta biết độ cong (curvature) của một hàm. Cách hình tượng và dễ hiểu nhất để nắm được điều này là nhìn vào chuyển động của một chiếc xe. \\
+
+Khi ta mô tả chuyển động của xe theo thời gian $t$, ta có ba đại lượng quen thuộc: quãng đường $x(t)$, vận tốc $v(t)$ và gia tốc $a(t)$. Đây chính là ví dụ trực tiếp mà bài giảng của \href{https://www.coursera.org/learn/machine-learning-calculus/lecture/9XtuI/the-second-derivative}{DeepLearning.AI} đã dùng để giải thích đạo hàm bậc một và bậc hai. Vận tốc là đạo hàm bậc một của quãng đường, $v = \frac{dx}{dt}$, còn gia tốc là đạo hàm bậc hai (ie. tốc độ thay đổi của vận tốc, nghe rất hợp lý đúng không :)), $a = \frac{dv}{dt} = \frac{d^2x}{dt^2}$. Nếu vận tốc đang tăng thì gia tốc dương, nếu vận tốc giảm thì gia tốc âm, còn nếu vận tốc không đổi thì gia tốc bằng 0. Điều này giúp ta có trực giác: đạo hàm bậc hai cho ta biết “hàm đang cong lên hay cong xuống”.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{images/second_derivative_car_1.png}
+    \caption{x, v, a: Khoảng cách – Vận tốc – Gia tốc}
+\end{figure}
+
+Hình dưới đây mô tả rõ hơn: đồ thị phía trên là quãng đường theo thời gian, mỗi điểm được mô tả bằng 1 đường thẳng, đồ thị dưới là vận tốc (đạo hàm bậc một). Ở giai đoạn đầu, vận tốc liên tục tăng nên gia tốc dương; ở đoạn giữa, xe chạy đều nên gia tốc bằng 0; ở đoạn sau, xe giảm tốc nên gia tốc âm.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{images/second_derivative_car_2.png}
+    \caption{Đạo hàm bậc một: Vận tốc thay đổi theo thời gian}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{images/second_derivative_car_3.png}
+    \caption{Hình dưới là Đạo hàm bậc hai: Gia tốc – tốc độ thay đổi của tốc độ thay đổi (tốc độ thay đổi của vận tốc)}
+\end{figure}
+
+Khi nhìn vào đồ thị quãng đường, ta có thể phân tích độ cong dựa vào dấu của đạo hàm bậc hai: nếu $\frac{d^2x}{dt^2} > 0$, đồ thị cong lên (concave up / convex); nếu $\frac{d^2x}{dt^2} < 0$, đồ thị cong xuống (concave down); còn nếu bằng 0 thì ta cần thêm thông tin vì đồ thị có thể thẳng hoặc chỉ đang đổi chế độ cong.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{images/second_derivative_car_4.png}
+    \caption{Ý nghĩa dấu của đạo hàm bậc hai và độ cong của hàm}
+\end{figure}
+
+Điều này liên kết trực tiếp với tối ưu hóa: tại các điểm mà đạo hàm bậc một bằng 0, \textbf{đạo hàm bậc hai cho ta biết điểm đó là cực tiểu hay cực đại}. Nếu đạo hàm bậc hai dương, đó là cực tiểu (đồ thị cong lên). Nếu âm, đó là cực đại (đồ thị cong xuống). Nếu bằng 0, ta không kết luận được. Đây chính là lý do đạo hàm bậc hai quan trọng trong phân tích convexity. \\
+
+Từ góc nhìn trực giác: hàm convex là hàm luôn “cong lên”, nghĩa là đạo hàm bậc hai của nó luôn không âm. Bạn có thể hình dung rằng nếu đồ thị luôn cong lên giống hình một cái bát úp ngược, thì dù bạn đứng ở bất kỳ điểm nào, hướng đi “xuống dốc nhất” cũng luôn dẫn bạn về cùng một đáy duy nhất. Đây là nền tảng của tối ưu hóa: hàm convex đảm bảo không có nhiều cực trị cục bộ; Gradient Descent sẽ không bao giờ bị mắc kẹt.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{images/second_derivative_summary.png}
+    \caption{Tóm tắt trực giác đạo hàm bậc một và bậc hai}
+\end{figure}
+
+Khi chuyển từ ví dụ chiếc xe sang bài toán học máy, ta có thể nhìn convexity như một sự mở rộng của những gì mình vừa thấy: nếu đạo hàm bậc hai của một hàm số luôn không âm trên toàn miền, thì hàm đó là convex. Đối với hàm nhiều biến, khái niệm này được tổng quát bằng \textbf{ma trận Hessian}. Một hàm nhiều biến được gọi là convex nếu Hessian luôn là ma trận positive semi-definite. Điều này đồng nghĩa mọi eigenvalue của Hessian đều không âm, chính xác như logic của đạo hàm bậc hai trong trường hợp một biến. \\	
+
+Vì vậy, khi ta nói rằng một hàm Loss là convex, điều đó có nghĩa là gradient luôn dẫn mô hình về nghiệm tối ưu duy nhất. Đây sẽ là chìa khóa giải thích vì sao Binary Cross-Entropy của Logistic Regression là hàm Loss học ổn định và không gặp vấn đề local minima. Phần tiếp theo sẽ chứng minh trực tiếp điều này bằng cách phân tích đạo hàm và Hessian của BCE.

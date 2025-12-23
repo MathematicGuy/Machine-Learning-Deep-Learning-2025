@@ -1,0 +1,3 @@
+\babel@toc {vietnamese}{}\relax 
+\contentsline {section}{\numberline {1}Giải thích thuật ngữ cơ bản}{2}{section.1}%
+\contentsline {subsection}{\numberline {1}Tóm tắt và Tổng kết phần 3}{2}{subsection.1.1}%

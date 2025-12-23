@@ -1,0 +1,13 @@
+{
+  "my_config": {
+    "horizon": 100,
+    "ret_clip_quantile": 0.9666050519509314,
+    "half_life": 41,
+    "mean_revert_alpha": 0.08,
+    "mean_revert_start": 28,
+    "fair_up_mult": 1.4583280453345258,
+    "fair_down_mult": 0.8462786873053278,
+    "trend_lookback": 57,
+    "trend_ret_thresh": 0.23490859000899916
+  }
+}

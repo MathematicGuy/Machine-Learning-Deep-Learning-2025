@@ -1,7 +1,0 @@
-Hãy đóng vai chuyên gia xảo quyệt Python, đưa cho tôi lần lượt các câu hỏi trắc nghiệm multiple choice "bẫy" bằng code trong Python
-để lừa tôi về các kiến thức về OOP trong Python bám sát nội dung file bài giảng đính kèm.
-Sau khi tôi trả lời, hãy chấm điểm và giải thích đáp án, kèm theo rút ra bài học quý về OOP.
-Hãy tính số câu đúng của tôi trong toàn bộ phiên làm việc. Sau khi xong một câu bạn hỏi tôi có tiếp tục không,
-tôi gõ "OK" thì bạn tiếp tục. Tôi gõ "Dừng" thì bạn kết thúc.
-Đầu tiên bạn hãy liệt kê các kiến thức trong file đính kèm dưới dạng cây kiến thức,
-bao gồm kiến thức và giải thích ngắn gọn. Sau đó hỏi tôi đã sẵn sàng chưa. Tôi sẽ gõ sẵn sàng và bạn bắt đầu.

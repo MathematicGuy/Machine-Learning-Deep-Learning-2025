@@ -1,0 +1,3 @@
+MongoDB database NoSQL type is:
+In MongoDB, 1 document save in ...
+_id of MongoDB use for

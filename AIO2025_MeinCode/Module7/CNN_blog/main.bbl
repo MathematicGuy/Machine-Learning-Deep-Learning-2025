@@ -1,0 +1,172 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{ynt/global//global/global/global}
+    \entry{youtube_cnn}{video}{}{}
+      \name{author}{1}{}{%
+        {{hash=73a845c0c45984dc10ad46b430dba89b}{%
+           family={Depth},
+           familyi={D\bibinitperiod},
+           given={In},
+           giveni={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{73a845c0c45984dc10ad46b430dba89b}
+      \strng{fullhash}{73a845c0c45984dc10ad46b430dba89b}
+      \strng{fullhashraw}{73a845c0c45984dc10ad46b430dba89b}
+      \strng{bibnamehash}{73a845c0c45984dc10ad46b430dba89b}
+      \strng{authorbibnamehash}{73a845c0c45984dc10ad46b430dba89b}
+      \strng{authornamehash}{73a845c0c45984dc10ad46b430dba89b}
+      \strng{authorfullhash}{73a845c0c45984dc10ad46b430dba89b}
+      \strng{authorfullhashraw}{73a845c0c45984dc10ad46b430dba89b}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{How CNN work, in depth}
+      \field{year}{2024}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://youtu.be/JB8T_zN7ZC0
+      \endverb
+      \verb{url}
+      \verb https://youtu.be/JB8T_zN7ZC0
+      \endverb
+    \endentry
+    \entry{quora_relu}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=b586fab9e7f81dc5f5cdb2dadaf1890b}{%
+           family={Quora},
+           familyi={Q\bibinitperiod}}}%
+      }
+      \strng{namehash}{b586fab9e7f81dc5f5cdb2dadaf1890b}
+      \strng{fullhash}{b586fab9e7f81dc5f5cdb2dadaf1890b}
+      \strng{fullhashraw}{b586fab9e7f81dc5f5cdb2dadaf1890b}
+      \strng{bibnamehash}{b586fab9e7f81dc5f5cdb2dadaf1890b}
+      \strng{authorbibnamehash}{b586fab9e7f81dc5f5cdb2dadaf1890b}
+      \strng{authornamehash}{b586fab9e7f81dc5f5cdb2dadaf1890b}
+      \strng{authorfullhash}{b586fab9e7f81dc5f5cdb2dadaf1890b}
+      \strng{authorfullhashraw}{b586fab9e7f81dc5f5cdb2dadaf1890b}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{What are the main role of ReLU Activation Function in deep learning}
+      \field{year}{2024}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.quora.com/What-are-the-main-role-of-ReLU-Activation-Function-in-deep-learning
+      \endverb
+      \verb{url}
+      \verb https://www.quora.com/What-are-the-main-role-of-ReLU-Activation-Function-in-deep-learning
+      \endverb
+    \endentry
+    \entry{brandon_cnn}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=4865c447a5b33fc3bd76577926669e95}{%
+           family={Rohrer},
+           familyi={R\bibinitperiod},
+           given={Brandon},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{4865c447a5b33fc3bd76577926669e95}
+      \strng{fullhash}{4865c447a5b33fc3bd76577926669e95}
+      \strng{fullhashraw}{4865c447a5b33fc3bd76577926669e95}
+      \strng{bibnamehash}{4865c447a5b33fc3bd76577926669e95}
+      \strng{authorbibnamehash}{4865c447a5b33fc3bd76577926669e95}
+      \strng{authornamehash}{4865c447a5b33fc3bd76577926669e95}
+      \strng{authorfullhash}{4865c447a5b33fc3bd76577926669e95}
+      \strng{authorfullhashraw}{4865c447a5b33fc3bd76577926669e95}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{How Convolutional Neural Networks work}
+      \field{year}{2024}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://brandonrohrer.com/how_convolutional_neural_networks_work.html
+      \endverb
+      \verb{url}
+      \verb https://brandonrohrer.com/how_convolutional_neural_networks_work.html
+      \endverb
+    \endentry
+    \entry{nttuan8_cnn}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=7bb3a2d68674bd6366c3c423518d538a}{%
+           family={Tuân},
+           familyi={T\bibinitperiod},
+           given={Nguyễn\bibnamedelima Tất},
+           giveni={N\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+      }
+      \strng{namehash}{7bb3a2d68674bd6366c3c423518d538a}
+      \strng{fullhash}{7bb3a2d68674bd6366c3c423518d538a}
+      \strng{fullhashraw}{7bb3a2d68674bd6366c3c423518d538a}
+      \strng{bibnamehash}{7bb3a2d68674bd6366c3c423518d538a}
+      \strng{authorbibnamehash}{7bb3a2d68674bd6366c3c423518d538a}
+      \strng{authornamehash}{7bb3a2d68674bd6366c3c423518d538a}
+      \strng{authorfullhash}{7bb3a2d68674bd6366c3c423518d538a}
+      \strng{authorfullhashraw}{7bb3a2d68674bd6366c3c423518d538a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Bài 6: Convolutional Neural Network}
+      \field{year}{2024}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://nttuan8.com/bai-6-convolutional-neural-network/
+      \endverb
+      \verb{url}
+      \verb https://nttuan8.com/bai-6-convolutional-neural-network/
+      \endverb
+    \endentry
+    \entry{stanford_cs231n}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=70079656133b3884f6c571fd69f37e6f}{%
+           family={University},
+           familyi={U\bibinitperiod},
+           given={Stanford},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{70079656133b3884f6c571fd69f37e6f}
+      \strng{fullhash}{70079656133b3884f6c571fd69f37e6f}
+      \strng{fullhashraw}{70079656133b3884f6c571fd69f37e6f}
+      \strng{bibnamehash}{70079656133b3884f6c571fd69f37e6f}
+      \strng{authorbibnamehash}{70079656133b3884f6c571fd69f37e6f}
+      \strng{authornamehash}{70079656133b3884f6c571fd69f37e6f}
+      \strng{authorfullhash}{70079656133b3884f6c571fd69f37e6f}
+      \strng{authorfullhashraw}{70079656133b3884f6c571fd69f37e6f}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{CS231n: Convolutional Neural Networks for Visual Recognition}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://cs231n.github.io/convolutional-networks/
+      \endverb
+      \verb{url}
+      \verb https://cs231n.github.io/convolutional-networks/
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

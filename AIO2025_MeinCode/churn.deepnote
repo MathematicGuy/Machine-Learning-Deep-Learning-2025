@@ -1,0 +1,21 @@
+version: 1.0.0
+metadata:
+  createdAt: '2025-12-09T16:52:24.983Z'
+  modifiedAt: '2025-12-09T16:52:24.983Z'
+project:
+  id: dff5518e-fc8b-42e0-a8c1-fe3c8173f965
+  name: churn
+  notebooks:
+    - blocks:
+        - blockGroup: 69e369b5-48ea-45c4-b030-64d9089afe62
+          content: ''
+          executionCount: 0
+          id: df35d639-ef44-4e0a-9aca-bf645f8b0567
+          metadata: {}
+          outputs: []
+          sortingKey: '0'
+          type: code
+          version: 1
+      executionMode: block
+      id: cc410829-70f7-4755-9dad-6bf31cd2d526
+      name: Notebook 1
