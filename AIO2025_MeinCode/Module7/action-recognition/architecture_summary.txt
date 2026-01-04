@@ -1,0 +1,118 @@
+```js
+================================================================================
+          HIGH-LEVEL WORKFLOW: LSViT FOR ACTION CLASSIFICATION
+================================================================================
+
+KÝ HIỆU:
+  B, T    : Batch Size, Time (Frames)
+  C, H, W : Channels, Height, Width
+  N       : Số lượng Patch Tokens (Spatial)
+  D       : Embedding Dimension (Ví dụ: 768)
+
+################################################################################
+#  PHẦN I: PIXEL-LEVEL PROCESSING (SMIF MODULE)                                #
+#  Mục tiêu: Cường hóa thông tin chuyển động ngắn hạn ngay trên điểm ảnh       #
+################################################################################
+
+[ INPUT VIDEO ]
+Tensor: [ B, T, C, H, W ]
+       |
+       v
++-------------------------------------------------------+
+|  SMIF MODULE (Spatial-Motion Interaction Fusion)      |
+|                                                       |
+|  1. [Motion Calculation]                              |
+|     Tính sai biệt pixel: Frame(t) vs Frame(t±k)       |
+|                                                       |
+|  2. [Motion Map Generation]                           |
+|     Tạo bản đồ nhiệt (Heatmap) các vùng chuyển động   |
+|                                                       |
+|  3. [Fusion]                                          |
+|     Trộn ảnh gốc + Bản đồ chuyển động (Conv2d 1x1)    |
++-------------------------------------------------------+
+       |
+       |  Output: Video đã được làm rõ chuyển động
+       v
+Tensor: [ B, T, C, H, W ]
+
+
+################################################################################
+#  PHẦN II: FEATURE-LEVEL PROCESSING (LSViT BACKBONE)                          #
+#  Mục tiêu: Hiểu ngữ cảnh không gian (ảnh) và thời gian (video)               #
+################################################################################
+
+       | (Reshape: Gộp Batch và Time)
+       v
+Tensor: [ B*T, C, H, W ]
+       |
+       +---> [ Patch Partition & Embedding ] --> Cắt ảnh thành mảnh nhỏ
+       |     (Conv2d: kernel=patch_size, stride=patch_size)
+       |
+       +---> [ Add CLS Token & Positional Embed ]
+       |
+       v
+Tensor: [ B*T, N+1, D ] (Dạng chuỗi Token)
+
+       |
+       |  === BẮT ĐẦU VÒNG LẶP CÁC LSViT BLOCKS (x Depth) ===
+       |
++------v-------------------------------------------------------+
+|  LSViT BLOCK                                                 |
+|                                                              |
+|  A. SPATIAL ATTENTION (Xử lý từng Frame độc lập)             |
+|     Input: [ B*T, N, D ]                                     |
+|     Action: Các token trong cùng 1 ảnh nhìn thấy nhau        |
+|     Result: Hiểu "Cái gì" đang ở trong ảnh                   |
+|                                                              |
+|     (Reshape tách B, T để xử lý thời gian)                   |
+|     [ B*T, N, D ] ---> [ B, T, N, D ]                        |
+|                                                              |
+|  B. TEMPORAL LMI MODULE (Xử lý Video)                        |
+|     Input: [ B, T, N, D ]                                    |
+|     Action: Frame(t) nhìn thấy Frame(t-1), Frame(t+1)        |
+|             Tăng trọng số cho frame có biến động lớn         |
+|     Result: Hiểu "Hành động" diễn ra thế nào                 |
+|                                                              |
+|     (Reshape gộp lại cho Block tiếp theo)                    |
+|     [ B, T, N, D ] ---> [ B*T, N, D ]                        |
++--------------------------------------------------------------+
+       |
+       |  === KẾT THÚC VÒNG LẶP ===
+       v
+Tensor: [ B*T, N+1, D ] (Đặc trưng sâu sắc)
+       |
+       +---> [ Layer Norm ]
+       |
+       +---> [ Reshape Back ] --> Tách lại chiều thời gian T
+       |
+       v
+Tensor: [ B, T, N+1, D ]
+
+
+################################################################################
+#  PHẦN III: CLASSIFICATION HEAD                                               #
+#  Mục tiêu: Tổng hợp thông tin và đưa ra dự đoán                              #
+################################################################################
+
+       |
+       +---> [ CLS Token Extraction ]
+       |     Chỉ lấy token đầu tiên (đại diện cho cả frame)
+       |     Bỏ qua N token không gian.
+       v
+Tensor: [ B, T, D ]
+
+       |
+       +---> [ Temporal Average Pooling ]
+       |     Tính trung bình cộng dọc theo trục T.
+       |     Gộp T frames thành 1 vector duy nhất.
+       v
+Tensor: [ B, D ] (Vector đặc trưng của Video)
+
+       |
+       +---> [ Linear Head ] (Fully Connected)
+       |     Chiếu từ chiều D sang số lượng Class (ví dụ 51)
+       v
+[ FINAL LOGITS ]
+Tensor: [ B, Num_Classes ]
+================================================================================
+```

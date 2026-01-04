@@ -4,9 +4,9 @@
 \usepackage[T5]{fontenc}
 
 % Biblatex + biber
-\usepackage[backend=biber, style=numeric, sorting=ynt]{biblatex}
-\addbibresource{references.bib}
-\DeclareBibliographyAlias{video}{misc}
+% \usepackage[backend=biber, style=numeric, sorting=ynt]{biblatex}
+% \addbibresource{references.bib}
+% \DeclareBibliographyAlias{video}{misc}
 \usepackage{hyperref}
 \usepackage{hyperref}
 \usepackage{listings}
@@ -110,48 +110,229 @@
 
 % Note: Khi đăng Blog -> Làm đơn giản và trọng tâm nhất có thể.
 \begin{summarybox}
-Bài blog này tiếp cận CNN từ góc nhìn của Computer Vision và giải thích từ căn bản để người đọc có thể hiểu được ý nghĩa thực sự đằng sau CNN là gì. Blog sẽ bao quát các chủ đề sau: \\
+Bài viết này giải mã Convolutional Neural Networks (CNN) từ góc độ tư duy bộ lọc (filter perspective)
+thay vì chỉ liệt kê công thức toán học.
+mình sẽ đi từ hạn chế của mạng nơ-ron truyền thống đến cách CNN "nhìn" thế giới,
+cơ chế lan truyền ngược phức tạp và các kỹ thuật nâng cao như 1x1 Convolution. \\
 
-\textbf{Phần 1: Vấn đề với MLP trong Phân loại Ảnh}
-\textbf{Phần 2: Tổng quan kiến trúc CNN} \\ Từ Pixels đến Output qua các lớp Conv, ReLU, Pooling  \\ \\
-\textbf{Phần 3: CNN Operation} \\ Convolution, Padding, Stride, ReLU trong CNN  \\ \\
-\textbf{Phần 4: CNN Backpropagation} \\ Cơ chế lan truyền ngược trong mạng tích chập  \\ \\
-\textbf{Phần 5: Advance CNN} \\ Pooling, Batch Normalization, 1x1 Convolution \\ \\
-\textbf{Phần 6: Thực hành Code CNN dưới góc nhìn  lập trình viên} \\ Triển khai CNN bằng tư duy lập trình hướng đối tượng OOP
+
+\textbf{Phần 1: Tại sao Neural Network truyền thống (MLP) "bó tay" với hình ảnh?} \\ \\
+\textbf{Phần 2: Tư duy Bộ lọc (Filter Perspective) \& Cơ chế cơ bản} \\ \\
+\textbf{Phần 3: Kiến trúc CNN - Xếp tầng các khối xử lý} \\ \\
+\textbf{Phần 4: CNN Backpropagation \& Sự thật về phép xoay Kernel} \\ \\
+\textbf{Phần 5: CNN Nâng cao - 1x1 Convolution \& Phân biệt chiều không gian}
 \end{summarybox}
 
 % --- Blog Outline ---
-\section{Phần 1: Giới thiệu về Computer Vision \& Tensor}
-Trong phần này, chúng ta tìm hiểu cách hình ảnh được biểu diễn dưới dạng các Tensor 1D, 2D và 3D.
-\cite{stanford_cs231n}
-\textbf{Vấn đề của MLP (Multi-Layer Perceptron):}
-Khi xử lý hình ảnh lớn, số lượng node đầu vào tăng vọt khiến MLP chạy rất chậm và dễ bị quá tải tham số. Giải pháp là sử dụng lớp Convolution để đơn giản hóa các đặc trưng (features) trước khi đưa vào MLP. CNN không thay thế MLP mà đóng vai trò là bộ trích xuất đặc trưng (feature extractor) mạnh mẽ hơn.
+\section{Phần 1: Tại sao Neural Network truyền thống (MLP) "bó tay" với hình ảnh?}
 
-\section{Phần 2: Tổng quan kiến trúc CNN}
-Kiến trúc CNN bao gồm các thành phần chính giúp xử lý thông tin không gian hiệu quả.
-Quy trình tính toán tổng quát:
-\begin{quote}
-(Pixels + bias) $\rightarrow$ (Conv $\rightarrow$ ReLU) $\times 2$ $\rightarrow$ Pooling $\rightarrow$ (Flatten + bias) $\rightarrow$ Softmax $\rightarrow$ Output
-\end{quote}
-Sử dụng công cụ trực quan hóa như CNN Explainer để thấy sự khác biệt trước và sau khi qua các lớp.
+Trước khi nói về giải pháp, hãy nhìn vào vấn đề. Tại sao mình không thể cứ thế ném một bức ảnh vào mạng nơ-ron đa tầng (MLP) thông thường? Để hiểu điều này, ta cần "mổ xẻ" cách máy tính lưu trữ một bức ảnh.
 
-\section{Phần 3: Đi sâu vào các phép toán CNN}
-Dựa trên tài liệu của Stanford CS231n:
+\subsection{Bản chất của màu sắc (RGB Color)}
+Trong thị giác máy tính, màu sắc không phải là khái niệm trừu tượng mà là các con số cụ thể được định nghĩa bởi hệ màu \textbf{RGB} (Red - Green - Blue). Mỗi kênh màu này đại diện cho một sắc độ riêng biệt với giá trị chạy từ 0 đến 255 (tương ứng với 256 mức độ khác nhau). Bằng cách phối hợp cường độ sáng của 3 kênh này lại, máy tính có thể tái tạo hàng triệu màu sắc khác nhau mà mắt người nhìn thấy được.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{imgs/colors.png}
+\end{figure}
+
+\subsection{Biểu diễn ảnh dưới dạng Ma trận (Matrix Representation)}
+Một bức ảnh kỹ thuật số thực chất là một lưới các điểm ảnh (pixels). Ví dụ, một bức ảnh kích thước $800 \times 600$ sẽ được cấu thành từ 800 hàng và 600 cột.
+\begin{figure}[H] % [H] để ép ảnh nằm ngay tại vị trí này
+    % Hàng 1: Ma trận tổng quát và Ma trận tuple
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/mtr1.png}
+        \caption{Ma trận tổng quát $W_{i,j}$}
+        \label{fig:mtr1}
+    \end{subfigure}
+    \hfill % Đẩy 2 ảnh ra xa nhau để căn lề 2 bên
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/mtr2.png}
+        \caption{Giá trị pixel là bộ 3 số (R,G,B)}
+        \label{fig:mtr2}
+    \end{subfigure}
+
+    \vspace{0.5cm} % Khoảng cách giữa 2 hàng
+
+	Tại mỗi vị trí tọa độ $(i, j)$, giá trị pixel $w_{ij}$ không tồn tại dưới dạng một số đơn lẻ mà là một bộ ba giá trị $(r_{ij}, g_{ij}, b_{ij})$,
+	ví dụ như $(0, 233, 256)$ để tạo ra màu xanh ngọc. Để tối ưu hóa cho việc lưu trữ và xử lý tính toán,
+	máy tính thường không gộp chung mà tách riêng các giá trị này thành 3 ma trận độc lập tương ứng với 3 kênh màu Đỏ, Xanh lá và Xanh dương. \\ \\
+
+    % Hàng 2: Tách kênh màu (Dùng ảnh mtr3 hoặc rgb_mtr tùy bạn chọn cái nào rõ hơn)
+    \begin{subfigure}[b]{\textwidth}
+        \includegraphics[width=\textwidth]{imgs/mtr3.png}
+        \caption{Tách một ảnh màu thành 3 ma trận R, G, B riêng biệt}
+        \label{fig:mtr3}
+    \end{subfigure}
+
+    \vspace{0.5cm} % Khoảng cách giữa 2 hàng
+
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/rgb_mtr.png}
+    \end{subfigure}
+\end{figure}
+
+\subsection{Từ Ma trận đến Tensor}
+Khái niệm \textbf{Tensor} xuất hiện để tổng quát hóa các cấu trúc dữ liệu này theo số chiều.
+Trong khi Vector là Tensor 1D và Ma trận là Tensor 2D (như ảnh xám chỉ cần một ma trận duy nhất để biểu diễn độ sáng từ đen sang trắng),
+thì ảnh màu lại phức tạp hơn. Vì ảnh màu được tạo thành từ việc chồng 3 ma trận R, G, B lên nhau (collapse on top of each other),
+nó được định nghĩa là một \textbf{Tensor 3D} với kích thước $Height \times Width \times Depth$ (trong đó Depth = 3).
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.9\linewidth]{imgs/3d_tensor.png}
+\end{figure}
+Việc hiểu đúng chiều sâu (Depth) của Tensor là mấu chốt để hiểu cách CNN vận hành sau này.
+% Tensor Source: https://lisaong.github.io/mldds-courseware/01_GettingStarted/numpy-tensor-slicing.slides.html
+
+\subsection{Sự bùng nổ tham số (The Parameter Explosion)}
+Chính cấu trúc Tensor 3D này là nguyên nhân khiến mạng MLP truyền thống "đầu hàng".
+Chỉ thử làm một phép tính với bức ảnh rất nhỏ kích thước $64 \times 64$: tổng số giá trị đầu vào sẽ là $64 \times 64 \times 3 = 12,288$.
+Nếu ta kết nối đầu vào này vào một lớp ẩn chỉ gồm 1,000 nơ-ron theo cách kết nối toàn bộ (fully connected) của MLP,
+số lượng trọng số cần học sẽ lên tới hơn \textbf{12 triệu} tham số ($12,288 \times 1,000$).
+Khối lượng tính toán khổng lồ này không chỉ làm chậm hệ thống mà còn dẫn đến hiện tượng Overfitting nghiêm trọng,
+buộc mình phải tìm đến giải pháp thông minh hơn là CNN để xử lý cấu trúc Tensor một cách hiệu quả.
+
+
+\section{Phần 2: Tư duy Bộ lọc (Filter Perspective) \& Cơ chế cơ bản}
+Đây là phần trọng tâm để hiểu CNN từ gốc rễ. Thay vì tư duy theo kiểu "kết nối tất cả mọi thứ" như mạng MLP truyền thống, CNN tiếp cận hình ảnh theo cách con người quan sát: tìm kiếm các đặc trưng (features).
+
+
+\subsection{Kernel/Filter là gì? - Chiếc "đèn pin" soi mẫu}
+Trong thế giới của CNN, để máy tính hiểu được một bức ảnh, nó cần biết được những đặc trưng nào làm cho bức ảnh đó trở nên độc nhất.
+Thay vì phân tích từng điểm ảnh riêng lẻ, chúng ta sử dụng \textbf{Kernel} (hay Filter) - một ma trận nhỏ (thường là $3 \times 3$ hoặc $5 \times 5$).
+Kernel hoạt động như một "cửa sổ trượt", di chuyển quét qua toàn bộ bức ảnh để tìm kiếm sự tồn tại của các mẫu cụ thể,
+ví dụ như một đường cong, một cạnh dọc, hay một đường chéo. Để hiểu rõ, mình đi vào 1 ví dụ luon nhé.
+
+\subsection{Cơ chế khớp mẫu (Feature Matching) - Bí mật của phép tích chập}
+Hãy hình dung chúng ta muốn dạy máy tính nhận diện chữ "X". Chữ "X" được cấu tạo bởi hai đường chéo bắt chéo nhau.
+Một Kernel được thiết kế để tìm "đường chéo trái" sẽ có các giá trị dương (ví dụ: 1) nằm trên đường chéo đó và các giá trị âm (ví dụ: -1) ở những vị trí còn lại. (Note: ma trận trắng đại diện cho kết quả sau khi áp dụng kernel)
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.8\linewidth]{imgs/filt2.png}
+\end{figure}
+Đây là phần trọng tâm để hiểu CNN từ gốc rễ.
+Thay vì tư duy theo kiểu "kết nối tất cả mọi thứ" như mạng MLP truyền thống,
+CNN tiếp cận hình ảnh theo cách con người quan sát: tìm kiếm các đặc trưng (features). \\
+
+Quá trình "Filtering" (lọc) diễn ra như sau:
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.8\linewidth]{imgs/filt1.png}
+\end{figure}
+
+\begin{enumerate}
+    \item \textbf{Line up}: Đặt Kernel chồng lên một vùng ảnh cùng kích thước.
+    \item \textbf{Multiply}: Nhân từng giá trị pixel của ảnh với giá trị tương ứng trong Kernel (Element-wise multiplication).
+    \item \textbf{Add}: Cộng tổng tất cả các kết quả lại và chia trung bình.
+\end{enumerate}
+
+\textbf{Kết quả:}
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.8\linewidth]{imgs/filt2_emphasize.png}
+\end{figure}
 \begin{itemize}
-    \item \textbf{Convolution:} Phép tính tích chập lặp lại để trích xuất đặc trưng cục bộ.
-    \item \textbf{Padding:} Khi nào cần thiết để giữ lại kích thước của matrix?
-    \item \textbf{Stride:} Bước nhảy của kernel. Stride = 1 nghĩa là kernel di chuyển từng pixel. Ảnh hưởng của Stride đến việc trích xuất đặc trưng cục bộ (local) và toàn cục (global).
-    \item \textbf{ReLU:} Đưa tính phi tuyến vào mô hình và loại bỏ nhiễu từ các giá trị âm.
+    \item Nếu vùng ảnh bên dưới thực sự có hình đường chéo (khớp với Kernel), phép nhân sẽ tạo ra các số dương lớn $\rightarrow$ Kết quả tổng rất cao (ví dụ: 1.0 hoặc 100\%). Ta nói pattern đó đã được "kích hoạt" (activated).
+    \item Nếu vùng ảnh không khớp (ví dụ: Kernel đường chéo nhưng đặt lên vùng ảnh đường thẳng đứng), các phép nhân dương và âm sẽ triệt tiêu lẫn nhau $\rightarrow$ Kết quả tổng xấp xỉ 0 hoặc âm.
+	\item \href{https://nttuan8.com/bai-6-convolutional-neural-network/}{Ví dụ tương tự đối với ảnh 3D}.
 \end{itemize}
 
-\section{Phần 4: CNN Backpropagation}
-Giải thích cách cập nhật trọng số cho các bộ lọc (filters) thông qua đạo hàm của phép toán tích chập.
+\pagebreak
 
-\section{Phần 5: CNN Nâng cao \& Lập trình OOP}
-Tìm hiểu về Pooling (Max/Average), Batch Normalization và đặc biệt là ý nghĩa của phép tích chập $1 \times 1$. Cuối cùng là triển khai code thực tế bằng Python theo hướng đối tượng (OOP).
+\textbf{Stride (Bước nhảy - ô vuông kernel di chuyển bao nhiêu bước mỗi lượt):}
+Đây là khoảng cách mà Kernel di chuyển sau mỗi lần tính toán.
+Nếu $Stride = 1$, Kernel nhích từng pixel một, giữ độ chi tiết cao nhất. Nhưng nếu ta tăng $Stride > 1$ (ví dụ: $Stride = 2$), Kernel sẽ "nhảy cóc" qua các pixel. Điều này có tác dụng giảm kích thước dữ liệu đầu ra (Downsampling) ngay lập tức mà không cần lớp Pooling, giống như việc ta lướt nhanh qua một văn bản để nắm ý chính thay vì đọc từng chữ. \\
 
-\printbibliography % Hiển thị danh sách tham khảo
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.45\linewidth]{imgs/stride.png}
+	\caption{Với phần in đậm là tâm của kernel, với stride = 2, kernel sẽ đi 2 bước tính từ tâm. Nếu kernel là 2x2 thì lấy pixel trên cùng bên trái làm tâm}
+\end{figure}
 
 
+\textbf{Padding (Lề - Pixel được bọc thêm bên ):}
+Khi Kernel trượt ở rìa bức ảnh, nó thường bị thiếu hụt dữ liệu (không đủ kích thước $3 \times 3$ để nhân). Điều này dẫn đến hai vấn đề: ảnh bị thu nhỏ lại sau mỗi lớp tích chập và thông tin ở rìa ảnh bị mất mát.
+Giải pháp là \textbf{Zero-Padding}: thêm một viền các số 0 bao quanh ảnh gốc.
+Lớp "đệm" này cho phép Kernel đặt tâm ngay tại pixel ngoài cùng, giúp giữ nguyên kích thước không gian ($Height \times Width$) của Feature Map đầu ra. \\
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.45\linewidth]{imgs/pad.png}
+\end{figure}
+
+
+\textbf{Minh họa Padding và Stride:}
+Note: kích thước ảnh hay feature map (ảnh sau khi áp dụng convolution) phải lớn tương ứng để áp dụng stride. 
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.8\linewidth]{imgs/p&s.png}
+\end{figure}
+
+
+\textbf{Công thức kích thước đầu ra:}
+Để thiết kế kiến trúc mạng chính xác, ta cần tính toán được kích thước của ma trận sau khi qua lớp Conv:
+$$ Output = \frac{Input - Filter + 2 \times Padding}{Stride} + 1 $$
+Trong đó: $Input$ là kích thước ảnh đầu vào, $Filter$ là kích thước Kernel, $Padding$ là số lớp viền thêm vào, và $Stride$ là bước nhảy.
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.8\linewidth]{imgs/p&s2.png}
+\end{figure}
+
+
+
+\subsection{Các phép toán kiểm soát Bộ lọc (Mechanics)}
+Việc trượt Kernel qua ảnh không phải lúc nào cũng tuỳ ý, nó được kiểm soát bởi các tham số toán học nghiêm ngặt để định hình dữ liệu đầu ra. \\
+
+\textbf{Pooling (Gộp đặc trưng):}
+\begin{itemize}
+	\item \textbf{Max Pooling:} Chỉ giữ lại giá trị lớn nhất trong vùng (đặc trưng nổi bật nhất), giúp nén ảnh và giảm tải tính toán nhưng vẫn giữ được thông tin cốt lõi.
+	\item \textbf{Average Pooling:} Lấy giá trị trung bình của toàn bộ các pixel trong vùng, nhằm tổng hợp thông tin một cách “mềm”, phản ánh mức độ hiện diện trung bình của đặc trưng thay vì chỉ tập trung vào điểm mạnh nhất.
+\end{itemize}
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.45\linewidth]{imgs/buling.png}
+\end{figure}
+
+
+\section{Phần 3: Kiến trúc CNN - Xếp tầng các khối xử lý}
+Sau khi hiểu về bộ lọc, ta đi vào cách các lớp (Layers) kết hợp với nhau để tạo thành mạng nơ-ron.
+\begin{itemize}
+    \item \textbf{Quy trình chuẩn:} Input $\rightarrow$ Conv $\rightarrow$ ReLU $\rightarrow$ Pooling $\rightarrow$ FC $\rightarrow$ Output.
+    \item \textbf{ReLU (Rectified Linear Unit):}
+    \begin{itemize}
+        \item Đóng vai trò chuẩn hóa (Normalization) và loại bỏ các giá trị âm (các đặc trưng không quan trọng/không khớp mẫu).
+        \item Giúp mô hình học được tính phi tuyến.
+    \end{itemize}
+    \item \textbf{Receptive Field (Vùng cảm nhận):} Các lớp sâu hơn "nhìn thấy" vùng ảnh rộng hơn như thế nào.
+\end{itemize}
+
+\section{Phần 4: CNN Backpropagation \& Sự thật về phép xoay Kernel} % Đã sửa lỗi & thành \&
+Phần này dành cho người đọc muốn hiểu sâu về toán học (Deep Dive).
+\begin{itemize}
+    \item \textbf{Cơ chế học:} Mọi giá trị trong CNN đều là một "phiếu bầu" (vote), và Backprop giúp điều chỉnh sức nặng của các lá phiếu này.
+    \item \textbf{Góc khuất của toán học - Xoay 180 độ:}
+    \begin{itemize}
+        \item Giải thích tại sao trong quá trình Backpropagation, để tính đạo hàm chính xác, ta phải xoay Kernel 180 độ trước khi thực hiện phép tích chập ngược.
+        \item Liên hệ với khái niệm Cross-Correlation trong thực tế so với Convolution trong toán học thuần túy.
+    \end{itemize}
+\end{itemize}
+
+\section{Phần 5: CNN Nâng cao - 1x1 Convolution \& Phân biệt chiều không gian} % Đã sửa lỗi & thành \&
+Mở rộng kiến thức sang các khái niệm hiện đại và sửa chữa các hiểu lầm phổ biến.
+\begin{itemize}
+    \item \textbf{Phân biệt 2D vs 3D CNN:}
+    \begin{itemize}
+        \item Làm rõ hiểu lầm: Ảnh màu RGB (3 kênh) vẫn dùng 2D CNN (xử lý không gian Height-Width).
+        \item 3D CNN thực sự dùng cho dữ liệu video (thêm chiều thời gian/Temporal).
+    \end{itemize}
+    \item \textbf{Phép màu của $1 \times 1$ Convolution:}
+    \begin{itemize}
+        \item Nó hoạt động như một "Single Neuron" áp dụng lên chiều sâu (channels) của từng pixel.
+        \item Ứng dụng: Giảm số chiều dữ liệu (Dimensionality Reduction) và trộn thông tin giữa các kênh màu (Channel Pooling) mà không thay đổi kích thước không gian.
+    \end{itemize}
+    \item \textbf{Triển khai OOP:} Code minh họa kiến trúc CNN bằng Python (Pytorch/Tensorflow) theo hướng đối tượng.
+\end{itemize}
 
 \end{document}
