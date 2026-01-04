@@ -202,12 +202,12 @@ buộc mình phải tìm đến giải pháp thông minh hơn là CNN để xử
 
 \subsection{Kernel/Filter là gì? - Chiếc "đèn pin" soi mẫu}
 Trong thế giới của CNN, để máy tính hiểu được một bức ảnh, nó cần biết được những đặc trưng nào làm cho bức ảnh đó trở nên độc nhất.
-Thay vì phân tích từng điểm ảnh riêng lẻ, chúng ta sử dụng \textbf{Kernel} (hay Filter) - một ma trận nhỏ (thường là $3 \times 3$ hoặc $5 \times 5$).
+Thay vì phân tích từng điểm ảnh riêng lẻ, mình sử dụng \textbf{Kernel} (hay Filter) - một ma trận nhỏ (thường là $3 \times 3$ hoặc $5 \times 5$).
 Kernel hoạt động như một "cửa sổ trượt", di chuyển quét qua toàn bộ bức ảnh để tìm kiếm sự tồn tại của các mẫu cụ thể,
 ví dụ như một đường cong, một cạnh dọc, hay một đường chéo. Để hiểu rõ, mình đi vào 1 ví dụ luon nhé.
 
 \subsection{Cơ chế khớp mẫu (Feature Matching) - Bí mật của phép tích chập}
-Hãy hình dung chúng ta muốn dạy máy tính nhận diện chữ "X". Chữ "X" được cấu tạo bởi hai đường chéo bắt chéo nhau.
+Hãy hình dung mình muốn dạy máy tính nhận diện chữ "X". Chữ "X" được cấu tạo bởi hai đường chéo bắt chéo nhau.
 Một Kernel được thiết kế để tìm "đường chéo trái" sẽ có các giá trị dương (ví dụ: 1) nằm trên đường chéo đó và các giá trị âm (ví dụ: -1) ở những vị trí còn lại. (Note: ma trận trắng đại diện cho kết quả sau khi áp dụng kernel)
 \begin{figure}[H]
 	\centering
@@ -232,7 +232,7 @@ Quá trình "Filtering" (lọc) diễn ra như sau:
 \textbf{Kết quả:}
 \begin{figure}[H]
 	\centering
-    \includegraphics[width=0.8\linewidth]{imgs/filt2_emphasize.png}
+    \includegraphics[width=0.7\linewidth]{imgs/filt2_emphasize.png}
 \end{figure}
 \begin{itemize}
     \item Nếu vùng ảnh bên dưới thực sự có hình đường chéo (khớp với Kernel), phép nhân sẽ tạo ra các số dương lớn $\rightarrow$ Kết quả tổng rất cao (ví dụ: 1.0 hoặc 100\%). Ta nói pattern đó đã được "kích hoạt" (activated).
@@ -240,7 +240,15 @@ Quá trình "Filtering" (lọc) diễn ra như sau:
 	\item \href{https://nttuan8.com/bai-6-convolutional-neural-network/}{Ví dụ tương tự đối với ảnh 3D}.
 \end{itemize}
 
+\textbf{Minh họa các loại Filter khác nhau trích xuất các kiểu đặc trưng khác nhau}
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.55\linewidth]{imgs/3ker.png}
+\end{figure}
+
 \pagebreak
+
+\subsection{Các phép toán kiểm soát Bộ lọc (Convolution Operation)}
 
 \textbf{Stride (Bước nhảy - ô vuông kernel di chuyển bao nhiêu bước mỗi lượt):}
 Đây là khoảng cách mà Kernel di chuyển sau mỗi lần tính toán.
@@ -253,7 +261,7 @@ Nếu $Stride = 1$, Kernel nhích từng pixel một, giữ độ chi tiết cao
 \end{figure}
 
 
-\textbf{Padding (Lề - Pixel được bọc thêm bên ):}
+\textbf{Padding (Lề - Pixel được bọc thêm bên ngoài ảnh):}
 Khi Kernel trượt ở rìa bức ảnh, nó thường bị thiếu hụt dữ liệu (không đủ kích thước $3 \times 3$ để nhân). Điều này dẫn đến hai vấn đề: ảnh bị thu nhỏ lại sau mỗi lớp tích chập và thông tin ở rìa ảnh bị mất mát.
 Giải pháp là \textbf{Zero-Padding}: thêm một viền các số 0 bao quanh ảnh gốc.
 Lớp "đệm" này cho phép Kernel đặt tâm ngay tại pixel ngoài cùng, giúp giữ nguyên kích thước không gian ($Height \times Width$) của Feature Map đầu ra. \\
@@ -264,7 +272,7 @@ Lớp "đệm" này cho phép Kernel đặt tâm ngay tại pixel ngoài cùng, 
 
 
 \textbf{Minh họa Padding và Stride:}
-Note: kích thước ảnh hay feature map (ảnh sau khi áp dụng convolution) phải lớn tương ứng để áp dụng stride. 
+Note: kích thước ảnh hoặc feature map (i.e. ảnh sau khi áp dụng convolution) phải lớn tương ứng để áp dụng stride.
 \begin{figure}[H]
 	\centering
     \includegraphics[width=0.8\linewidth]{imgs/p&s.png}
@@ -282,7 +290,6 @@ Trong đó: $Input$ là kích thước ảnh đầu vào, $Filter$ là kích th�
 
 
 
-\subsection{Các phép toán kiểm soát Bộ lọc (Mechanics)}
 Việc trượt Kernel qua ảnh không phải lúc nào cũng tuỳ ý, nó được kiểm soát bởi các tham số toán học nghiêm ngặt để định hình dữ liệu đầu ra. \\
 
 \textbf{Pooling (Gộp đặc trưng):}
@@ -296,28 +303,150 @@ Việc trượt Kernel qua ảnh không phải lúc nào cũng tuỳ ý, nó đ�
 \end{figure}
 
 
-\section{Phần 3: Kiến trúc CNN - Xếp tầng các khối xử lý}
-Sau khi hiểu về bộ lọc, ta đi vào cách các lớp (Layers) kết hợp với nhau để tạo thành mạng nơ-ron.
+\section{Phần 3: Kiến trúc CNN - Từ "Phân rã đặc trưng" đến "Hội đồng bỏ phiếu"}
+
+Nếu như Kernel là công cụ để tìm kiếm, thì Kiến trúc CNN chính là chiến lược để sử dụng những tìm kiếm đó.
+Bản chất của CNN không phải là nhìn thấy ngay con mèo hay chiếc xe hơi, mà là một quá trình \textbf{phân rã và tái tạo}.
+
+\subsection{Bản chất của CNN: Chia để trị}
+Thay vì cố gắng nhận diện toàn bộ vật thể ngay lập tức, nó chia nhỏ bài toán thành các tầng đặc trưng (Feature Hierarchy) từ đơn giản đến phức tạp:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{imgs/conv_fea.png}
+    \caption{Minh họa sự phân cấp đặc trưng trong CNN: Từ các cạnh đơn giản (trái) đến các chi tiết vật thể phức tạp (phải).}
+\end{figure}
 \begin{itemize}
-    \item \textbf{Quy trình chuẩn:} Input $\rightarrow$ Conv $\rightarrow$ ReLU $\rightarrow$ Pooling $\rightarrow$ FC $\rightarrow$ Output.
-    \item \textbf{ReLU (Rectified Linear Unit):}
-    \begin{itemize}
-        \item Đóng vai trò chuẩn hóa (Normalization) và loại bỏ các giá trị âm (các đặc trưng không quan trọng/không khớp mẫu).
-        \item Giúp mô hình học được tính phi tuyến.
-    \end{itemize}
-    \item \textbf{Receptive Field (Vùng cảm nhận):} Các lớp sâu hơn "nhìn thấy" vùng ảnh rộng hơn như thế nào.
+    \item \textbf{Tầng thấp (Low-level features):} Ở các lớp đầu tiên, mạng chỉ nhìn thấy các chi tiết sơ khai nhất như \textbf{cạnh, đường biên, màu sắc}. Trên ảnh minh họa, chúng thường trông giống như các vạch kẻ sọc hoặc nhiễu.
+    \item \textbf{Tầng giữa (Mid-level features):} Các lớp tiếp theo ghép nối các cạnh này lại thành các \textbf{họa tiết, hình thù cơ bản} như đường cong, góc vuông, hình tròn (ví dụ: mắt, bánh xe, hoặc một phần của con số).
+    \item \textbf{Tầng cao (High-level features):} Lớp cuối cùng tổng hợp chúng thành các \textbf{bộ phận hoàn chỉnh} để nhận diện vật thể.
 \end{itemize}
 
-\section{Phần 4: CNN Backpropagation \& Sự thật về phép xoay Kernel} % Đã sửa lỗi & thành \&
-Phần này dành cho người đọc muốn hiểu sâu về toán học (Deep Dive).
+Mỗi lớp đóng vai trò như một bộ lọc tinh vi hơn lớp trước đó, biến đổi các pixel vô nghĩa thành các đặc trưng có ý nghĩa phân loại.
+
+
+\subsection{ReLU (Rectified Linear Unit) - Người gác cổng của các lá phiếu}
+Sau mỗi lần Kernel quét qua ảnh (phép tích chập), chúng ta thu được một bản đồ các giá trị. Có nơi giá trị rất dương (khớp mẫu), có nơi giá trị âm (ngược mẫu). Lúc này, \textbf{ReLU} xuất hiện với vai trò cực kỳ quan trọng nhưng thường bị hiểu nhầm là chỉ để "làm toán".
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{imgs/relu_fm.png}
+\end{figure}
+Theo góc nhìn bản chất, ReLU giúp mô hình trả lời câu hỏi: \textbf{"Đặc trưng này có xuất hiện hay không?"}.
 \begin{itemize}
-    \item \textbf{Cơ chế học:} Mọi giá trị trong CNN đều là một "phiếu bầu" (vote), và Backprop giúp điều chỉnh sức nặng của các lá phiếu này.
-    \item \textbf{Góc khuất của toán học - Xoay 180 độ:}
-    \begin{itemize}
-        \item Giải thích tại sao trong quá trình Backpropagation, để tính đạo hàm chính xác, ta phải xoay Kernel 180 độ trước khi thực hiện phép tích chập ngược.
-        \item Liên hệ với khái niệm Cross-Correlation trong thực tế so với Convolution trong toán học thuần túy.
-    \end{itemize}
+    \item Nếu kết quả là số dương: "Có, tôi tìm thấy một cái cạnh ở đây!". Chúng ta giữ nguyên giá trị đó.
+    \item Nếu kết quả là số âm: "Không, hoặc nó ngược lại với cái tôi tìm". ReLU sẽ biến nó thành số 0.
 \end{itemize}
+Tại sao phải loại bỏ số âm? Trong cơ chế bỏ phiếu (voting), chúng ta chỉ quan tâm đến sự hiện diện của các bằng chứng (evidence). Việc giữ lại các giá trị âm (nhiễu/không khớp) sẽ làm loãng thông tin khi mạng cố gắng tổng hợp các đặc trưng lại với nhau. ReLU giúp thanh lọc tín hiệu, đảm bảo rằng các lớp sau chỉ nhận được những "bằng chứng" chắc chắn nhất.
+
+\subsection{Receptive Field - Tầm nhìn mở rộng}
+Khi chúng ta xếp chồng (stack) các lớp Convolution và Pooling lên nhau, một hiện tượng thú vị xảy ra: \textbf{Receptive Field} (Vùng cảm nhận) của nơ-ron ngày càng lớn.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{imgs/fullConv.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{imgs/maxPool.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{imgs/reLus.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.8\linewidth]{imgs/stackedLayer.png}
+	\caption{Một điểm pixel ở lớp Conv 1 chỉ đại diện cho vùng $3 \times 3$ của ảnh gốc.}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{imgs/stackedLayer2.png}
+\end{figure}
+
+Nhưng một điểm pixel ở lớp Conv 3 (sau khi qua Pooling) lại đại diện cho vùng $12 \times 12$ hoặc lớn hơn của ảnh gốc.
+Chính nhờ cơ chế này, các lớp sâu (Deep Layers) có thể "nhìn" thấy tổng thể bức ảnh để đưa ra quyết định, dù chúng được xây dựng từ những bộ lọc rất nhỏ ban đầu.
+
+
+
+\subsection{Góc nhìn "Hội đồng bỏ phiếu" (A List of Votes)}
+Cuối cùng, sau khi đi qua toàn bộ quy trình: Tích chập (tìm đặc trưng) $\rightarrow$ ReLU (lọc bằng chứng) $\rightarrow$ Pooling (nén thông tin), dữ liệu từ dạng hình ảnh 3D sẽ được dát phẳng (Flatten) thành một danh sách dài các giá trị đặc trưng cao cấp. Lúc này, lớp Fully Connected (FC) đóng vai trò như một "Hội đồng bỏ phiếu", nơi mỗi đặc trưng trở thành một "cử tri" đưa ra quyết định cuối cùng. Ví dụ: \textit{"Tôi thấy bánh xe (giá trị cao) + Tôi thấy cửa kính (giá trị cao) $\rightarrow$ Tôi bỏ phiếu cho lớp: Ô TÔ"}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{imgs/nn_vote.png}
+\end{figure}
+
+
+Một câu hỏi quan trọng thường bị bỏ qua: Tại sao ở các lớp ẩn này, ta lại ưu tiên dùng ReLU thay vì hàm Sigmoid truyền thống? Câu trả lời nằm ở khả năng "học ngược" của mạng. Hàm Sigmoid nén mọi giá trị vào khoảng $(0, 1)$, điều này vô tình khiến tín hiệu đạo hàm bị nhỏ dần qua từng lớp, dẫn đến vấn đề \textbf{Biến mất đạo hàm (Gradient Vanishing)}, làm mạng "quên" mất các đặc trưng đầu vào. Ngược lại, ReLU hoạt động như một "cổng dẫn truyền thẳng": với các giá trị dương, đạo hàm bằng 1. Điều này không chỉ khắc phục triệt để vấn đề biến mất đạo hàm mà còn giúp tín hiệu \textbf{truy ngược (flip backward)} một cách nguyên vẹn từ lớp cuối cùng về các lớp đầu. Nhờ đó, MLP có thể học và điều chỉnh các mẫu (patterns) theo chiều ngược lại một cách hiệu quả, đảm bảo rằng mối liên kết giữa "nguyên nhân" (đặc trưng ảnh) và "kết quả" (nhãn phân loại) luôn được duy trì chặt chẽ trong suốt quá trình huấn luyện.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{imgs/cls_mlp.png}
+    \caption{Cơ chế bỏ phiếu của lớp Fully Connected: Các đặc trưng được tổng hợp để đưa ra xác suất phân loại.}
+\end{figure}
+
+
+\section{Phần 4: CNN Backpropagation \& Sự thật về phép xoay Kernel}
+Đây là phần "khó nhằn" nhất nhưng cũng là nơi chứa đựng vẻ đẹp toán học của CNN. Nếu như Forward Pass là quá trình máy tính "nhìn" bức ảnh, thì Backward Pass là lúc nó "tự kiểm điểm" để rút kinh nghiệm.
+
+Chúng ta sẽ đi sâu vào việc làm thế nào sai số (Loss) được truyền ngược từ lớp cuối cùng về các lớp đầu để cập nhật bộ lọc (Kernel).
+
+\subsection{Mục tiêu của chúng ta}
+Giả sử ta có một lớp Convolution đơn giản:
+$$ Y = X * K $$
+Trong đó:
+\begin{itemize}
+    \item $X$: Ảnh đầu vào (Input).
+    \item $K$: Bộ lọc (Kernel/Filter).
+    \item $Y$: Bản đồ đặc trưng đầu ra (Output Feature Map).
+    \item $L$: Hàm mất mát (Loss Function) cuối cùng của mạng.
+\end{itemize}
+
+Nhiệm vụ của Backpropagation là tìm ra hai đạo hàm riêng (Gradients) quan trọng:
+\begin{enumerate}
+    \item $\frac{\partial L}{\partial K}$: Để cập nhật trọng số của bộ lọc (giúp máy học được đặc trưng tốt hơn).
+    \item $\frac{\partial L}{\partial X}$: Để truyền sai số về cho lớp đứng trước nó (tiếp tục chuỗi Backprop).
+\end{enumerate}
+
+\subsection{Tính đạo hàm cho Bộ lọc ($\frac{\partial L}{\partial K}$)}
+Tưởng tượng Kernel $K$ đang trượt trên ảnh $X$. Mỗi lần trượt, nó tạo ra một giá trị trên $Y$. Vì vậy, một trọng số trong Kernel sẽ đóng góp vào tất cả các pixel đầu ra mà nó đi qua.
+
+Theo quy tắc chuỗi (Chain Rule), đạo hàm của lỗi đối với một trọng số $w$ trong Kernel là tổng hợp của tất cả các lỗi mà trọng số đó gây ra trên toàn bộ bản đồ đầu ra $Y$:
+$$ \frac{\partial L}{\partial K_{ij}} = \sum_{m} \sum_{n} \frac{\partial L}{\partial Y_{mn}} \cdot \frac{\partial Y_{mn}}{\partial K_{ij}} $$
+
+Điều thú vị là: Khi bạn triển khai công thức này ra, nó chính là một phép Cross-Correlation giữa ảnh đầu vào $X$ và bản đồ lỗi $\frac{\partial L}{\partial Y}$.
+\begin{summarybox}
+\textbf{Trực giác:} Để biết nên sửa Kernel thế nào, ta lấy "Bản đồ lỗi" ướm lên "Ảnh gốc". Nơi nào ảnh gốc có giá trị lớn mà lỗi cũng lớn, nghĩa là Kernel tại đó cần được điều chỉnh mạnh tay nhất.
+\end{summarybox}
+
+\subsection{Tính đạo hàm cho Đầu vào ($\frac{\partial L}{\partial X}$) - Sự xuất hiện của Rot180}
+Đây là phần gây lú lẫn nhất và cũng là lý do tại sao nhiều tài liệu toán học lại nhắc đến việc "xoay 180 độ".
+
+Để tính gradient cho lớp đầu vào $X$ (nhằm truyền về lớp trước), ta cần biết mỗi pixel $x_{ij}$ đã ảnh hưởng đến bao nhiêu pixel trên đầu ra $Y$.
+Theo toán học, công thức để tính đạo hàm này chính là phép tích chập (Convolution) giữa bản đồ lỗi $\frac{\partial L}{\partial Y}$ (được lót thêm viền - padded) với Kernel đã bị xoay 180 độ ($rot180(K)$).
+
+$$ \frac{\partial L}{\partial X} = \frac{\partial L}{\partial Y} * rot180(K) $$
+
+Tại sao phải xoay?
+\begin{itemize}
+    \item Trong quá trình Forward (đi tới), pixel $x_{11}$ nhân với $k_{11}$.
+    \item Nhưng khi Backward (đi lùi), để truy ngược dòng chảy từ $Y$ về $X$, các mối liên hệ không gian bị đảo ngược. Phần tử góc trên-trái của Kernel lúc đi tới thực chất lại tương ứng với phần tử góc dưới-phải khi ta xét từ góc độ lan truyền ngược.
+\end{itemize}
+
+\subsection{Sự thật về Cross-Correlation vs. Convolution}
+Trong các thư viện Deep Learning thực tế (như PyTorch hay TensorFlow), có một sự khác biệt nhỏ giữa lý thuyết và thực hành:
+\begin{itemize}
+    \item Lý thuyết Toán học: Phép Convolution chuẩn $(f * g)$ yêu cầu phải lật ngược Kernel 180 độ trước khi trượt.
+    \item Thực tế Code: Hầu hết các thư viện sử dụng phép Cross-Correlation (trượt mà KHÔNG lật) cho quá trình Forward Pass để giảm chi phí tính toán.
+\end{itemize}
+
+Chính vì Forward Pass dùng Cross-Correlation (không xoay), nên để đảm bảo tính đúng đắn của đạo hàm, quá trình Backward Pass bắt buộc phải thực hiện phép toán ngược lại - chính là Convolution thực sự (tức là Cross-Correlation với Kernel xoay 180 độ).
+
+\begin{summarybox}
+\textbf{Tóm lại quy trình chuẩn:}
+\begin{itemize}
+    \item \textbf{Forward:} Trượt Kernel thẳng (Cross-Correlation).
+    \item \textbf{Backward (tính cho X):} Trượt Kernel xoay 180 độ (Convolution chuẩn).
+\end{itemize}
+Đây là vẻ đẹp của sự đối xứng trong toán học: Anh đi tới bằng cách trượt xuôi, thì anh phải đi lùi bằng cách trượt ngược để mọi thứ khớp lại hoàn hảo.
+\end{summarybox}
+
 
 \section{Phần 5: CNN Nâng cao - 1x1 Convolution \& Phân biệt chiều không gian} % Đã sửa lỗi & thành \&
 Mở rộng kiến thức sang các khái niệm hiện đại và sửa chữa các hiểu lầm phổ biến.
@@ -332,7 +461,6 @@ Mở rộng kiến thức sang các khái niệm hiện đại và sửa chữa 
         \item Nó hoạt động như một "Single Neuron" áp dụng lên chiều sâu (channels) của từng pixel.
         \item Ứng dụng: Giảm số chiều dữ liệu (Dimensionality Reduction) và trộn thông tin giữa các kênh màu (Channel Pooling) mà không thay đổi kích thước không gian.
     \end{itemize}
-    \item \textbf{Triển khai OOP:} Code minh họa kiến trúc CNN bằng Python (Pytorch/Tensorflow) theo hướng đối tượng.
 \end{itemize}
 
 \end{document}
