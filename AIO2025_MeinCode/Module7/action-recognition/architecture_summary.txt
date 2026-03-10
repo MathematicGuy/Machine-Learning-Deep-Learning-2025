@@ -1,118 +1,387 @@
-```js
-================================================================================
-          HIGH-LEVEL WORKFLOW: LSViT FOR ACTION CLASSIFICATION
-================================================================================
+      HIGH-LEVEL WORKFLOW: LSViT FOR ACTION CLASSIFICATION
+
 
 KÝ HIỆU:
-  B, T    : Batch Size, Time (Frames)
-  C, H, W : Channels, Height, Width
-  N       : Số lượng Patch Tokens (Spatial)
-  D       : Embedding Dimension (Ví dụ: 768)
+  B, T    : Batch Size, Time (Frames)
+  C, H, W : Channels, Height, Width
+  N       : Số lượng Patch Tokens (Spatial)
+  D       : Embedding Dimension (Ví dụ: 768)
 
-################################################################################
-#  PHẦN I: PIXEL-LEVEL PROCESSING (SMIF MODULE)                                #
-#  Mục tiêu: Cường hóa thông tin chuyển động ngắn hạn ngay trên điểm ảnh       #
-################################################################################
+
+#  PHẦN I: PIXEL-LEVEL PROCESSING (SMIF MODULE)                                
+#  Mục tiêu: Cường hóa thông tin chuyển động ngắn hạn ngay trên điểm ảnh       
+
 
 [ INPUT VIDEO ]
 Tensor: [ B, T, C, H, W ]
-       |
-       v
+       |
+       v
 +-------------------------------------------------------+
-|  SMIF MODULE (Spatial-Motion Interaction Fusion)      |
-|                                                       |
-|  1. [Motion Calculation]                              |
-|     Tính sai biệt pixel: Frame(t) vs Frame(t±k)       |
-|                                                       |
-|  2. [Motion Map Generation]                           |
-|     Tạo bản đồ nhiệt (Heatmap) các vùng chuyển động   |
-|                                                       |
-|  3. [Fusion]                                          |
-|     Trộn ảnh gốc + Bản đồ chuyển động (Conv2d 1x1)    |
+|  SMIF MODULE (Spatial-Motion Interaction Fusion)      |
+|                                                       |
+|  1. [Motion Calculation]                              |
+|     Tính sai biệt pixel: Frame(t) vs Frame(t±k)       |
+|                                                       |
+|  2. [Motion Map Generation]                           |
+|     Tạo bản đồ nhiệt (Heatmap) các vùng chuyển động   |
+|                                                       |
+|  3. [Fusion]                                          |
+|     Trộn ảnh gốc + Bản đồ chuyển động (Conv2d 1x1)    |
 +-------------------------------------------------------+
-       |
-       |  Output: Video đã được làm rõ chuyển động
-       v
+       |
+       |  Output: Video đã được làm rõ chuyển động
+       v
 Tensor: [ B, T, C, H, W ]
 
 
-################################################################################
-#  PHẦN II: FEATURE-LEVEL PROCESSING (LSViT BACKBONE)                          #
-#  Mục tiêu: Hiểu ngữ cảnh không gian (ảnh) và thời gian (video)               #
-################################################################################
 
-       | (Reshape: Gộp Batch và Time)
-       v
+#  PHẦN II: FEATURE-LEVEL PROCESSING (LSViT BACKBONE)                          #
+#  Mục tiêu: Hiểu ngữ cảnh không gian (ảnh) và thời gian (video)               #
+
+
+       | (Reshape: Gộp Batch và Time)
+       v
 Tensor: [ B*T, C, H, W ]
-       |
-       +---> [ Patch Partition & Embedding ] --> Cắt ảnh thành mảnh nhỏ
-       |     (Conv2d: kernel=patch_size, stride=patch_size)
-       |
-       +---> [ Add CLS Token & Positional Embed ]
-       |
-       v
+       |
+       +---> [ Patch Partition & Embedding ] --> Cắt ảnh thành mảnh nhỏ
+       |     (Conv2d: kernel=patch_size, stride=patch_size)
+       |
+       +---> [ Add CLS Token & Positional Embed ]
+       |
+       v
 Tensor: [ B*T, N+1, D ] (Dạng chuỗi Token)
 
-       |
-       |  === BẮT ĐẦU VÒNG LẶP CÁC LSViT BLOCKS (x Depth) ===
-       |
+       |
+       |  === BẮT ĐẦU VÒNG LẶP CÁC LSViT BLOCKS (x Depth) ===
+       |
 +------v-------------------------------------------------------+
-|  LSViT BLOCK                                                 |
-|                                                              |
-|  A. SPATIAL ATTENTION (Xử lý từng Frame độc lập)             |
-|     Input: [ B*T, N, D ]                                     |
-|     Action: Các token trong cùng 1 ảnh nhìn thấy nhau        |
-|     Result: Hiểu "Cái gì" đang ở trong ảnh                   |
-|                                                              |
-|     (Reshape tách B, T để xử lý thời gian)                   |
-|     [ B*T, N, D ] ---> [ B, T, N, D ]                        |
-|                                                              |
-|  B. TEMPORAL LMI MODULE (Xử lý Video)                        |
-|     Input: [ B, T, N, D ]                                    |
-|     Action: Frame(t) nhìn thấy Frame(t-1), Frame(t+1)        |
-|             Tăng trọng số cho frame có biến động lớn         |
-|     Result: Hiểu "Hành động" diễn ra thế nào                 |
-|                                                              |
-|     (Reshape gộp lại cho Block tiếp theo)                    |
-|     [ B, T, N, D ] ---> [ B*T, N, D ]                        |
+|  LSViT BLOCK                                                 |
+|                                                              |
+|  A. SPATIAL ATTENTION (Xử lý từng Frame độc lập)             |
+|     Input: [ B*T, N, D ]                                     |
+|     Action: Các token trong cùng 1 ảnh nhìn thấy nhau        |
+|     Result: Hiểu "Cái gì" đang ở trong ảnh                   |
+|                                                              |
+|     (Reshape tách B, T để xử lý thời gian)                   |
+|     [ B*T, N, D ] ---> [ B, T, N, D ]                        |
+|                                                              |
+|  B. TEMPORAL LMI MODULE (Xử lý Video)                        |
+|     Input: [ B, T, N, D ]                                    |
+|     Action: Frame(t) nhìn thấy Frame(t-1), Frame(t+1)        |
+|             Tăng trọng số cho frame có biến động lớn         |
+|     Result: Hiểu "Hành động" diễn ra thế nào                 |
+|                                                              |
+|     (Reshape gộp lại cho Block tiếp theo)                    |
+|     [ B, T, N, D ] ---> [ B*T, N, D ]                        |
 +--------------------------------------------------------------+
-       |
-       |  === KẾT THÚC VÒNG LẶP ===
-       v
+       |
+       |  === KẾT THÚC VÒNG LẶP ===
+       v
 Tensor: [ B*T, N+1, D ] (Đặc trưng sâu sắc)
-       |
-       +---> [ Layer Norm ]
-       |
-       +---> [ Reshape Back ] --> Tách lại chiều thời gian T
-       |
-       v
+       |
+       +---> [ Layer Norm ]
+       |
+       +---> [ Reshape Back ] --> Tách lại chiều thời gian T
+       |
+       v
 Tensor: [ B, T, N+1, D ]
 
 
-################################################################################
-#  PHẦN III: CLASSIFICATION HEAD                                               #
-#  Mục tiêu: Tổng hợp thông tin và đưa ra dự đoán                              #
-################################################################################
 
-       |
-       +---> [ CLS Token Extraction ]
-       |     Chỉ lấy token đầu tiên (đại diện cho cả frame)
-       |     Bỏ qua N token không gian.
-       v
+#  PHẦN III: CLASSIFICATION HEAD                                               #
+#  Mục tiêu: Tổng hợp thông tin và đưa ra dự đoán                              #
+
+
+       |
+       +---> [ CLS Token Extraction ]
+       |     Chỉ lấy token đầu tiên (đại diện cho cả frame)
+       |     Bỏ qua N token không gian.
+       v
 Tensor: [ B, T, D ]
 
-       |
-       +---> [ Temporal Average Pooling ]
-       |     Tính trung bình cộng dọc theo trục T.
-       |     Gộp T frames thành 1 vector duy nhất.
-       v
+       |
+       +---> [ Temporal Average Pooling ]
+       |     Tính trung bình cộng dọc theo trục T.
+       |     Gộp T frames thành 1 vector duy nhất.
+       v
 Tensor: [ B, D ] (Vector đặc trưng của Video)
 
-       |
-       +---> [ Linear Head ] (Fully Connected)
-       |     Chiếu từ chiều D sang số lượng Class (ví dụ 51)
-       v
+       |
+       +---> [ Linear Head ] (Fully Connected)
+       |     Chiếu từ chiều D sang số lượng Class (ví dụ 51)
+       v
 [ FINAL LOGITS ]
 Tensor: [ B, Num_Classes ]
-================================================================================
+
 ```
+
+
+
+              MINH HỌA WORKFLOW - SMIF MODULE (Short-term Motion)
+
+
+KÝ HIỆU:
+  B, T: Batch, Time
+  C: Channels
+  H, W: Height, Width
+  Offset: Khoảng cách thời gian so với hiện tại
+
+
+BƯỚC 1: ĐẦU VÀO & CHUẨN BỊ
+Code: motion_accum = zeros_like(video)
+
+[ INPUT ] Tensor Video: [ B, T, C, H, W ]
+    |
+    v
+[ Khởi tạo Accumulator ] --> Tensor rỗng để cộng dồn chuyển động
+
+
+BƯỚC 2: VÒNG LẶP THỜI GIAN (CALCULATE DIFFERENCE)
+Code: for offset in range(...)
+
+Ví dụ tại thời điểm t:
+    |
+    +---> [ Lấy Frame t-k ] (Past)
+    |     Dùng torch.roll + Fix biên (nếu t=0 thì Past=Present)
+    |
+    +---> [ Lấy Frame t+k ] (Future)
+    |     Dùng torch.roll + Fix biên
+    |
+    +---> [ Tính toán sự khác biệt ]
+          Diff_Future = |Frame(t+k) - Frame(t)|
+          Diff_Past   = |Frame(t)   - Frame(t-k)|
+    |
+    v
+[ Cộng dồn vào Accumulator ]
+    Motion_Accum += (Diff_Future + Diff_Past)
+
+
+BƯỚC 3: LỌC NHIỄU (THRESHOLDING)
+Code: mask = (motion_map > threshold)
+
+[ Normalize ] --> Chia cho số lượng frame tham chiếu
+    |
+    v
+[ Threshold Gate ] --> Nếu chuyển động < 0.05 (rung nhẹ/nhiễu) --> Gán = 0
+    |                  Nếu chuyển động > 0.05 (vật thể di chuyển) --> Giữ nguyên
+    |
+    | Output: Motion Map [ B, T, C, H, W ] (Bản đồ nhiệt chuyển động)
+    v
+
+
+BƯỚC 4: TRỘN THÔNG TIN (FUSION)
+Code: fused = self.conv_fuse(cat([base, motion]))
+
+[ Flatten B & T ] --> Coi mỗi frame như một bức ảnh độc lập
+    |  Base:   [ B*T, C, H, W ]
+    |  Motion: [ B*T, C, H, W ]
+    |
+[ Concatenate ] --> Ghép chồng lên nhau
+    |  Result: [ B*T, 2C, H, W ]
+    |
+[ Conv2d (1x1) ] --> "Nhào nặn" thông tin hình dáng và chuyển động
+    |  Input: 2C channels --> Output: C channels
+    |  Result: Fused Feature [ B*T, C, H, W ]
+    v
+
+
+BƯỚC 5: CỘNG DƯ (RESIDUAL ADD)
+Code: out = base + alpha * fused
+
+[ Scale Alpha ] --> Alpha học được (ví dụ 0.5)
+    |               Quyết định xem nên thêm bao nhiêu "gia vị" chuyển động
+    |
+[ Addition ] --> Đặc trưng gốc + (Alpha * Đặc trưng chuyển động)
+    |
+    v
+[ Clamp ] --> Giới hạn giá trị [-1, 1] để ổn định mạng
+    |
+    v
+[ OUTPUT FINAL ] --> [ B, T, C, H, W ]
+
+
+MINH HỌA WORKFLOW - ViTBackbone MODULE (Short-term Motion)
+Hãy hình dung bài toán phân loại hành động "Sút bóng":
++ Video dài 16 frames.
++ Frame 1-5: Cầu thủ chạy đà (Chuyển động trung bình).
++ Frame 6-8: Chân chạm bóng (Chuyển động rất mạnh, thay đổi đột ngột).
++ Frame 9-16: Bóng bay đi, cầu thủ đứng lại (Chuyển động ít dần).
+
+Vai trò của LMI:
+
+1. Nó tính toán sự thay đổi giữa các frame và nhận ra Frame 6-8 có sự biến thiên lớn nhất (thông qua bước diff và mean).
+
+2. Nó gán attn cao (gần 1) cho các frame 6-8 và attn thấp cho các frame còn lại.
+
+3. Nhờ đó, mô hình Transformer sau đó sẽ "tập trung" sự chú ý vào khoảnh khắc sút bóng để đưa ra dự đoán chính xác, thay vì bị phân tâm bởi đoạn chạy đà.
+
+
+            MINH HỌA WORKFLOW - LMI MODULE (Long-term Motion)
+
+
+KÝ HIỆU:
+  B, T: Batch, Time (Frames)
+  N: Spatial Tokens (Số lượng Patch)
+  C: Channels (Gốc), Cr: Reduced Channels
+
+
+BƯỚC 1: GIẢM CHIỀU (REDUCTION)
+Code: reduced = self.reduce(x)
+
+[ INPUT ] Tensor X: [ B, T, N, C ]
+    |
+    v
+[ Linear Layer ] --> Nén C xuống Cr (để tính toán nhẹ hơn)
+    |
+    |  Reduced:    [ B, T, N, Cr ]
+    v
+
+
+BƯỚC 2: TÍNH SAI BIỆT THỜI GIAN (DIFFERENCE)
+Code: diff_f = ..., diff_b = ...
+
+[ Tính Diff ] --> So sánh Frame t với t+1 và t-1
+    |
+    |  Forward Diff:  |Frame(t+1) - Frame(t)|
+    |  Backward Diff: |Frame(t)   - Frame(t-1)|
+    |
+    |  Kết quả: Hai tensor [ B, T, N, Cr ]
+    v
+
+
+BƯỚC 3: TỔNG HỢP KHÔNG GIAN (SPATIAL AGGREGATION)
+Code: motion = (...).mean(dim=2)
+
+[ Sum Abs ] --> Cộng 2 hướng sai biệt: |F| + |B|
+    |
+[ Mean Pooling (dim N) ] --> QUAN TRỌNG!
+    |  Ta không quan tâm *vị trí nào* trong ảnh thay đổi.
+    |  Ta chỉ quan tâm *Frame nào* thay đổi nhiều nhất.
+    |  Làm phẳng chiều N.
+    |
+    |  Motion Vector: [ B, T, Cr ] (Mất chiều N)
+    v
+
+
+BƯỚC 4: TẠO TRỌNG SỐ (ATTENTION GENERATION)
+Code: attn = sigmoid(mlp(motion))
+
+[ MLP Block ] --> LayerNorm -> Linear -> GELU -> Linear
+    |  Tinh chỉnh đặc trưng chuyển động.
+    |
+[ Sigmoid ] --> Chuyển thành xác suất [0, 1]
+    |  Giá trị cao: Frame có nhiều chuyển động (quan trọng).
+    |  Giá trị thấp: Frame tĩnh (background/nhiễu).
+    |
+    |  Output: [ B, T, Cr ]
+    v
+
+
+BƯỚC 5: MỞ RỘNG & ÁP DỤNG (EXPAND & RE-WEIGHT)
+Code: enhanced = x * attn
+
+[ Expand Channel ] --> [ B, T, Cr ] -> [ B, T, C ] (về chiều sâu gốc)
+    |
+[ Unsqueeze & Expand Spatial ] --> [ B, T, 1, C ] -> [ B, T, N, C ]
+    |  Copy trọng số thời gian cho tất cả các patch không gian.
+    |
+[ Element-wise Mul ] --> Nhân Input gốc X với Attention Map
+    |  Frame quan trọng được giữ lại/tăng cường.
+    |  Frame vô nghĩa bị làm mờ đi.
+    |
+    |  Enhanced: [ B, T, N, C ]
+    v
+
+
+BƯỚC 6: RESIDUAL ADDITION
+Code: return x + delta * enhanced
+
+[ Scale Delta ] --> Tham số học được.
+    |
+[ Add ] --> Input gốc + Thông tin đã cường hóa
+    |
+    |  OUTPUT FINAL: [ B, T, N, C ]
+    v
+
+
+
+              MINH HỌA WORKFLOW - LSViT BLOCK
+
+Input: Tensor [ B*T, N, C ] (Đang ở dạng "Batch các ảnh tĩnh")
+
+[ SPATIAL MODELING ]
+    |
+    +---> [ LayerNorm 1 ]
+    |
+    +---> [ Multi-Head Self-Attention ] --> Token nhìn thấy nhau trong CÙNG 1 frame
+    |
+    +---> [ Residual + DropPath ]
+    |
+    +---> [ LayerNorm 2 ]
+    |
+    +---> [ MLP ] --> Xử lý đặc trưng từng token
+    |
+    +---> [ Residual + DropPath ]
+    |
+    |  Kết quả: Đặc trưng không gian đã được tinh chỉnh
+    v
+
+[ RESHAPE FOR TEMPORAL ]
+    |  [ B*T, N, C ] ---> [ B, T, N, C ]
+    v
+
+[ TEMPORAL MODELING (LMI) ]
+    |
+    +---> [ LMI Module ] --> Frame t nhìn thấy Frame t-1, t+1...
+    |     (Cường hóa các frame có chuyển động quan trọng)
+    |
+    |  Kết quả: Đặc trưng đã có ngữ cảnh thời gian
+    v
+
+[ RESHAPE BACK ]
+    |  [ B, T, N, C ] ---> [ B*T, N, C ]
+    v
+Output: Tensor [ B*T, N, C ] (Sẵn sàng cho Block tiếp theo
+
+
+[workflow]
+# PHẦN III: CLASSIFICATION HEAD
+# Mục tiêu: Tổng hợp đặc trưng không gian - thời gian và đưa ra dự đoán xác suất cho 51 lớp hành động.
+
+MÔ TẢ ẢNH HƯỞNG:
+Classification Head đóng vai trò là "người đưa ra quyết định". Sau khi Backbone đã xử lý xong các đặc trưng sâu, phần này sẽ thực hiện cơ chế gộp (pooling) để nén toàn bộ thông tin của chuỗi video thành một vector duy nhất. Vector này đại diện cho "chữ ký" của hành động, từ đó lớp Linear có thể dễ dàng phân loại vào nhãn chính xác nhất.
+
+KÝ HIỆU KÍCH THƯỚC:
+- B: Batch size.
+- T: Number of Frames (Số khung hình, ví dụ: 16).
+- D: Embedding Dimension (Chiều đặc trưng, ví dụ: 768).
+- N+1: Số lượng Token (Patches + 1 CLS token).
+
+LUỒNG XỬ LÝ CHI TIẾT:
+
+BƯỚC 1: TIẾP NHẬN ĐẶC TRƯNG TỪ BACKBONE
+- Trạng thái: Dữ liệu đã được LSViT Blocks cường hóa cả không gian và thời gian.
+- Tensor Input: [ B, T, N+1, D ]
+
+BƯỚC 2: TRÍCH XUẤT CLS TOKEN (FEATURE SELECTION)
+- Thao tác: Chỉ lấy token đầu tiên (CLS token) của mỗi khung hình.
+- Lý do: CLS token được thiết kế để chứa thông tin tóm tắt toàn bộ bối cảnh của một khung hình.
+- Tensor Output: [ B, T, D ]
+
+BƯỚC 3: GỘP THỜI GIAN (TEMPORAL AVERAGE POOLING)
+- Thao tác: Tính trung bình cộng các CLS token dọc theo trục thời gian T.
+- Mục tiêu: Gộp thông tin từ tất cả các thời điểm trong video thành một biểu diễn duy nhất (Global Representation).
+- Tensor Output: [ B, D ]
+
+BƯỚC 4: LỚP PHÂN LOẠI TUYẾN TÍNH (LINEAR HEAD)
+- Thao tác: Chiếu vector đặc trưng từ số chiều D xuống số lượng lớp mục tiêu (51 lớp).
+- Logic: Mỗi giá trị đầu ra đại diện cho điểm số (logits) của một hành động.
+- Tensor Output: [ B, 51 ]
+
+BƯỚC 5: CHUẨN HÓA XÁC SUẤT (SOFTMAX)
+- Thao tác: Áp dụng hàm Softmax để chuyển đổi các điểm số thành xác suất (tổng = 100%).
+- Kết quả: Dự đoán hành động có xác suất cao nhất (ví dụ: Ăn: 80%, Uống: 10%).
+
+[ FINAL PREDICTION ]
+- Kết quả: Nhãn hành động (Label) y ∈ C.
+

@@ -215,12 +215,20 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-*.csv
-*.zip
-AIO2025_MeinCode/Module6/Pytorch/creditcard.csv
-AIO2025_MeinCode/LightGBM
+# Addition
 AIO2025_MeinCode/Module7/data
 AIO2025_MeinCode/Module7/action-recognition/HMDB51
-AIO2025_MeinCode/Module7/Anomally-Behaviour-Detection
-AIO2025_MeinCode/Module7/project/HMDB51
-AIO2025_MeinCode/Module8/data
+*.csv
+*.zip
+*.aux
+*.fls
+*.gz
+*.out
+*.fdb_latexmk
+*.pth*.aux
+*.fls
+*.gz
+*.out
+*.fdb_latexmk
+*.pth
+*.pt
