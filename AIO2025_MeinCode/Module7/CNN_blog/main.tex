@@ -61,7 +61,7 @@
 \setlength{\droptitle}{-10em}
 \renewcommand{\maketitle}{%
     \begin{center}
-        \fontsize{18}{20}\selectfont\textbf{Understand and Build CNN from the Grounth Up and Intuition}\\[1em]
+        \fontsize{18}{20}\selectfont\textbf{Hiểu và Xây dựng CNN gốc với góc nhìn từ bộ lọc Kernelll}\\[1em]
         \fontsize{14}{16}\selectfont Nhóm AIO\_TimeSeries\\[0.5em]
         \fontsize{14}{16}\selectfont Ngày 18 tháng 11 năm 2025
     \end{center}
@@ -115,12 +115,16 @@ thay vì chỉ liệt kê công thức toán học.
 mình sẽ đi từ hạn chế của mạng nơ-ron truyền thống đến cách CNN "nhìn" thế giới,
 cơ chế lan truyền ngược phức tạp và các kỹ thuật nâng cao như 1x1 Convolution. \\
 
-
-\textbf{Phần 1: Tại sao Neural Network truyền thống (MLP) "bó tay" với hình ảnh?} \\ \\
-\textbf{Phần 2: Tư duy Bộ lọc (Filter Perspective) \& Cơ chế cơ bản} \\ \\
-\textbf{Phần 3: Kiến trúc CNN - Xếp tầng các khối xử lý} \\ \\
-\textbf{Phần 4: CNN Backpropagation \& Sự thật về phép xoay Kernel} \\ \\
-\textbf{Phần 5: CNN Nâng cao - 1x1 Convolution \& Phân biệt chiều không gian}
+\textbf{Phần 1: Tại sao Neural Network truyền thống (MLP) "bó tay" với hình ảnh?} \\
+Vấn đề bùng nổ tham số và giới hạn của việc xử lý ảnh dạng phẳng. \\ \\
+\textbf{Phần 2: Tư duy Bộ lọc (Filter Perspective) \& Cơ chế cơ bản} \\
+Cách máy tính "nhìn" đặc trưng thông qua Kernel, Stride và Padding. \\ \\
+\textbf{Phần 3: Kiến trúc CNN - Từ "Phân rã đặc trưng" đến "Hội đồng bỏ phiếu"} \\
+Quy trình trích xuất, lọc nhiễu (ReLU) và tổng hợp thông tin (Pooling). \\ \\
+\textbf{Phần 4: CNN Backpropagation \& Sự thật về phép xoay Kernel} \\
+Tại sao CNN Backpropagation cần xoay kernel 180 độ . \\ \\
+\textbf{Phần 5: CNN Nâng cao - 1x1 Convolution \& Phân biệt chiều không gian} \\
+1x1 Conv cho vấn đề bùng nổ chiều sâu.
 \end{summarybox}
 
 % --- Blog Outline ---
@@ -448,19 +452,101 @@ Chính vì Forward Pass dùng Cross-Correlation (không xoay), nên để đảm
 \end{summarybox}
 
 
-\section{Phần 5: CNN Nâng cao - 1x1 Convolution \& Phân biệt chiều không gian} % Đã sửa lỗi & thành \&
-Mở rộng kiến thức sang các khái niệm hiện đại và sửa chữa các hiểu lầm phổ biến.
+\section{Phần 5: CNN Nâng cao - 1x1 Convolution \& Phân biệt chiều không gian}
+
+Khi thiết kế các mạng CNN sâu (Deep Learning), chúng ta thường gặp một nghịch lý: càng đi sâu, chúng ta càng muốn tạo ra nhiều Feature Map để bắt được nhiều đặc trưng phức tạp.
+Tuy nhiên, điều này dẫn đến một vấn đề nan giải về chi phí tính toán. Đây chính là lúc \textbf{1x1 Convolution} xuất hiện.
+
+\subsection{Vấn đề: Sự bùng nổ chiều sâu (High Dimensional Problem)}
+Hãy tưởng tượng sau một vài lớp tích chập, bạn thu được một khối dữ liệu có độ sâu rất lớn, ví dụ: $H \times W \times 192$ (192 kênh/filters). Nếu tiếp tục thực hiện tích chập $3 \times 3$ bình thường trên khối này, số lượng phép tính sẽ bùng nổ vì Kernel phải xử lý đồng thời cả 192 kênh đầu vào. Đây là bài toán "High Dimensionality" khiến mô hình trở nên nặng nề và chậm chạp.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{imgs/image_c49e4b.png}
+    \caption{Vấn đề chiều sâu: Số lượng kênh (Channels) tăng lên quá cao (ví dụ: 192) gây áp lực tính toán.}
+\end{figure}
+
+\subsection{Cách tiếp cận: Tóm tắt chứ không vứt bỏ}
+Để giải quyết vấn đề này, ta cần giảm số lượng kênh xuống (ví dụ từ 192 xuống 64).
 \begin{itemize}
-    \item \textbf{Phân biệt 2D vs 3D CNN:}
-    \begin{itemize}
-        \item Làm rõ hiểu lầm: Ảnh màu RGB (3 kênh) vẫn dùng 2D CNN (xử lý không gian Height-Width).
-        \item 3D CNN thực sự dùng cho dữ liệu video (thêm chiều thời gian/Temporal).
-    \end{itemize}
-    \item \textbf{Phép màu của $1 \times 1$ Convolution:}
-    \begin{itemize}
-        \item Nó hoạt động như một "Single Neuron" áp dụng lên chiều sâu (channels) của từng pixel.
-        \item Ứng dụng: Giảm số chiều dữ liệu (Dimensionality Reduction) và trộn thông tin giữa các kênh màu (Channel Pooling) mà không thay đổi kích thước không gian.
-    \end{itemize}
+    \item \textbf{Cách sai:} Xóa bớt các Filter đi (Drop Filters). Điều này làm mất mát thông tin quan trọng mà mạng đã học được.
+    \item \textbf{Cách đúng:} "Tóm tắt" các Filter lại. Chúng ta cần một cơ chế để \textbf{gộp} thông tin từ 192 kênh này lại thành 64 kênh tinh gọn hơn mà vẫn giữ được nội dung cốt lõi.
 \end{itemize}
+
+Đó là lý do $1 \times 1$ Convolution ra đời. Nó hoạt động như một bộ nén thông tin thông minh.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{imgs/image_c4fc44.png}
+    \caption{Cơ chế 1x1 Conv: Một thanh "xuyên táo" đi qua tất cả các kênh để tổng hợp thông tin tại một điểm ảnh.}
+\end{figure}
+
+\subsection{Bản chất của 1x1 Conv: "Single Neuron" trên trục sâu}
+Thoạt nhìn, một Kernel kích thước $1 \times 1$ có vẻ vô dụng vì nó không nhìn thấy các pixel lân cận (không thay đổi kích thước không gian $H \times W$). Tuy nhiên, bí mật nằm ở chỗ: Kernel này không phẳng!
+
+Một Kernel $1 \times 1$ trong CNN thực chất là một khối vector có kích thước $1 \times 1 \times Depth$ (với Depth bằng đúng số kênh đầu vào).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{imgs/1by1_3d.png}
+    \caption{Minh họa trực quan: Kernel 1x1 thực chất trải dài hết chiều sâu của khối dữ liệu đầu vào.}
+\end{figure}
+
+\textbf{Tại sao nó quan trọng?}
+\begin{itemize}
+    \item \textbf{Pointwise Convolution (Tích chập điểm):} Vì Kernel chỉ tác động lên đúng một vị trí toạ độ $(x,y)$ nhưng xuyên suốt tất cả các kênh, nó thực hiện phép tính tổng hợp thông tin (Feature Fusion) tại điểm đó.
+    \item \textbf{Cross Channel Parametric Pooling:} Nó hoạt động như một lớp Pooling có trọng số chạy dọc theo trục kênh. Ví dụ: nó có thể học cách kết hợp đặc trưng "mắt" (kênh 10) và "mũi" (kênh 20) để tạo ra đặc trưng "khuôn mặt" (kênh output), trong khi bỏ qua các kênh nhiễu khác.
+\end{itemize}
+
+Về mặt toán học, giá trị đầu ra là tổng có trọng số của tất cả các kênh tại một điểm ảnh, cộng với bias và đi qua hàm kích hoạt:
+$$ \text{Output}(x,y) = \sigma \left( \sum_{c=1}^{C_{in}} W_c \cdot \text{Input}(x,y,c) + b \right) $$
+
+Điều này tương đương với việc áp dụng một mạng Neural nhỏ (Fully Connected) lên từng pixel riêng biệt.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{imgs/1x1_single_neuron.png}
+    \caption{1x1 Convolution tương đương với một Single Neuron áp dụng lên chiều sâu của từng pixel.}
+\end{figure}
+
+\subsection{Ứng dụng: Kiến trúc Bottleneck}
+Ứng dụng kinh điển nhất của $1 \times 1$ Conv là tạo ra kiến trúc \textbf{Bottleneck} (thường thấy trong Inception, ResNet). Quy trình "ép nhỏ" dữ liệu diễn ra như sau:
+\begin{enumerate}
+    \item Dùng $1 \times 1$ Conv để \textbf{giảm số chiều} (ví dụ: 256 kênh $\rightarrow$ 64 kênh), giúp loại bỏ các thông tin dư thừa.
+    \item Thực hiện tích chập $3 \times 3$ đắt đỏ trên số kênh ít ỏi này (tính toán rất nhanh).
+    \item Dùng $1 \times 1$ Conv một lần nữa để \textbf{tăng số chiều} trở lại (64 kênh $\rightarrow$ 256 kênh) để khôi phục độ sâu đặc trưng cho các lớp sau.
+\end{enumerate}
+Nhờ "chiếc cổ chai" hẹp ở giữa, mô hình có thể xây dựng sâu hơn (deeper) nhưng số lượng tham số lại ít hơn rất nhiều so với bình thường.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{imgs/bottleneck_arch.png}
+    \caption{Kiến trúc Bottleneck: Sử dụng 1x1 Conv để nén dữ liệu trước khi xử lý, giúp tối ưu hóa hiệu năng.}
+\end{figure}
+
+\subsection{So sánh nhanh: Pooling vs. 1x1 Convolution}
+Trong thực tế, hai kỹ thuật này không đối đầu mà \textbf{bổ trợ lẫn nhau}.
+Chúng thường xuất hiện cùng nhau (như trong Inception Block) để tối ưu hóa mô hình theo ba khía cạnh chính: Không gian, Khả năng học và Chi phí tính toán. \\
+
+\noindent \textbf{1. Về chiều biến đổi (Dimensionality):} \\
+\textbf{Pooling:} Giảm kích thước không gian chiều rộng và cao ($H \times W$), nhưng bắt buộc phải \textbf{giữ nguyên} số lượng kênh (Filters). \\
+\textbf{1x1 Convolution:} Giữ nguyên kích thước không gian ($H \times W$), nhưng cho phép \textbf{thay đổi} số lượng kênh (Filters) - có thể giảm để nén hoặc tăng để mở rộng. \\
+
+\noindent \textbf{2. Về khả năng học (Learnability):} \\
+\textbf{Pooling:} Là một thao tác tĩnh (Fixed operation). Nó không có trọng số để huấn luyện; bạn chỉ cần cài đặt tham số ban đầu (như kernel size, stride) và nó sẽ chạy cố định mãi mãi. \\
+\textbf{1x1 Convolution:} Là một thao tác động có thể học (Learnable). Nó sở hữu bộ trọng số riêng và được tối ưu hóa liên tục thông qua quá trình \textbf{Gradient Descent} để tìm ra cách kết hợp các kênh tốt nhất. \\\
+
+\noindent \textbf{3. Về chi phí tính toán (Computation Cost):} \\
+\textbf{Pooling:} Chi phí rất thấp (Low computation) vì chỉ thực hiện các phép so sánh (Max) hoặc cộng trừ đơn giản (Avg). \\
+\textbf{1x1 Convolution:} Chi phí cao hơn vì bản chất là các phép nhân ma trận dày đặc và cần cập nhật trọng số ngược. Tuy nhiên, nó lại giúp "tiết kiệm" chi phí cho các lớp $3 \times 3$ phía sau nhờ việc giảm số kênh đầu vào (cơ chế Bottleneck). \\
+
+\noindent \textbf{4. Lợi ích phụ (Non-linearity):} \\
+1x1 Convolution thường đi kèm với hàm kích hoạt (như ReLU), giúp \textbf{tăng tính phi tuyến} cho mô hình, cho phép mạng học được các hàm phức tạp hơn mà không làm thay đổi cấu trúc không gian.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{imgs/1x1_vs_pool.png}
+    \caption{Pooling nén dọc (XY) còn 1x1 Conv nén ngang (Depth)}
+\end{figure}
 
 \end{document}

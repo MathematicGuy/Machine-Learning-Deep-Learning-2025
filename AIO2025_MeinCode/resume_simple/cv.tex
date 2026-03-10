@@ -1,0 +1,176 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+\vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+        \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+
+\begin{document}
+
+\begin{center}
+    \textbf{\Huge \scshape Đinh Nhật Thành} \\ \vspace{1pt}
+    \small 0363956098 $|$ \href{mailto:dinhnhatthanh248@gmail.com}{\underline{dinhnhatthanh248@gmail.com}} $|$
+    \href{https://linkedin.com/in/d-nhatthanh248}{\underline{linkedin.com/in/d-nhatthanh248}} $|$
+    \href{https://github.com/MathematicGuy}{\underline{github.com/Mathematic Guy}}
+\end{center}
+
+\section{Học vấn}
+	\resumeSubHeadingListStart
+	\resumeSubheading
+		{CMC University}{Hà Đông, Hà Nội}
+		{Bằng Cử Nhân Công Nghệ Thông Tin \textbar \ GPA: 3.19}{09/2022 -- 10/2025} \\
+		\resumeItem{} {Giải Khuyến khích - Cuộc thi Nghiên cứu Khoa học cấp trường (2025)}
+	\resumeSubHeadingListEnd
+
+\section{Kinh Nghiệm}
+	\resumeSubHeadingListStart
+	\resumeSubheading
+		{Thực tập sinh (AI Engineer Intern)}{09/2024 -- 12/2024}
+		{CMC ATI}{Hà Đông, Hà Nội}
+
+		\begin{itemize}
+			\item Phát triển pipeline trích xuất thông tin CCCD theo thời gian thực
+			\item Tối ưu hóa tiền xử lý ảnh (AHE, Morphological Operations) và Non-Maximum Suppression, nâng độ chính xác nhận diện góc lên 83\% và vùng thông tin (ROI) lên 93\%
+			\item Xây dựng Backend API với FastAPI và PostgreSQL cho truy vấn
+		\end{itemize}
+
+	\resumeSubheading
+		{Nghiên cứu sinh (Student Researcher)}{03/2025 -- 07/2025}
+		{CMC University}{Hà Đông, Hà Nội}
+		\begin{itemize}
+			\item Tăng cường dữ liệu lên 30 video mỗi hành động Kicking, Punching, Standing cho dataset "Single Person Violent Activity"
+			\item Feature Engineering khoảng cách và góc giữa các khớp từ 17 keypoints của Yolo-Pose.
+			\item Cross-Validation cho DNN 3 lớp đạt 80\% trên tập validation
+		\end{itemize}
+	\resumeSubHeadingListEnd
+
+\section{Dự án}
+    \resumeSubHeadingListStart
+
+	\resumeProjectHeading
+		{\textbf{\href{https://github.com/MathematicGuy/Time-Series-Team-Deploy/tree/main/assets/feature_spamdetector_main}{\underline{Weighted KNN for Spam Classifier}}} $|$ \emph{XAI, LLM, Python}}{08/2025}
+		\resumeItemListStart
+			\resumeItem{Mở rộng dataset từ 5,572 lên 9,400 mẫu theo chủ đề sử dụng gpt-oss-120b và từ đồng nghĩa, tập trung vào các mẫu "spam và ham" \space khó dự đoán}
+			\resumeItem{Sử dụng Masking-based Saliency Heatmap để trực quan hóa các từ khóa quan trọng ảnh hưởng đến quyết định phân loại}
+			\resumeItem{Xây dựng Weighted-KNN Classifier kết hợp trọng số ICF (Inverse Class Frequency) và Saliency để giải quyết mất cân bằng dữ liệu đạt 92.2\% (với $k=5$) trên tập dữ liệu đã mở rộng}
+		\resumeItemListEnd
+
+	\resumeProjectHeading
+		{\textbf{\href{https://github.com/MathematicGuy/mcq-generator-finalize}{\underline{Agentic RAG tạo sinh câu hỏi trắc nghiệm theo độ khó}}} $|$ \emph{LLM, Docker, Hugging Face}}{05/2024 -- 09/2024}
+		\resumeItemListStart
+			\resumeItem{Tự động hóa quy trình Parsing và đánh giá độ khó qua Dynamic Prompting với gpt-oss-120b}
+			\resumeItem{Thiết lập thước đo để đánh giá độ khó và chất lượng câu hỏi}
+			\resumeItem{Triển khai trên Docker/HuggingFace, tốc độ tạo sinh ổn định 30 câu trên phút}
+		\resumeItemListEnd
+
+	\resumeProjectHeading
+		{\textbf{\texorpdfstring{\href{https://colab.research.google.com/drive/1b1ccHoqZN_BQjwtkaIUAmTDRJfvP8r_m?authuser=3\#scrollTo=ccd0b6ae}{\underline{Video Action Classification with LS-ViT}}}{\underline{Video Action Classification with LS-ViT}}} $|$ \emph{PyTorch, Torchcodec, ViT}}{12/2025 -- 01/2026}		\resumeItemListStart
+			\resumeItem{Giúp mô hình ViT nhận diện hành động theo thời gian trên bộ dữ liệu HMDB51 với module SMIF và LMI}
+			\resumeItem{Spatial-Motion Interaction Fusion (SMIF): Giúp mô hình hiểu được chuyển động ngắn hạn qua khác biệt chuyển động của các frames liền kề}
+			\resumeItem{Long-term Motion Interaction (LMI): Giúp mô hình hiểu được ngữ cảnh hành động dài hạn sử dụng Attention cho những frame có khác biệt đặc trưng cao}
+			\resumeItem{Tiền xử lý video trực tiếp trên GPU sử dụng torchcodec, chuẩn hóa với Uniform Sampling và Temporal Padding}
+			\resumeItem{Training sử dụng Mixed Precision và torchcodec đạt độ chính xác 63.88\% tập Validation}
+		\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+
+%----------- ACHIEVEMENT -----------
+\section{Chứng chỉ}
+	\resumeSubHeadingListStart
+		\resumeSubheading
+			{Samsung Innovation Campus AI Program}{06/2023 -- 09/2024}
+			{Samsung Innovation Campus}{Samsung}
+
+		\resumeSubheading
+			{Linear Algebra for Machine Learning and Data Science}{07/2024 -- 09/2024}
+			{DeepLearning.ai}{Coursera}
+
+		\resumeSubheading
+			{Calculus for Machine Learning and Data Science} {09/2024 -- 10/2024}
+			{DeepLearning.ai}{Coursera}
+
+		\resumeSubheading
+			{AIO Module 7 Advanced Deep Learning Architecture} {12/2025 -- 1/2026}
+			{AIO 2025}{AI VIET NAM}
+
+	\resumeSubHeadingListEnd
+
+%-----------PROGRAMMING SKILLS-----------
+\section{Kỹ Năng Chuyên Môn}
+\begin{itemize}[leftmargin=0.15in, label={}]
+\small{\item{
+	\textbf{Languages}{: Python, SQL (Postgres), MongoDB, JavaScript, HTML/CSS} \\
+	\textbf{Frameworks}{: PyTorch, TensorFlow, LangChain, OpenCV, MediaPipe, Streamlit, FastAPI} \\
+	\textbf{Tools}{: Git, Docker, Regex, Postman, Torchcodec}
+}}
+\end{itemize}
+
+\end{document}
