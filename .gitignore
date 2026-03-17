@@ -232,4 +232,5 @@ AIO2025_MeinCode/Module7/action-recognition/HMDB51
 *.fdb_latexmk
 *.pth
 *.pt
+*.tar
 data/
