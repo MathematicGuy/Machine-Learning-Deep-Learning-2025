@@ -216,7 +216,6 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Addition
-AIO2025_MeinCode/Module7/data
 AIO2025_MeinCode/Module7/action-recognition/HMDB51
 *.csv
 *.zip
@@ -234,3 +233,4 @@ AIO2025_MeinCode/Module7/action-recognition/HMDB51
 *.pt
 *.tar
 data/
+AIO2025_MeinCode/_Research/data/MNIST/raw
